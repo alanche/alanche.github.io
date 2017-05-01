@@ -32,7 +32,7 @@
 	    <div id="main-content">
 	    %content%
 	    </div>
-
+	    <hr>
 	    <div id="footer">
 	      <span class="notes">
 		Thanks <a href="http://pages.github.com">githubPages</a> to
