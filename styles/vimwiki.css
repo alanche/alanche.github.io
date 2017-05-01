@@ -72,12 +72,11 @@ code {
 
 #main-content {
   margin-top:10px;
+  margin-bottom:10px;
 }
 #main-content .subPageButton{
   line-height:200%;
   font-size:150%;
-}
-#main-content .subPageButton {
   list-style:none;
 }
 .jumbotron p {
