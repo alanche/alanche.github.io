@@ -45,4 +45,6 @@ $(document).ready(function() {
     }
     $(this).addClass("active");
   });
+  // support the responsive images
+  $('img').addClass('img-responsive');
 });
