@@ -22,7 +22,8 @@ var vimwiki =
             "UVM"
         ],
         "MISC": [
-            "VIM\u652f\u6301\u975e\u7b49\u5bbd\u4e2d\u6587\u5b57\u4f53"
+            "VIM\u652f\u6301\u975e\u7b49\u5bbd\u4e2d\u6587\u5b57\u4f53",
+            "Excel-VBA_\u8f6c\u6362\u4eba\u6c11\u5e01\u4e3a\u5927\u5199"
         ],
         "About": [
             "ME"
