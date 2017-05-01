@@ -3,10 +3,14 @@
 # vimwiki.js
 import json
 import sys
-filename = "E:/sites/vimwiki/index.wiki"
+inputfile = sys.argv[1]
+outputfile = sys.argv[2]
+
+if outputfile == '':
+  print(stderr,"usages: {} input output".format(sys.argv[0]))
+  exit(1)
 
 vimwiki = dict()
-
 def getIntro(filename,vimwiki):
   first = ''
   second = ''
@@ -40,7 +44,8 @@ def getPages(filename,vimwiki):
           first = l = l.replace('* ','')
           vimwiki['pages'][first] = []
         elif l.startswith(' *'):
-          l = l.replace('* ','').replace('[[','').replace(']]','')
+          l = l.replace(' * ','')
+          l = l.replace('[[','').replace(']]','')
           vimwiki['pages'][first] += [l]
 
 def write(filename,vimwiki):
@@ -54,9 +59,9 @@ var vimwiki =
     json.dump(vimwiki,f,indent=4)
     f.write(';')
 
-getIntro(filename,vimwiki)
-getPages(filename,vimwiki)
-write('vimwiki_db.js',vimwiki)
+getIntro(inputfile,vimwiki)
+getPages(inputfile,vimwiki)
+write(outputfile,vimwiki)
 
 
 
