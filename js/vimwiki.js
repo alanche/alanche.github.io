@@ -1,7 +1,7 @@
 $(document).ready(function() {
   // fill in the welcome messages.
   var intro = function () {
-    var code = '<h1>' + vimwiki.intro['brief'] + '</h1>';
+    var code = '<h1 class="nonumber">' + vimwiki.intro['brief'] + '</h1>';
     code += '<p>' + vimwiki.intro['detail'] + '</p>';
     code = '<div class="jumbotron" id="intro">' + code + '</div>';
     return code;
@@ -56,6 +56,8 @@ $(document).ready(function() {
       var obj = collections[i];
       // the digit location in number
       var idx = obj.tagName.slice(-1) - 1;
+      if (obj.className.indexOf('justcenter') != -1) continue;
+      if (obj.className.indexOf('nonumber') != -1) continue;
       // incremental current level digit
       number[idx++]++; 
       // clear the lower level digit
