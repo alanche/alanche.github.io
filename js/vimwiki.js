@@ -72,4 +72,9 @@ $(document).ready(function() {
   })();
   // support the responsive images
   $('img').addClass('img-responsive');
+  // syntax highlighter
+  $('pre.code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+
 });

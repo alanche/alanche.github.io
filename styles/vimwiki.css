@@ -58,9 +58,9 @@ del {text-decoration: line-through; color: #777777;}
     background-position: 0 .15em;
     padding-left: 1.5em;
 }
-
+/* The inline code */
 code {
-    font-family: Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;
+    font-family: Consolas,Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;
     -webkit-border-radius: 1px;
     -moz-border-radius: 1px;
     border-radius: 1px;
@@ -72,6 +72,19 @@ code {
     color: #52595d;
     border: 1px solid #ccc;
     background-color: #f9f9f9;
+}
+/* The pre.code blocks,The color is highlighted by highlightjs */
+pre.code{
+    font-family: Consolas,Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;
+    font-size:14pt;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    padding: 0px 3px;
+    border: 1px solid #ccc;
 }
 
 #main-content {
