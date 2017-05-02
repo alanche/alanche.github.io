@@ -45,6 +45,29 @@ $(document).ready(function() {
     }
     $(this).addClass("active");
   });
+  // automatically numbering the h1 ~ h6 tags under #main-content
+  (function(){
+    var number = [0,0,0,0,0,0,0];
+    var getIndex = function(elem) {
+      return elem.tagName.slice(-1) - 1;
+    };
+    var collections = $("#main-content h1,#main-content h2,#main-content h3,#main-content h4,#main-content h5,#main-content h6");
+    for (var i=0;i<collections.length;i++) {
+      var obj = collections[i];
+      // the digit location in number
+      var idx = obj.tagName.slice(-1) - 1;
+      // incremental current level digit
+      number[idx++]++; 
+      // clear the lower level digit
+      while(idx < 6) {
+        number[idx] = 0;
+        idx++;
+      }
+      // conctat the levels
+      var prefix = number.filter(function(i){return i}).join('.');
+      obj.innerHTML = prefix + ' ' + obj.innerHTML;
+    }
+  })();
   // support the responsive images
   $('img').addClass('img-responsive');
 });
