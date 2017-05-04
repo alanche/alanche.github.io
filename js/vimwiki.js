@@ -7,15 +7,16 @@ $(document).ready(function() {
     return code;
   };
   
-  var navBars = function() {
+  var initNavBars = function() {
+    vimwiki.subPages = {};
     for (p in vimwiki.pages) {
       var code="";
       if (!vimwiki.pages.hasOwnProperty(p)) continue;
       code += '<li><a href="#">' + p + '</a></li>' + "\n";
       $(".nav-pills").append(code);
+      vimwiki.subPages[p] = subPageButton(vimwiki.pages[p])
     }
   };
-  navBars();
   
   // hold the original home contents.
   var home = intro(); 
@@ -24,7 +25,6 @@ $(document).ready(function() {
     $('#main-content').html(home);
     vimwiki_path = 'vimwiki/';
   }
-
   var subPageButton = function(items) {
     var html = '<ul>';
     for(var i=0;i<items.length;i++) {
@@ -34,6 +34,9 @@ $(document).ready(function() {
     return html;
   };
 
+  // initialize the navigation bars and sub buttons.
+  initNavBars(); 
+
   // register the navigation bar buttons behavior
   $('.nav>li').click(function(event) {
     $('.nav li.active').removeClass('active');
@@ -41,7 +44,7 @@ $(document).ready(function() {
     if (name == 'HOME') {
       $('#main-content').html(home);
     } else {
-      $('#main-content').html(subPageButton(vimwiki.pages[name]));
+      $('#main-content').html(vimwiki.subPages[name]);
     }
     $(this).addClass("active");
   });
