@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>VPN连接无法访问互联网的解决办法</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="../styles/bootstrap.min.css" rel="stylesheet">
+      <link href="../styles/solarized-dark.css" rel="stylesheet">
+      <link href="../styles/vimwiki.css" rel="stylesheet">
+ 
+      <!--[if lt IE 9]>
+         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      <![endif]-->
+      <!-- jQuery should be imported before boostrap.min.js -->
+      <script src="../js/jquery-1.12.4.min.js"></script>
+      <script src="../js/bootstrap.min.js"></script>
+      <!-- The code syntax highlighter -->
+      <script src="../js/highlight.pack.js"></script>
+      <!-- the vimwiki customized scripts -->
+      <script src="../js/vimwiki_db.js" charset="utf-8"></script>
+      <script src="../js/vimwiki.js" charset="utf-8"></script>
+   </head>
+   <body>
+      <div class="container">
+	<div class="row clearfix">
+	  <div class="col-md-12 column">
+	    <ul class="nav nav-pills">
+	      <li class="active">
+		<a href="#">HOME</a>
+	      </li>
+	      <!-- more items are injected by the JS -->
+	    </ul>
+
+	    <div id="main-content">
+	    
+<div id="VPN连接后无法访问互联网的解决办法"><h1 id="VPN连接后无法访问互联网的解决办法" class="justcenter">VPN连接后无法访问互联网的解决办法</h1></div>
+
+
+<p>
+当安装了VPN网络连接后，成功登录进单位内网的服务器后，要是我们发现此时不能正常访问Internet网络时，
+其中可能的原因是: VPN服务器为该客户端系统自动分配了新的默认网关地址; 为了不让Windows 系统优先使用VPN服务器的默认路由，我们可以按照如下操作修改客户端系统的上网参数，
+<span id="VPN连接后无法访问互联网的解决办法-取消选中VPN服务器的默认网关地址"></span><strong id="取消选中VPN服务器的默认网关地址">取消选中VPN服务器的默认网关地址</strong> ,而只保留原先的默认网关地址。具体步骤:
+</p>
+<ol>
+<li>
+在网络连接中：右键 <span id="VPN连接后无法访问互联网的解决办法-VPN网络连接"></span><strong id="VPN网络连接">VPN网络连接</strong> 图标，从弹出的快捷菜单中执行“属性”命令。
+
+<li>
+该属性窗口中点选 <span id="VPN连接后无法访问互联网的解决办法-网络"></span><strong id="网络">网络</strong>
+  选项卡，弹出网络选项设置页面，选中其中的"Internet协议4(TCP/IPv4)"
+  选项选中，之后单击对应选项下方的“属性”按钮，进入TCP/IP协议的属性界面;
+
+<li>
+点击 <span id="VPN连接后无法访问互联网的解决办法-高级"></span><strong id="高级">高级</strong> 后，出现如下画面，将其中的单选框勾选掉。
+  <img src="images/201705152209.jpg" />
+
+</ol>
+
+	    </div>
+	    <hr>
+	    <div id="footer">
+	      <span class="notes">
+		Thanks <a href="http://pages.github.com">githubPages</a> for
+		providing the web hosting environment
+	      </span>
+	    </div>
+	  </div>
+	</div>
+      </div> 
+   </body>
+</html>
