@@ -4,26 +4,26 @@
 var vimwiki = 
 {
     "intro": {
-        "brief": "Welcome to Alan's Wiki\n",
-        "detail": "A vimwiki + github based knowledge management system, it records/shares the\nvarious knowledges: tips, experiences and etc.\n"
+        "detail": "A vimwiki + github based knowledge management system, it records/shares the\nvarious knowledges: tips, experiences and etc.\n",
+        "brief": "Welcome to Alan's Wiki\n"
     },
     "pages": {
-        "NOTES": [],
-        "Technology": [
-            "X86",
-            "ARM"
-        ],
-        "TOOLS": [
-            "GIT",
-            "EDA"
-        ],
         "Programming": [
             "SystemVerilog",
             "Python",
             "Perl",
             "VIM",
             "Javascript",
+            "Ruby",
             "UVM"
+        ],
+        "NOTES": [],
+        "TOOLS": [
+            "GIT",
+            "EDA"
+        ],
+        "About": [
+            "ME"
         ],
         "MISC": [
             "UsefulLinks",
@@ -32,8 +32,9 @@ var vimwiki =
             "\u89e3\u51b316K\u622a\u56fe\u8f6f\u4ef6\u9ed1\u5c4f\u95ee\u9898",
             "VPN\u8fde\u63a5\u65e0\u6cd5\u8bbf\u95ee\u4e92\u8054\u7f51\u7684\u89e3\u51b3\u529e\u6cd5"
         ],
-        "About": [
-            "ME"
+        "Technology": [
+            "X86",
+            "ARM"
         ]
     }
 };
