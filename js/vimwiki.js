@@ -8,14 +8,13 @@ $(document).ready(function() {
   };
   
   var initNavBars = function() {
-    vimwiki.subPages = {};
-    for (p in vimwiki.pages) {
-      var code="";
-      if (!vimwiki.pages.hasOwnProperty(p)) continue;
-      code += '<li><a href="#">' + p + '</a></li>' + "\n";
+    vimwiki.subPages = {}
+    var data = vimwiki.pages
+    vimwiki.pages.forEach(function(item) {
+      var code = '<li><a href="#">' + item[0] + '</a></li>' + "\n";
       $(".nav-pills").append(code);
-      vimwiki.subPages[p] = subPageButton(vimwiki.pages[p])
-    }
+      vimwiki.subPages[item[0]] = subPageButton(item.slice(1))
+    });
   };
   
   // hold the original home contents.

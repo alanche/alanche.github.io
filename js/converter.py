@@ -31,6 +31,9 @@ def getIntro(filename,vimwiki):
         vimwiki[first][second] += l + "\n"
 
 def getPages(filename,vimwiki):
+  """
+  pages are organized as 2 dimensions arrays.
+  """
   process = 0
   first = ''
   with open(filename,'r',encoding='utf8') as f:
@@ -38,15 +41,15 @@ def getPages(filename,vimwiki):
       l = l.rstrip()
       if l.startswith('= PAGES ='):
         process = 1
-        vimwiki['pages'] = dict()
+        vimwiki['pages'] = []
       elif process:
         if l.startswith('*'):
           first = l = l.replace('* ','')
-          vimwiki['pages'][first] = []
+          vimwiki['pages'].append([first])
         elif l.startswith(' *'):
           l = l.replace(' * ','')
           l = l.replace('[[','').replace(']]','')
-          vimwiki['pages'][first] += [l]
+          vimwiki['pages'][-1].append(l)
 
 def write(filename,vimwiki):
   headers = """
