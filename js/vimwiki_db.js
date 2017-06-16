@@ -5,6 +5,10 @@ var vimwiki =
 {
     "pages": [
         [
+            "NOTES",
+            "Meta_Programming_Ruby_2"
+        ],
+        [
             "TOOLS",
             "GIT",
             "EDA"
@@ -29,7 +33,7 @@ var vimwiki =
         ]
     ],
     "intro": {
-        "brief": "Welcome to Alan's Wiki\n",
-        "detail": "A vimwiki + github based knowledge management system, it records/shares the\nvarious knowledges: tips, experiences and etc.\n"
+        "detail": "A vimwiki + github based knowledge management system, it records/shares the\nvarious knowledges: tips, experiences and etc.\n",
+        "brief": "Welcome to Alan's Wiki\n"
     }
 };

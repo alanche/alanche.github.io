@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Ruby</title>
+      <title>Chapter 3 Methods</title>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link href="../styles/bootstrap.min.css" rel="stylesheet">
@@ -34,50 +34,45 @@
 
 	    <div id="main-content">
 	    
-<div id="RubyTips"><h1 id="RubyTips" class="justcenter">RubyTips</h1></div>
+<div id="Methods"><h1 id="Methods" class="justcenter">Methods</h1></div>
 <ol>
 <li>
-Query the instance methods defined a in specific class Foo?
-
-<ul>
-<li>
-<code>Foo.instance_methods(false)</code> : <span id="RubyTips-false"></span><strong id="false">false</strong> is instruct to ignore the inherited methods.
-
-<li>
-you can use the <span id="RubyTips-Array#grep"></span><strong id="Array#grep">Array#grep</strong> methods to further select the result: e.g. <code>String.instance_methods.grep /^re/</code>
-
-</ul>
-<li>
-list the class Array methods?
-
-<ul>
-<li>
-<code>[].methods.grep /^re/</code>
-
-</ul>
-<li>
-<code>Module.contants</code> Return all the top level constants.
+动态调用方法 <span id="Methods-send"></span><strong id="send">send</strong> / <span id="Methods-public_send"></span><strong id="public_send">public_send</strong> - 可以在运行时动态的决定调用哪一个方法. <span id="Methods-send"></span><strong id="send">send</strong> 可以call私有方法,*public_send*只能call公开方法.
 <pre class="code ruby">
-Module.contants.include? :Object # True
-Module.contants.include? :Module # True
+  # The following two lines are equivalent, however,
+  # the 2nd line function call paramenter can be construted dynamically.
+  "MyName".to_sym
+  "MyName".send(:to_sym)
 </pre>
 
 <li>
-<span id="RubyTips-Module#contants"></span><strong id="Module#contants">Module#contants</strong> return the contants defined in current scope
+动态定义方法: <span id="Methods-Module#define_method()"></span><strong id="Module#define_method()">Module#define_method()</strong> 可以在运行时决定方法的名字
 <pre class="code ruby">
-module M
-  Y = "A contant"
-  class C
+  class Person
+    def initialize(name)
+      @name = name
+    end
+    # evaluated in the class scope. class.superclass =&gt; Module
+    # so, we can call the define_method directly.
+    define_method :gender do
+      "Male"
+    end
+    def add_method(name,&amp;block)
+      # this method is evaluted in the object(self) context.
+      # since the :define_method is a Module private method
+      # we've to use .send to call it.
+      # &amp;block is evaluated using instance_eval
+      self.class.send(:define_method,name,&amp;block)
+    end
   end
-end
-M.constaints # [:C,:Y]
-</pre>
-
-<li>
-instance methods and class methods are different
-<pre class="code ruby">
-String.instance_methods == "abc".methods # True
-String.methods == "abc".methods # False
+  
+  obj = Person.new("Alan")
+  obj.add_method :sayhi do
+    "hello #{@name}"
+  end
+  Module.private_instance_methods.include? :define_method # True
+  obj.gender # Male
+  obj.sayhi # hello Alan
 </pre>
 
 </ol>

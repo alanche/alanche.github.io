@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Ruby</title>
+      <title>Book reading notes of Metapogramming Ruby 2</title>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link href="../styles/bootstrap.min.css" rel="stylesheet">
@@ -34,53 +34,19 @@
 
 	    <div id="main-content">
 	    
-<div id="RubyTips"><h1 id="RubyTips" class="justcenter">RubyTips</h1></div>
-<ol>
-<li>
-Query the instance methods defined a in specific class Foo?
+
+<p>
+Metaprogramming definition: <span id="-元编程是编写能在运行时操作语言构件的代码."></span><strong id="元编程是编写能在运行时操作语言构件的代码.">元编程是编写能在运行时操作语言构件的代码.</strong>
+</p>
 
 <ul>
 <li>
-<code>Foo.instance_methods(false)</code> : <span id="RubyTips-false"></span><strong id="false">false</strong> is instruct to ignore the inherited methods.
+<a href="MR_Chapter2_TheObjectModel.html">MR_Chapter2_TheObjectModel</a>
 
 <li>
-you can use the <span id="RubyTips-Array#grep"></span><strong id="Array#grep">Array#grep</strong> methods to further select the result: e.g. <code>String.instance_methods.grep /^re/</code>
+<a href="MR_Chapter3_Methods.html">MR_Chapter3_Methods</a>
 
 </ul>
-<li>
-list the class Array methods?
-
-<ul>
-<li>
-<code>[].methods.grep /^re/</code>
-
-</ul>
-<li>
-<code>Module.contants</code> Return all the top level constants.
-<pre class="code ruby">
-Module.contants.include? :Object # True
-Module.contants.include? :Module # True
-</pre>
-
-<li>
-<span id="RubyTips-Module#contants"></span><strong id="Module#contants">Module#contants</strong> return the contants defined in current scope
-<pre class="code ruby">
-module M
-  Y = "A contant"
-  class C
-  end
-end
-M.constaints # [:C,:Y]
-</pre>
-
-<li>
-instance methods and class methods are different
-<pre class="code ruby">
-String.instance_methods == "abc".methods # True
-String.methods == "abc".methods # False
-</pre>
-
-</ol>
 
 	    </div>
 	    <hr>
