@@ -1,0 +1,13 @@
+ = Sample Code =
+* Save the clipboard images into a specific file
+{{{python
+from PIL import ImageGrab
+import sys
+filename = sys.argv[1]
+im = ImageGrab.grabclipboard()
+if im is not None:
+  im.save(filename,"png")
+  print("OK")
+else:
+  print("ERROR")
+}}}

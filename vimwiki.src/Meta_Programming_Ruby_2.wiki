@@ -1,0 +1,8 @@
+%title Book reading notes of Metapogramming Ruby 2
+
+Metaprogramming definition: *元编程是编写能在运行时操作语言构件的代码.*
+
+* [[MR_Chapter2_TheObjectModel|Chapter 2 The Object Model]]
+* [[MR_Chapter3_Methods|Chapter 3 Methods]]
+* [[MR_Chapter4_Blocks|Chapter 4 Blocks]]
+

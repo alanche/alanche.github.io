@@ -1,0 +1,9 @@
+ %title EDA tools
+ 
+= Timing Waveform Tools =
+Their 4 available Timing waveform drawing tools:
+ [[https://forum.mianbaoban.cn/t/topic/32409|download]]:
+* TimeGen 
+* TimeDesigner
+* wavedrom
+* AndyTiming

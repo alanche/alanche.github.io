@@ -1,0 +1,25 @@
+ = RubyTips =
+# Query the instance methods defined a in specific class Foo?
+ * `Foo.instance_methods(false)` : *false* is instruct to ignore the inherited methods.
+ * you can use the *Array#grep* methods to further select the result: e.g. `String.instance_methods.grep /^re/`
+# list the class Array methods?
+ * `[].methods.grep /^re/`
+# `Module.contants` Return all the top level constants.
+{{{ruby
+Module.contants.include? :Object # True
+Module.contants.include? :Module # True
+}}}
+# *Module#contants* return the contants defined in current scope
+{{{ruby
+module M
+  Y = "A contant"
+  class C
+  end
+end
+M.constaints # [:C,:Y]
+}}}
+# instance methods and class methods are different
+{{{ruby
+String.instance_methods == "abc".methods # True
+String.methods == "abc".methods # False
+}}}

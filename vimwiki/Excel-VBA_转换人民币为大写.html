@@ -5,6 +5,7 @@
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link href="../styles/bootstrap.min.css" rel="stylesheet">
+      <link href="../styles/solarized-dark.css" rel="stylesheet">
       <link href="../styles/vimwiki.css" rel="stylesheet">
  
       <!--[if lt IE 9]>
@@ -14,6 +15,8 @@
       <!-- jQuery should be imported before boostrap.min.js -->
       <script src="../js/jquery-1.12.4.min.js"></script>
       <script src="../js/bootstrap.min.js"></script>
+      <!-- The code syntax highlighter -->
+      <script src="../js/highlight.pack.js"></script>
       <!-- the vimwiki customized scripts -->
       <script src="../js/vimwiki_db.js" charset="utf-8"></script>
       <script src="../js/vimwiki.js" charset="utf-8"></script>
@@ -35,7 +38,7 @@
 <p>
 请在Alt + F11 后,插入模块,将下列代码黏贴进去定义如下的VBA函数
 </p>
-<pre class="brush:vb">
+<pre class="code class="brush:vb"">
 Function dx(M)
     dx = Replace(Replace(Replace(Join(Application.Text( _
     Split(Format(M, " 0. 0 0;负 0. 0 0;   ")), _
@@ -45,7 +48,7 @@ End function
 </pre>
 <p>
 效果如下:
-<img src="images/201705012139.png" />
+<img src="../images/201705012139.png" />
 </p>
 
 	    </div>

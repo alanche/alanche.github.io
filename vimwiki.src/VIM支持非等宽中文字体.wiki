@@ -1,0 +1,10 @@
+ = VIM支持非等宽中文字体 =
+在VIM中编辑中文，如写WIKI,一个漂亮的中英文字体能大大提高用户体验;
+单纯通过guifont的设定只能设置一种字体，而无法为中文和英文分别设定字体。
+可以通过修改注册表FontLink项的方法为gVIM中的中文和英文分别指定不同的字体(本例中以英文:Consolas,中文:幼圆)：
+# 在_vimrc中指定英文字体: `set guifont=Consolas:h14:cANSI`
+# 修改windows注册表项 *HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontLink\SystemLink* 中
+ 新建立"多字符串值',名称Consolas值为:SIMYOU.ttf(对应的中文字体文件名字,可以在windows\fonts下查看)
+# 重新启动电脑就可以了
+效果图:
+{{local:../images/201705011811.png}}

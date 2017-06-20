@@ -27,7 +27,10 @@ $(document).ready(function() {
   var subPageButton = function(items) {
     var html = '<ul>';
     for(var i=0;i<items.length;i++) {
-      html += '<li class="subPageButton"><a href="' + vimwiki_path + items[i] + '.html">' + items[i] + '</a></li>';
+      var result = items[i].split('|')
+      var url = result[0]
+      var text = result[1] || result[0]
+      html += '<li class="subPageButton"><a href="' + vimwiki_path + url + '.html">' + text + '</a></li>';
     }
     html += "</ul>";
     return html;

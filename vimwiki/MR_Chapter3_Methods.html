@@ -75,6 +75,46 @@
   obj.sayhi # hello Alan
 </pre>
 
+<li>
+当对象方法不存在时,会呼叫 <span id="Methods-method_missing"></span><strong id="method_missing">method_missing</strong>;实现该方法可以实现自己想要的行为. 称为幽灵方法(Ghost Methods).
+  respond_to_missing? 方法也应该被重新定义，以支持方法存在性的查询。
+<pre class="code ruby">
+  class Lawyer
+    def method_missing(method,*args)
+      puts "your called #{method} (#{args.join(', ')})"
+      puts "you also pass a block" if block_given?
+      represent.send(method,*args)
+    end
+    def respond_to_missing?(method,include_private=false)
+      #Teacher.new.respond_to? method
+      Teacher.instance_methods.include? method || super
+    end
+    def represent
+      return Teacher.new
+    end
+  end
+  class Teacher
+    def say(*args)
+      puts "I'm a lawyer reprentative: #{args.join(', ')}"
+    end
+  end
+  bob = Lawyer.new
+  bob.say("hi") do
+    # this block is not parsed for syntax before it is actually executed.
+    I love you
+  end
+  bob.respond_to?(:say) # True
+</pre>
+
+<li>
+当引用一个不存在的常量时，Ruby会把常量名传递给 <span id="Methods-const_missing"></span><strong id="const_missing">const_missing</strong> 方法.
+
+<li>
+删除方法：Module#remove_method(删除自己), Module#undef_method(删除所有)
+
+<li>
+原则：能使用动态方法时，就不要使用幽灵方法；后者难于DEBUG.
+
 </ol>
 
 	    </div>

@@ -1,0 +1,30 @@
+Features:
+* A Senior digital IC Design/Verification Engineer.
+* A Technical lover.
+* A self-motivated learner.
+* Knowledge base includes:
+ * Digital Logic Design
+  * Bus Architecture
+  * Bus Protocol: PCI/PCIe/FSB/AMBA AXI/AHB/APB
+  * Chip top: Reset Tree/Clock Tree/Design for Testing
+  * Low Power: MTCMOS/Multi-VT/Clock Gating
+ * Degital Design flow:Linting/Synthesis/DFT/LEC
+ * Design Automation
+ * Computer Architecture: X86/RISC
+ * Design Verification
+  * Verification Planning
+  * Verification Automation
+  * CRV: UVM
+  * Directed verification
+* Skills tree includes:
+ * MS Office: Word/Excel
+ * Windows/Linux/VIM
+ * C/C++/Perl/Python/Tcl
+ * Verilog/Systemverilog/UVM
+ * HTML/CSS/Javascript/JQuery
+ * EDA Tools:
+  * VCS/NC Verilog Simulator
+  * Verdi
+  * Design Compiler/DFT Compiler/Prime time/LEC
+
+Contact Information:alan-che@qq.com

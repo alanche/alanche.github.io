@@ -3,10 +3,14 @@
 //  index-converter.py
 var vimwiki = 
 {
+    "intro": {
+        "brief": "Welcome to Alan's Wiki\n",
+        "detail": "A vimwiki + github based knowledge management system, it records/shares the\nvarious knowledges: tips, experiences and etc.\n"
+    },
     "pages": [
         [
             "NOTES",
-            "Meta_Programming_Ruby_2"
+            "Meta_Programming_Ruby_2|Meta Programming Ruby 2"
         ],
         [
             "TOOLS",
@@ -31,9 +35,5 @@ var vimwiki =
             "About",
             "ME"
         ]
-    ],
-    "intro": {
-        "detail": "A vimwiki + github based knowledge management system, it records/shares the\nvarious knowledges: tips, experiences and etc.\n",
-        "brief": "Welcome to Alan's Wiki\n"
-    }
+    ]
 };

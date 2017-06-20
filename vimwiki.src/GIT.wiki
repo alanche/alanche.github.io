@@ -1,0 +1,4 @@
+ = GIT Tips =
+
+* Diff the working copy with the latest version:
+ * `git diff HEAD file`

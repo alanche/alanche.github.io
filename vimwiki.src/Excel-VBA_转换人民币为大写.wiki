@@ -1,0 +1,12 @@
+ = Excel VBA:将数值转换为人民币大写 =
+请在Alt + F11 后,插入模块,将下列代码黏贴进去定义如下的VBA函数
+{{{class="brush:vb"
+Function dx(M)
+    dx = Replace(Replace(Replace(Join(Application.Text( _
+    Split(Format(M, " 0. 0 0;负 0. 0 0;   ")), _
+    ["[DBnum2]"&{0,"","圆0角;;圆零","0分;;整"}]) _
+    , a), "零圆零", a), "零圆", a), "零整", "整")
+End function
+}}}
+效果如下:
+{{local:../images/201705012139.png}}
