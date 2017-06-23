@@ -10,6 +10,7 @@ various knowledges: tips, experiences and etc.
 * NOTES
  * [[Meta_Programming_Ruby_2|Meta Programming Ruby 2]]
 * TOOLS
+ * [[Linux_Tips|Linux Tips]]
  * [[GIT]]
  * [[EDA]]
 * Programming

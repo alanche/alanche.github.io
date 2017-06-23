@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Linux_Tips</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="../styles/bootstrap.min.css" rel="stylesheet">
+      <link href="../styles/solarized-dark.css" rel="stylesheet">
+      <link href="../styles/vimwiki.css" rel="stylesheet">
+ 
+      <!--[if lt IE 9]>
+         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      <![endif]-->
+      <!-- jQuery should be imported before boostrap.min.js -->
+      <script src="../js/jquery-1.12.4.min.js"></script>
+      <script src="../js/bootstrap.min.js"></script>
+      <!-- The code syntax highlighter -->
+      <script src="../js/highlight.pack.js"></script>
+      <!-- the vimwiki customized scripts -->
+      <script src="../js/vimwiki_db.js" charset="utf-8"></script>
+      <script src="../js/vimwiki.js" charset="utf-8"></script>
+   </head>
+   <body>
+      <div class="container">
+	<div class="row clearfix">
+	  <div class="col-md-12 column">
+	    <ul class="nav nav-pills">
+	      <li class="active">
+		<a href="#">HOME</a>
+	      </li>
+	      <!-- more items are injected by the JS -->
+	    </ul>
+
+	    <div id="main-content">
+	    
+<div id="Linux Tips"><h1 id="Linux Tips" class="justcenter">Linux Tips</h1></div>
+<ul>
+<li>
+Avoid the ssh prompt for asking the confirmation to add host to known_hosts: 
+
+<ul>
+<li>
+add the line:<span id="Linux Tips-StrictHostKeyChecking=no"></span><strong id="StrictHostKeyChecking=no">StrictHostKeyChecking=no</strong> in either files:/etc/ssh/ssh_config, ~/.ssh/config, or specific it in command line:
+   <code>ssh -o StrictHostKeyChecking=no</code>. 
+
+</ul>
+<li>
+Install the packages from RPM: <code>rpm2cpio packages.rpm | cpio -idv</code>
+
+<li>
+Querying the LSF group host information: <code>bmgroup</code>
+
+<li>
+putty: copy large quantity of linux text into window clipboard:
+
+<ul>
+<li>
+Changes <span id="Linux Tips-Putty Settings -&gt; Windows -&gt; Lines of Scrollback"></span><strong id="Putty Settings -&gt; Windows -&gt; Lines of Scrollback">Putty Settings -&gt; Windows -&gt; Lines of Scrollback</strong> to large enough to hold your contents.  <img src="../images/putty-settings.jpg" />
+
+<li>
+dump your lines into the terminal window buffer: <code>cat largefiles</code>
+
+<li>
+<span id="Linux Tips-Copy All to Clipboard"></span><strong id="Copy All to Clipboard">Copy All to Clipboard</strong> <img src="../images/putty-context-menu.jpg" />
+
+</ul>
+</ul>
+
+	    </div>
+	    <hr>
+	    <div id="footer">
+	      <span class="notes">
+		Thanks <a href="http://pages.github.com">githubPages</a> for
+		providing the web hosting environment
+	      </span>
+	    </div>
+	  </div>
+	</div>
+      </div> 
+   </body>
+</html>

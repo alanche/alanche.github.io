@@ -1,0 +1,10 @@
+ = Linux Tips =
+* Avoid the ssh prompt for asking the confirmation to add host to known_hosts: 
+ * add the line:*StrictHostKeyChecking=no* in either files:/etc/ssh/ssh_config, ~/.ssh/config, or specific it in command line:
+   `ssh -o StrictHostKeyChecking=no`. 
+* Install the packages from RPM: `rpm2cpio packages.rpm | cpio -idv`
+* Querying the LSF group host information: `bmgroup`
+* putty: copy large quantity of linux text into window clipboard:
+  * Changes *Putty Settings -> Windows -> Lines of Scrollback* to large enough to hold your contents.  {{local:../images/putty-settings.jpg}}
+  * dump your lines into the terminal window buffer: `cat largefiles`
+  * *Copy All to Clipboard* {{local:../images/putty-context-menu.jpg}}
