@@ -1,0 +1,54 @@
+ = The C Programming Language =
+* 在函数外的 *static* 变量可见性为当前文件。
+* 在函数内的 *static* 变量不会因函数退出栈而消失。
+* 声明变量不分配存储空间: `extern int x;` 定义变量分配存储空间: `int x;`
+* 函数的声明也可以放到另一个函数都函数体里面,如:
+  {{{c
+  int main() {
+    double atof(char []); // declare a function in anther function.
+  }
+  }}}
+* 变量初始化:global/static初始化为0,自动变量未定义.
+* 通用指针:`void *p`,可以指向任何类型，但不能de-reference.
+* 指针的算术运算与其指向的对象相关:`assert(((void *)(p+1) - (void *)p) == sizeof(*p))`
+* 指针与数组:
+  {{{c
+  char str[] = "hello world"; // str is an character array(in stack) that filled with the string
+  str[0] = 'H'; // OK
+  char *s = "hello world";    // s is a pointer (in stack) point to the constant string in DATA
+  *(s+1) = 'E'; // runtime errors: cause the program crashed.
+  char *name[] = {"Illegal month", "January"}; // pointer array and initialization.
+  int (*comp)(void *, void *); // comp is a pointer to a function that has two void * arguments and returns an int.  }}}
+  }}}
+* 结构体: only legal operation to assign and copy (includes function call/return), &, access member.
+  {{{c
+  struct point {int x;int y}; // declare a struct
+  struct point {int x;int y} pt; // declare a struct, defines pt variable, member access: pt.x, pt.y
+  struct rect { // nested struct.
+       struct point pt1;
+       struct point pt2;
+  };
+  struct rect screen; // screen.pt1.x 
+  struct rect *p = &screen; // p->pt1.x; 
+  }}}
+* *sizeof* at *compile* time yield an integer equal to the size of the specified object or type in bytes,An object
+  can be a variable or array or structure,A type name can be the name of a basic type like int or double, or a derived type
+  like a structure or a pointer.
+  {{{c
+  // initialize the struct, the array size is determined at compile time. 
+  // inner braces are not necessary when the
+  // initializers are simple variables or character strings, and when all are present
+  struct key { char *word; int count; } keytab[] = { 
+     "auto", 0, // also can be: {"auto",0}, see above note
+     "break", 0
+   };
+   int table_size = sizeof(keytab)/sizeof(keytab[0]); // Or. sizeof(keytab)/sizeof(struct key)
+   
+  }}}
+# Unions provide a way to manipulate different kinds of data in a single area of storage
+  {{{c
+   union u_tag { int ival; float fval; char *sval;
+   } u; // The variable u will be large enough to hold the largest of the three types;
+  
+  }}}
+# variable length argument expression: `int printf(char *format,...)`, the stdarg.h provide macro to handle it.

@@ -2,3 +2,14 @@
 
 * Diff the working copy with the latest version:
  * `git diff HEAD file`
+* push your code to the remote branches:
+ * git push origin umc_dev
+* pull other modification to local:
+ * git pull origin umc_dev
+* merge a single file *file* from other branch B to branch A:
+  {{{
+  # if the B is remote, please checkout it firstly.
+  git checkout B # make branch B available at local git
+  git checkout A # switch to branch A
+  git checkout --patch B file # patch it.
+  }}}

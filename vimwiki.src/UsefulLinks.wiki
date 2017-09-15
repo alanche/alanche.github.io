@@ -3,4 +3,6 @@ This page hold the useful links:
 * http://wavedrom.com/ - A Javascript Based online Digital IC Design waveform
   drawer.
 * http://www.graphviz.org/ - Graph visualization is a way of representing structural information as diagrams of abstract graphs and networks
-
+* [[http://vrq.sourceforge.net/html/index.html|VRQ]] : VRQ is modular verilog parser that supports plugin tools to process
+  verilog,In particular the Xprop Tool is one of it's most unique features as when it is used properly it can greatly reduce the need for gate level simulation.
+* CPP reference: http://en.cppreference.com/w/

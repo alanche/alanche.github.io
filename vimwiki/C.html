@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>C</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="../styles/bootstrap.min.css" rel="stylesheet">
+      <link href="../styles/solarized-dark.css" rel="stylesheet">
+      <link href="../styles/vimwiki.css" rel="stylesheet">
+ 
+      <!--[if lt IE 9]>
+         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      <![endif]-->
+      <!-- jQuery should be imported before boostrap.min.js -->
+      <script src="../js/jquery-1.12.4.min.js"></script>
+      <script src="../js/bootstrap.min.js"></script>
+      <!-- The code syntax highlighter -->
+      <script src="../js/highlight.pack.js"></script>
+      <!-- the vimwiki customized scripts -->
+      <script src="../js/vimwiki_db.js" charset="utf-8"></script>
+      <script src="../js/vimwiki.js" charset="utf-8"></script>
+   </head>
+   <body>
+      <div class="container">
+	<div class="row clearfix">
+	  <div class="col-md-12 column">
+	    <ul class="nav nav-pills">
+	      <li class="active">
+		<a href="#">HOME</a>
+	      </li>
+	      <!-- more items are injected by the JS -->
+	    </ul>
+
+	    <div id="main-content">
+	    
+<div id="The C Programming Language"><h1 id="The C Programming Language" class="justcenter">The C Programming Language</h1></div>
+<ul>
+<li>
+在函数外的 <span id="The C Programming Language-static"></span><strong id="static">static</strong> 变量可见性为当前文件。
+
+<li>
+在函数内的 <span id="The C Programming Language-static"></span><strong id="static">static</strong> 变量不会因函数退出栈而消失。
+
+<li>
+声明变量不分配存储空间: <code>extern int x;</code> 定义变量分配存储空间: <code>int x;</code>
+
+<li>
+函数的声明也可以放到另一个函数都函数体里面,如:
+<pre class="code c">
+  int main() {
+    double atof(char []); // declare a function in anther function.
+  }
+</pre>
+
+<li>
+变量初始化:global/static初始化为0,自动变量未定义.
+
+<li>
+通用指针:<code>void *p</code>,可以指向任何类型，但不能de-reference.
+
+<li>
+指针的算术运算与其指向的对象相关:<code>assert(((void *)(p+1) - (void *)p) == sizeof(*p))</code>
+
+<li>
+指针与数组:
+<pre class="code c">
+  char str[] = "hello world"; // str is an character array(in stack) that filled with the string
+  str[0] = 'H'; // OK
+  char *s = "hello world";    // s is a pointer (in stack) point to the constant string in DATA
+  *(s+1) = 'E'; // runtime errors: cause the program crashed.
+  char *name[] = {"Illegal month", "January"}; // pointer array and initialization.
+  int (*comp)(void *, void *); // comp is a pointer to a function that has two void * arguments and returns an int.  }}}
+</pre>
+
+<li>
+结构体: only legal operation to assign and copy (includes function call/return), &amp;, access member.
+<pre class="code c">
+  struct point {int x;int y}; // declare a struct
+  struct point {int x;int y} pt; // declare a struct, defines pt variable, member access: pt.x, pt.y
+  struct rect { // nested struct.
+       struct point pt1;
+       struct point pt2;
+  };
+  struct rect screen; // screen.pt1.x 
+  struct rect *p = &amp;screen; // p-&gt;pt1.x; 
+</pre>
+
+<li>
+<span id="The C Programming Language-sizeof"></span><strong id="sizeof">sizeof</strong> at <span id="The C Programming Language-compile"></span><strong id="compile">compile</strong> time yield an integer equal to the size of the specified object or type in bytes,An object
+  can be a variable or array or structure,A type name can be the name of a basic type like int or double, or a derived type
+  like a structure or a pointer.
+<pre class="code c">
+  // initialize the struct, the array size is determined at compile time. 
+  // inner braces are not necessary when the
+  // initializers are simple variables or character strings, and when all are present
+  struct key { char *word; int count; } keytab[] = { 
+     "auto", 0, // also can be: {"auto",0}, see above note
+     "break", 0
+   };
+   int table_size = sizeof(keytab)/sizeof(keytab[0]); // Or. sizeof(keytab)/sizeof(struct key)
+   
+</pre>
+
+<li>
+Unions provide a way to manipulate different kinds of data in a single area of storage
+<pre class="code c">
+   union u_tag { int ival; float fval; char *sval;
+   } u; // The variable u will be large enough to hold the largest of the three types;
+  
+</pre>
+
+<li>
+variable length argument expression: <code>int printf(char *format,...)</code>, the stdarg.h provide macro to handle it.
+
+</ul>
+
+	    </div>
+	    <hr>
+	    <div id="footer">
+	      <span class="notes">
+		Thanks <a href="http://pages.github.com">githubPages</a> for
+		providing the web hosting environment
+	      </span>
+	    </div>
+	  </div>
+	</div>
+      </div> 
+   </body>
+</html>

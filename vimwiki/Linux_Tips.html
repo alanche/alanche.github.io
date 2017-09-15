@@ -34,7 +34,7 @@
 
 	    <div id="main-content">
 	    
-<div id="Linux Tips"><h1 id="Linux Tips" class="justcenter">Linux Tips</h1></div>
+<div id="Linux Tips"><h1 id="Linux Tips">Linux Tips</h1></div>
 <ul>
 <li>
 Avoid the ssh prompt for asking the confirmation to add host to known_hosts: 
@@ -46,25 +46,63 @@ add the line:<span id="Linux Tips-StrictHostKeyChecking=no"></span><strong id="S
 
 </ul>
 <li>
+Enable the X11 fowwarding defaultly:~/.ssh/config:<code>ForwardX11=yes</code>
+
+<li>
 Install the packages from RPM: <code>rpm2cpio packages.rpm | cpio -idv</code>
 
 <li>
 Querying the LSF group host information: <code>bmgroup</code>
 
 <li>
-putty: copy large quantity of linux text into window clipboard:
+add the 'Window List' to the pannel: to make the windows like task icon.
+
+</ul>
+<div id="putty tips"><h1 id="putty tips">putty tips</h1></div>
+<ul>
+<li>
+copy large quantity of linux text into window clipboard:
 
 <ul>
 <li>
-Changes <span id="Linux Tips-Putty Settings -&gt; Windows -&gt; Lines of Scrollback"></span><strong id="Putty Settings -&gt; Windows -&gt; Lines of Scrollback">Putty Settings -&gt; Windows -&gt; Lines of Scrollback</strong> to large enough to hold your contents.  <img src="../images/putty-settings.jpg" />
+Changes <span id="putty tips-Putty Settings -&gt; Window -&gt; Lines of Scrollback"></span><strong id="Putty Settings -&gt; Window -&gt; Lines of Scrollback">Putty Settings -&gt; Window -&gt; Lines of Scrollback</strong> to large enough to hold your contents.  <img src="../images/putty-settings.jpg" />
 
 <li>
 dump your lines into the terminal window buffer: <code>cat largefiles</code>
 
 <li>
-<span id="Linux Tips-Copy All to Clipboard"></span><strong id="Copy All to Clipboard">Copy All to Clipboard</strong> <img src="../images/putty-context-menu.jpg" />
+<span id="putty tips-Copy All to Clipboard"></span><strong id="Copy All to Clipboard">Copy All to Clipboard</strong> <img src="../images/putty-context-menu.jpg" />
 
 </ul>
+<li>
+paste the local machine clipboard into the remote vim
+
+<ul>
+<li>
+<span id="putty tips-ctrl + right click"></span><strong id="ctrl + right click">ctrl + right click</strong> to bring up putty context menu, select paste
+
+</ul>
+<li>
+create a shortcut and edit it to pass these option <span id="putty tips--load session -pw password"></span><strong id="-load session -pw password">-load session -pw password</strong> to automate the login
+
+<li>
+olor palette can be adjust to match the solarized color through regedit
+
+<li>
+<code>ctrl + right click</code> or <code>click left top corner</code> will popup the context menu
+
+<li>
+window/Appearance: Font Quality: clearType
+
+<li>
+window Appearance: hide mouse pointer when typing in window 
+
+<li>
+choise: window-&gt;Behaviour: Full screen on Alt-Enter
+
+<li>
+window/Translation: Remote character set: utf-8
+
 </ul>
 
 	    </div>

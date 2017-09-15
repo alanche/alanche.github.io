@@ -1,3 +1,19 @@
 %title Chapter 4 Blocks
-
-TO Be Contintued.
+ = Blocks =
+# 代码块 - 单行代码块用{,}表示，多行代码块用do,end定义.
+# 代码块是闭包 - 当块定义时，他会将其所在的环境一并存下来，并一起传递到调用者的空间。
+ {{{ruby
+ def my_method
+   x = "Goodbye" # not visible to the block.
+   yield("Cruel") # the called block refer the ::x
+ end
+ x = "Hello"
+ my_method｛|y| "#{x},#{y} world"} # "Hello Cruel word"
+ }}}
+# 程序会在3个地方关闭前一个作用域和打开一个新的作用域:
+  * 类定义
+  * 模块定义
+  * 方法
+# 用Kernel#local_variables可以列出当前作用域可以访问的变量。
+# 全局变量`$xxx`可以在所有作用域访问并修改.
+# 在类和模块中定义的代码会立即执行，在方法定义中的代码不会立刻执行。

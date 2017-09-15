@@ -1,6 +1,6 @@
 %title Chapter 3 Methods
  = Methods =
-# 动态调用方法 *send* / *public_send* - 可以在运行时动态的决定调用哪一个方法. *send* 可以call私有方法,*public_send*只能call公开方法.
+# 动态调用方法 *send* / *public_send* - 可以在运行时动态的决定调用哪一个方法. *send* 可以call私有方法,*public_send* 只能call公开方法.
   {{{ruby
   # The following two lines are equivalent, however,
   # the 2nd line function call paramenter can be construted dynamically.

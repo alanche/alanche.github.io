@@ -37,6 +37,16 @@
 <div id="RubyTips"><h1 id="RubyTips" class="justcenter">RubyTips</h1></div>
 <ol>
 <li>
+常数,类名以大写字母开头.
+
+<li>
+文档惯例:用#引导实例方法，用::引导类方法,如:实例方法:Thread#alive,类方法:Thread::curent
+
+<li>
+ruby 对象的属性无法直接访问，都需要通过方法进行访问,可以定义 <span id="RubyTips-attr_accessor"></span><strong id="attr_accessor">attr_accessor</strong>  <span id="RubyTips-attr_reader"></span><strong id="attr_reader">attr_reader</strong> <span id="RubyTips-attr_writer"></span><strong id="attr_writer">attr_writer</strong>
+  来快捷定义属性的访问方法。
+
+<li>
 Query the instance methods defined a in specific class Foo?
 
 <ul>
@@ -80,6 +90,102 @@ String.instance_methods == "abc".methods # True
 String.methods == "abc".methods # False
 </pre>
 
+<li>
+The Module#=== is for type testing
+<pre class="code ruby">
+String === "hello" # true
+case "hello"
+when String
+ puts "matched" # matched.
+end
+</pre>
+
+<li>
+The <span id="RubyTips-extend"></span><strong id="extend">extend</strong> and <span id="RubyTips-include"></span><strong id="include">include</strong> behavior and its demo
+<pre class="code ruby">
+module Base
+  # defines a method on the Base object
+  def self.info
+  end
+  def message()
+  end
+  info # call the Info method
+end
+p Base.methods.include? :info # true
+class Demo
+  extend Base # omitted self. , import Base.instance_methods into Demo.methods
+end
+p Demo.methods.include? :info # false
+p Demo.methods.include? :message # true
+p Demo.instance_methods.include? :message # false
+class Info
+  include Base # import the Base.instace_methods into Info.instance_methods
+end
+p Info.methods.include? :info # false
+p Info.methods.include? :message # false
+p Info.instance_methods.include? :message # true
+</pre>
+
+<li>
+turn the instance methods into class methods
+<pre class="code ruby">
+module Base
+  self.extend self # OR extend self
+  # defaultly, it is a instance methods
+  def list
+  end
+end
+p Base.methods.include? :list # true
+p Base.instance_methods.include? :list # true
+</pre>
+
+<li>
+ruby-debug is as debugger for ruby program:
+  insert a directive <code>require 'debug'</code> in the program to enable the debuggers.
+
+<li>
+super不带括号表示调用父类的 <span id="RubyTips-同名函数"></span><strong id="同名函数">同名函数</strong>,并将本函数的所有参数传入父类的同名函数;
+
+<li>
+super()带括号则表示调用父类的同名函数，但是不传入任何参数;
+<pre class="code ruby">
+class SParent  
+  def initialize *args
+    args.each {|arg| puts arg}  
+  end  
+end  
+   
+class SChild &lt; SParent  
+  def initialize a, b, c  
+    super  
+  end  
+end  
+   
+a, b, c = *%W[a b c]  
+SChild.new a, b, c # puts a, b, c if super  
+SChild.new a, b, c # puts nothing if super()
+</pre>
+
+<li>
+Debug Tips
+
+<ul>
+<li>
+query the object methods: <span id="RubyTips-obj#methods"></span><strong id="obj#methods">obj#methods</strong>
+
+<li>
+using the <span id="RubyTips-caller"></span><strong id="caller">caller</strong> to show the stacks.
+
+<li>
+using <code>require debug</code> to enable the debug prompt.
+
+<li>
+The <span id="RubyTips-Proc#source_location"></span><strong id="Proc#source_location">Proc#source_location</strong> show the block defintion.
+
+<li>
+using <span id="RubyTips-defined?"></span><strong id="defined?">defined?</strong> to check the varaible/method exists or not.
+
+</ul>
 </ol>
 
 	    </div>

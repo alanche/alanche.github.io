@@ -1,0 +1,49 @@
+ = GEM5 =
+= Introduction =
+[[http://www.gem5.org|GEM5]] is A modular platform for computer-system architecture research
+
+= The C++ Object Construction =
+{{http://www.gem5.org/wiki/images/thumb/c/c4/Gem5_initialization_call_sequence.png/550px-Gem5_initialization_call_sequence.png}}
+each C++ SimObject sub-class has a correponding Python class definition, it will be parsed by the SCONS to control
+SWIG go generate the C++ Object wrapper for Python languages.
+
+The Python Script create the Python Object hierarchy. and then, it creates the C++ Object hierarchy accordingly in:
+* src/python/m5/simulate.py: call createCCObject()
+* python/m5/SimObject.py: the C++ SimObject is created by ${SimObject}Params.create();
+* with the help of scons/swig generated wrappers(python/m5/internal/param_XXX.cc), it calls the C++ Side CCParams::create().
+
+
+
+The Python Class with be converted to C++ Object by SCONS/SWIG,e.g.
+
+| Python                    | C Files                                     | Description                    |
+|---------------------------|---------------------------------------------|--------------------------------|
+| dev/storage/SimpleDisk.py | python/m5/internal/param_SimpleDisk.i       | The SWIG control file          |
+| \/                        | python/m5/internal/param_SimpleDisk_wrap.cc | The C to Python wrappers       |
+| dev/storage/SimpleDisk.hh | python/m5/internal/param_SimpleDisk.py      | The Python adapter gen by SWIG |
+| \/                        | params/SimpleDisk.hh                        | The CCParams struct definition |
+
+
+
+each SimObject is created by its corresponding XXXParams.create(). e.g. `SimpleDisk* SimpleDiskParams::create();`
+The build/X86/params/SimpleDisk.hh is created by Scons from dev/storeage/SimpleDisk.py
+
+= GEM5 FullSystem Mode with X86 =
+The primary steps to run the GEM5 Full System Mode with X86 files:
+{{{bash
+cd $HOME && mkdir x86-files && cd x86-files # create directories
+wget http://www.m5sim.org/dist/current/x86/x86-system.tar.bz2 # download the X86 disk images.
+wget http://www.m5sim.org/dist/current/x86/config-x86.tar.bz2 # download configuration
+tar jxf *.bz2 # extract files
+export M5_PATH=$HOME/x86-files
+cd disks
+dd if=/dev/zero of=linux-bigswap2.img bs=512 count=102400 # create the swap file for x86
+# place your X86 binary into the linux-x86.img if necessary
+build/X86_MOESI_AMD_Base/gem5.opt configs/example/fs.py \
+  --kernel=x86_64-vmlinux-2.6.22.9 --disk-image=linux-x86.img # run
+}}}
+= External Links =
+* http://www.gem5.org/Configuration_/_Simulation_Scripts
+* http://www.gem5.org/SimObjects
+* http://www.swig.org/ - SWIG is a software development tool that connects programs written in C and C++ with a variety of
+  high-level programming languages,such as: Perl, PHP, Python,Tcl and Ruby.

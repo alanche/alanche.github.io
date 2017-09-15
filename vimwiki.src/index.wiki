@@ -3,18 +3,21 @@
 == BRIEF ==
 Welcome to Alan's Wiki
 == detail ==
-A vimwiki + github based knowledge management system, it records/shares the
-various knowledges: tips, experiences and etc.
+A vimwiki + github based personal knowledge management system, it records the
+various knowledge: notes,tips,experience and etc.
 
 = PAGES =
 * NOTES
  * [[Meta_Programming_Ruby_2|Meta Programming Ruby 2]]
+ * [[GEM5]]
 * TOOLS
  * [[Linux_Tips|Linux Tips]]
  * [[GIT]]
  * [[EDA]]
 * Programming
  * [[SystemVerilog]]
+ * [[C]]
+ * [[CPP]]
  * [[Python]]
  * [[Ruby]]
 * MISC

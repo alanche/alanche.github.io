@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>GEM5</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="../styles/bootstrap.min.css" rel="stylesheet">
+      <link href="../styles/solarized-dark.css" rel="stylesheet">
+      <link href="../styles/vimwiki.css" rel="stylesheet">
+ 
+      <!--[if lt IE 9]>
+         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      <![endif]-->
+      <!-- jQuery should be imported before boostrap.min.js -->
+      <script src="../js/jquery-1.12.4.min.js"></script>
+      <script src="../js/bootstrap.min.js"></script>
+      <!-- The code syntax highlighter -->
+      <script src="../js/highlight.pack.js"></script>
+      <!-- the vimwiki customized scripts -->
+      <script src="../js/vimwiki_db.js" charset="utf-8"></script>
+      <script src="../js/vimwiki.js" charset="utf-8"></script>
+   </head>
+   <body>
+      <div class="container">
+	<div class="row clearfix">
+	  <div class="col-md-12 column">
+	    <ul class="nav nav-pills">
+	      <li class="active">
+		<a href="#">HOME</a>
+	      </li>
+	      <!-- more items are injected by the JS -->
+	    </ul>
+
+	    <div id="main-content">
+	    
+<div id="GEM5"><h1 id="GEM5" class="justcenter">GEM5</h1></div>
+<div id="Introduction"><h1 id="Introduction">Introduction</h1></div>
+<p>
+<a href="http:&#47;&#47;www.gem5.org">GEM5</a> is A modular platform for computer-system architecture research
+</p>
+
+<div id="The C++ Object Construction"><h1 id="The C++ Object Construction">The C++ Object Construction</h1></div>
+<p>
+<img src="http://www.gem5.org/wiki/images/thumb/c/c4/Gem5_initialization_call_sequence.png/550px-Gem5_initialization_call_sequence.png" />
+each C++ SimObject sub-class has a correponding Python class definition, it will be parsed by the SCONS to control
+SWIG go generate the C++ Object wrapper for Python languages.
+</p>
+
+<p>
+The Python Script create the Python Object hierarchy. and then, it creates the C++ Object hierarchy accordingly in:
+</p>
+<ul>
+<li>
+src/python/m5/simulate.py: call createCCObject()
+
+<li>
+python/m5/SimObject.py: the C++ SimObject is created by ${SimObject}Params.create();
+
+<li>
+with the help of scons/swig generated wrappers(python/m5/internal/param_XXX.cc), it calls the C++ Side CCParams::create().
+
+</ul>
+
+
+
+<p>
+The Python Class with be converted to C++ Object by SCONS/SWIG,e.g.
+</p>
+
+<table>
+<tr>
+<th>
+Python
+</th>
+<th>
+C Files
+</th>
+<th>
+Description
+</th>
+</tr>
+<tr>
+<td rowspan="2">
+dev/storage/SimpleDisk.py
+</td>
+<td>
+python/m5/internal/param_SimpleDisk.i
+</td>
+<td>
+The SWIG control file
+</td>
+</tr>
+<tr>
+<td>
+python/m5/internal/param_SimpleDisk_wrap.cc
+</td>
+<td>
+The C to Python wrappers
+</td>
+</tr>
+<tr>
+<td rowspan="2">
+dev/storage/SimpleDisk.hh
+</td>
+<td>
+python/m5/internal/param_SimpleDisk.py
+</td>
+<td>
+The Python adapter gen by SWIG
+</td>
+</tr>
+<tr>
+<td>
+params/SimpleDisk.hh
+</td>
+<td>
+The CCParams struct definition
+</td>
+</tr>
+</table>
+
+
+
+<p>
+each SimObject is created by its corresponding XXXParams.create(). e.g. <code>SimpleDisk* SimpleDiskParams::create();</code>
+The build/X86/params/SimpleDisk.hh is created by Scons from dev/storeage/SimpleDisk.py
+</p>
+
+<div id="GEM5 FullSystem Mode with X86"><h1 id="GEM5 FullSystem Mode with X86">GEM5 FullSystem Mode with X86</h1></div>
+<p>
+The primary steps to run the GEM5 Full System Mode with X86 files:
+</p>
+<pre class="code bash">
+cd $HOME &amp;&amp; mkdir x86-files &amp;&amp; cd x86-files # create directories
+wget http://www.m5sim.org/dist/current/x86/x86-system.tar.bz2 # download the X86 disk images.
+wget http://www.m5sim.org/dist/current/x86/config-x86.tar.bz2 # download configuration
+tar jxf *.bz2 # extract files
+export M5_PATH=$HOME/x86-files
+cd disks
+dd if=/dev/zero of=linux-bigswap2.img bs=512 count=102400 # create the swap file for x86
+# place your X86 binary into the linux-x86.img if necessary
+build/X86_MOESI_AMD_Base/gem5.opt configs/example/fs.py \
+  --kernel=x86_64-vmlinux-2.6.22.9 --disk-image=linux-x86.img # run
+</pre>
+<div id="External Links"><h1 id="External Links">External Links</h1></div>
+<ul>
+<li>
+<a href="http:&#47;&#47;www.gem5.org&#47;Configuration_&#47;_Simulation_Scripts">http://www.gem5.org/Configuration_/_Simulation_Scripts</a>
+
+<li>
+<a href="http:&#47;&#47;www.gem5.org&#47;SimObjects">http://www.gem5.org/SimObjects</a>
+
+<li>
+<a href="http:&#47;&#47;www.swig.org&#47;">http://www.swig.org/</a> - SWIG is a software development tool that connects programs written in C and C++ with a variety of
+  high-level programming languages,such as: Perl, PHP, Python,Tcl and Ruby.
+
+</ul>
+
+	    </div>
+	    <hr>
+	    <div id="footer">
+	      <span class="notes">
+		Thanks <a href="http://pages.github.com">githubPages</a> for
+		providing the web hosting environment
+	      </span>
+	    </div>
+	  </div>
+	</div>
+      </div> 
+   </body>
+</html>

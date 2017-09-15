@@ -1,10 +1,22 @@
- = Linux Tips =
+= Linux Tips =
 * Avoid the ssh prompt for asking the confirmation to add host to known_hosts: 
  * add the line:*StrictHostKeyChecking=no* in either files:/etc/ssh/ssh_config, ~/.ssh/config, or specific it in command line:
    `ssh -o StrictHostKeyChecking=no`. 
+* Enable the X11 fowwarding defaultly:~/.ssh/config:`ForwardX11=yes`
 * Install the packages from RPM: `rpm2cpio packages.rpm | cpio -idv`
 * Querying the LSF group host information: `bmgroup`
-* putty: copy large quantity of linux text into window clipboard:
-  * Changes *Putty Settings -> Windows -> Lines of Scrollback* to large enough to hold your contents.  {{local:../images/putty-settings.jpg}}
-  * dump your lines into the terminal window buffer: `cat largefiles`
-  * *Copy All to Clipboard* {{local:../images/putty-context-menu.jpg}}
+* add the 'Window List' to the pannel: to make the windows like task icon.
+= putty tips =
+* copy large quantity of linux text into window clipboard:
+ * Changes *Putty Settings -> Window -> Lines of Scrollback* to large enough to hold your contents.  {{local:../images/putty-settings.jpg}}
+ * dump your lines into the terminal window buffer: `cat largefiles`
+ * *Copy All to Clipboard* {{local:../images/putty-context-menu.jpg}}
+* paste the local machine clipboard into the remote vim
+ * *ctrl + right click* to bring up putty context menu, select paste
+* create a shortcut and edit it to pass these option *-load session -pw password* to automate the login
+* olor palette can be adjust to match the solarized color through regedit
+* `ctrl + right click` or `click left top corner` will popup the context menu
+* window/Appearance: Font Quality: clearType
+* window Appearance: hide mouse pointer when typing in window 
+* choise: window->Behaviour: Full screen on Alt-Enter
+* window/Translation: Remote character set: utf-8
