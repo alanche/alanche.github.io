@@ -6,6 +6,9 @@
 * Install the packages from RPM: `rpm2cpio packages.rpm | cpio -idv`
 * Querying the LSF group host information: `bmgroup`
 * add the 'Window List' to the pannel: to make the windows like task icon.
+* tcsh: bind the arrow keys to search the command line history:
+  * `bindkey -k up history-search-backward`
+  * `bindkey -k down history-search-forward`
 = putty tips =
 * copy large quantity of linux text into window clipboard:
  * Changes *Putty Settings -> Window -> Lines of Scrollback* to large enough to hold your contents.  {{local:../images/putty-settings.jpg}}
