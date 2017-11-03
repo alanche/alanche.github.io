@@ -77,6 +77,19 @@ $(document).ready(function() {
   })();
   // support the responsive images
   $('img').addClass('img-responsive');
+  // remove the same count of leading space char at each line
+  $('pre.code').each(function(i,block) {
+    var txt = this.innerText
+    console.log(txt)
+    lines = txt.split("\n")
+    first = lines[0]
+    space = 0
+    while(first[space] == " ") space ++
+    for (i=0;i<lines.length;i++) {
+      lines[i] = lines[i].substring(space);
+    }
+    this.textContent = lines.join("\n")
+  });
   // syntax highlighter
   $('pre.code').each(function(i, block) {
     hljs.highlightBlock(block);
