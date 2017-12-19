@@ -65,6 +65,22 @@
 
 </ul>
 <li>
+共享作用域:一组方法共享变量但其它方法无法访问:
+<pre class="code ruby">
+  def define_methods
+    shared = 0
+    Kernel.send :define_method,:counter do
+      shared
+    end
+    Kernel.send :define_method,:inc do |x|
+      shared += x
+    end
+  end
+  # even leaf the scope, the variable space is not recycled.
+  define_methods
+</pre>
+
+<li>
 用Kernel#local_variables可以列出当前作用域可以访问的变量。
 
 <li>

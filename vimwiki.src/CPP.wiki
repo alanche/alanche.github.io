@@ -4,7 +4,7 @@
     int *p = new int(4); delete p;   // allocate an int in heap, initialized with 4
     int *p = new int[4]; delete []p; // allocate an dynamic array with 4 elements
   }}}
-* function argument default value syntax like: IntArray( int sz = DefaultArraySize );
+* function argument default value syntax: IntArray( int sz = DefaultArraySize );
 * Copy Constructor like:
   {{{cpp
   IntArray array; // initialized with default constructor
@@ -25,7 +25,8 @@
  * 关系Relational 算法equal() min()和max() 
 * 关联数组(associated array): map<string, telephoneNum> telephone_directory;
 * 文字常量: 3.14159F 0.1f 12.345L 0.0 3e1 1.0E-3 2. 1.0L true false \n \t \v L'a'(wchar_t)
-* Range based loops: it requires the object provides begin() and end() methods.
+* 字符串常量拼接: 将两个用引号括起的字符串合并为1个,如: cout << "good" "time" << endl;
+* range based loops: it requires the object provides begin() and end() methods.
   {{{cpp
   for(double x : prices) cout << x << endl;
   }}}
@@ -34,16 +35,16 @@
   {{{cpp
   int main() 
   {
-  int uval; // uninitialized
-  int ival = 1024; // implicit initialization.
-  string project = "Fantasia 2000";
-  int ival( 1024 ); // explicit initialization
-  string project( "Fantasia 2001" ); 
-  //每种内置数据类型都支持一种特殊的构造函数语法可将对象初始化为0
-  int intval = int(); // initialize intval to 0
-  double dval = double();// initialize as 0.0
-  vector< int > ivec( 10 ); // int() applied to each of the 10 elements
-  float *p; // is better than float* p;
+    int uval; // uninitialized
+    int ival = 1024; // implicit initialization.
+    string project = "Fantasia 2000";
+    int ival( 1024 ); // explicit initialization
+    string project( "Fantasia 2001" ); 
+    //每种内置数据类型都支持一种特殊的构造函数语法可将对象初始化为0
+    int intval = int(); // initialize intval to 0
+    double dval = double();// initialize as 0.0
+    vector< int > ivec( 10 ); // int() applied to each of the 10 elements
+    float *p; // is better than float* p;
   }
   }}}
 # 字符串
@@ -63,9 +64,19 @@
   {{{cpp
   const char *p = "char"; // the pointed objected is constant
   const char *const p= "char"; // the pointer and object both are constant.
+  // 声明为const的形参可以接受const or non-const的实参。声明为non-const的形参只能接受non-const实参。
   }}}
-# 引用必须被初始化: int x; int &v = x;
-# bool type: bool v = true/false;
+# 对于函数参数为:const reference的调用:如果实参类型不匹配或不为左值，则创建临时变量并用形式参数执行它。
+  {{{cpp
+  double cuble(const double rv) { return rv*rv*rv;}
+  double v = 1.2; 
+  int i = 1;
+  double c0 = cuble(v); // rv is an alias of v; &rv == &v
+  double c1 = cuble(i); // type mismatch, create temp var,and reference it, &rv = &tmp != &i;
+  double c2 = cuble(1.3 + 1.4); // 1.3 + 1.4 is not lvalue, create a temp variable:say tmp, &rv = &tmp;
+  double c3 = cuble(5); // type mismatch, create temp var,and reference it, &rv = &tmp;
+  }}}
+# 引用在定义时被初始化: int x; int &v = x;
 # 可以借用enum来声明常量: enum { NUM_TRANS = 10};
 # array types:
   {{{cpp
@@ -103,17 +114,16 @@
   vector<string>::const_iterator cit = text.begin(); // read only iterator
   for ( vector<string>::iterator it = text.begin(); it != text.end(); ++it)
     cout << *it << ' ';
-  //任何一个插入操作都将增加vector 的大小而不是覆盖掉某个现有的元素
+  //任何一个插入操作都将增加vector的大小而不是覆盖掉某个现有的元素
   }}}
 # sizeof 返回对象的字节大小
   {{{cpp
   #include <cstddef> // defines size_t
-  sizeof (type name );// return bytes in size_t
-  sizeof ( object );
+  sizeof (type name );// return bytes in size_t. e.g. sizeof (obj);
   sizeof object; 
   int ia[] = { 0, 1, 2 };
-  size_t array_size = sizeof ia; // sizeof 返回整个数组的大小
-  size_t element_size = array_size / sizeof( int ); // sizeof 返回int类型的大小
+  size_t array_size = sizeof ia; // the space occupied by ia.
+  size_t element_size = array_size/sizeof( int );
   }}}
 # bitset类支持位操作:
   {{{cpp
@@ -140,14 +150,14 @@
   pv = pci; // 错误: pv 不是一个const void*.
   const void *pcv = pci; // ok
   }}}
-# 显式转换符号的一般形式如下:cast-name< type >( expression );
+# 显式转换的一般形式如下:`cast-name< type >( expression );`
  {{{cpp
   // case-name: static_cast const_cast dynamic_cast 和reinterpret_cast
   extern char *string_copy( char* );
   const char *pc_str;
   char *pc = string_copy( const_cast< char* >( pc_str ));  // const_cast: remove the const attributes
   // reinterpre_cast 通常对于操作数的位模式执行一个比较低层次的重新解释
-  // dynamic_cast 支持在运行时刻识别由指针或引用指向的类对象: down-casting,父类指针切成子类指针
+  // dynamic_cast 支持在运行时刻识别由指针或引用指向的类对象: down-casting,父类指针转换成子类指针
  }}}
 = Container =
 # sequence container: vector,list
@@ -310,6 +320,7 @@
     home:"/home/Lucy"
   };
   }}}
+* struct 里面的数据会对齐。
 # struct shallow coping. 
   {{{cpp
   struct Temp a, b;
@@ -317,6 +328,7 @@
   memcpy(&a, &b, sizeof(a)); 
   // a.id = b.id; a.name = b.name; a.home = b.home; a.passwd = b.passwd;
   }}}
+* 不能用memcmp来比较struct: http://blog.csdn.net/peng314899581/article/details/60766892
 
 = Class =
 # 构造函数: 与类同名,无返回值.无需指定参数的构造函数(没有参数或参数有默认值)称为 *默认构造函数* 。
@@ -374,22 +386,35 @@
    extern void print(const Account &acct);
    print("oops"); // will call Account::Account("oops") to generate a Account object and pass to print.
   }}}
-# Type Conversion in Class domain:
- # Single-argument constructors: allow implicit conversion from a particular type to initialize an object.
+# type conversion in class:
+ # single-argument constructor provides the type conversion from argument.
  # Assignment operator: allow implicit conversion from a particular type on assignments.
  # Type-cast operator: allow implicit conversion to a particular type.
 # explicit修饰符通知编译器不要提供隐式转换: explict 只能修饰构造函数.
+ {{{cpp
+ class P {
+  public:
+    P(int a, int b) {}
+    explicit P(int a, int b, int c) {}
+  };
+  P x(77,5); // OK
+  P y{77,5}; // OK
+  P z {77,5,42}; // OK
+  P v = {77,5}; // OK (implicit type conversion allowed)
+  // error: converting to 'P' from initializer list would use explicit constructor
+  P w = {77,5,42}; // ERROR due to explicit (no implicit type conversion allowed)
+ }}}
 # Const object could not open the normal member function.
 # 多态基类的析构函数设定为虚函数。declare a virtual destructor in a class if and only if that class contains at least one virtual
   function
 # 新用户常常会错误地认为如果不存在缺省构造函数则编译器会自动生成一个缺省构造函数并将其应用在对象上以初始化类的数据成员对象。
   对于含有类数据成员或继承来的比较复杂的类这在部分上是对的,可能会生成一个缺省构造函数但是它不会为内置或复
-  合型的数据成员如指针或数组提供初始值
+  合型的数据成员如指针或数组提供初始值.
 # 容器类,动态数组类需要缺省构造函数。
-# 构造函数调用规则,如:Account account;
- # 定义了缺省构造函数它被应用.
- # 定义了缺省构造函数但它不是公有的 => 编译时刻错误:没有访问权限
- # 没有定义缺省构造函数但是定义了一个或者多个要求实参的构造函数的定义被标记为编译时刻错误实参太少,
+# 对于表达式`Account ac;`调用缺省构造函数规则:
+ # 自定义的公有缺省构造函数.
+ # 自定义的非共有缺省构造函数. => 编译时错误:没有访问权限
+ # 没有定义缺省构造函数但是定义了一个或者多个要求实参的构造函数的定义被标记为编译时刻错误实参太少。
    如果定义了其他构造函数则也有必要提供一个缺省构造函数,或者不提供构造函数。
  # 没有定义缺省构造函数也没有定义其他构造函数该定义是合法的没有被初始化没有调用任何构造函数
 # 拷贝构造函数有一个指向类对象的引用作为形式参数,一般是用const修饰的。
@@ -406,21 +431,16 @@
 # it's never legal to modify the return value of a function that returns a built-in type.
 # namespace special notices: methods parameter do not required namespace qualifier while return type required.
  {{{cpp
- namespace DEMO
+ namespace DEMO 
  {
- class Base
- {
- struct MYTYPE // private type
- {
-   int a;
- };
- MYTYPE process(MYTYPE param);
- };
+   class Base
+   {
+     struct MYTYPE {int d;};
+     MYTYPE process(MYTYPE param);
+   };
  }
- // the return type should use full qualifier, parameter use the simple one.
- DEMO::Base::MYTYPE process(MYTPE param)
- {
- }
+ // method definition: the return type should use full qualifier, parameter use simple.
+ DEMO::Base::MYTYPE process(MYTPE param) {}
  }}}
 # 模板类的友元运算符及类型转换函数
   {{{cpp
@@ -439,10 +459,22 @@
      out << rhs.d;
   }
   }}}
-= DEBUG =
-# field has incomplete type: https://stackoverflow.com/questions/2024658/field-has-incomplete-type
-# use the functor: https://stackoverflow.com/questions/7787500/how-to-write-a-function-that-takes-a-functor-as-an-argument
-# passing a point of Derived class Object to the parameter accept Base class Object pointer. the rationale is that: 
+# Variadic Templates.
+  {{{cpp
+  void print () {} // this function is required to terminate the recursion.
+  template <typename T, typename... Types>
+    void print (const T& firstArg, const Types&... args)
+    {
+      std::cout << firstArg << std::endl; // print first argument
+      print(args...); // call print() for remaining arguments
+      // If one or more arguments are passed, the function template is used, which by specifying the first
+      // argument separately allows the first argument to print and then recursively calls print() for the
+      // remaining arguments.
+      // To end the recursion, the non-template overload of print() is provided
+    }
+  print (7.5, "hello", std::bitset<16>(377), 42);
+  }}}
+# passing a point of Derived class Object to the Base class Object pointer type parameter failure. the rationale is that: 
   *before the declaration of the parameter should be completed*
  {{{cpp
  class Derived;
@@ -464,26 +496,16 @@
  Child::Child(UMC *p):b(p){} // The fixed solution.
  int main() { UMC u; }
  }}}
+  
+= DEBUG =
+# break the program execution on specific condition: http://www.fayewilliams.com/2011/07/13/gdb-conditional-breakpoints/
+# field has incomplete type: https://stackoverflow.com/questions/2024658/field-has-incomplete-type
+# use the functor: https://stackoverflow.com/questions/7787500/how-to-write-a-function-that-takes-a-functor-as-an-argument
 # http://tipsandtricks.runicsoft.com/Cpp/Explicit.html
 # https://stackoverflow.com/questions/14492523/no-known-conversion-from-pointer-to-reference-to-pointer
 TODO: C++ Primer Chapter 12 Function Object.
 
 = struct VS class =
-* struct 里面的数据会对齐。
-* 不能用memcmp来比较struct: http://blog.csdn.net/peng314899581/article/details/60766892
-{{{
-问的人太多，干脆整理个FAQ吧。
-首先，讨论这个问题应该仅从语法上讨论，如果讨论不同人之间编程风格上的差异，那这个问题是没有答案的。毕竟不同的人偏好不同。
-从语法上，在C++中（只讨论C++中）。class和struct做类型定义时只有两点区别：
-（一）默认继承权限。如果不明确指定，来自class的继承按照private继承处理，来自struct的继承按照public继承处理；
-（二）成员的默认访问权限。class的成员默认是private权限，struct默认是public权限。
-除了这两点，class和struct基本就是一个东西。语法上没有任何其它区别。
-不能因为学过C就总觉得连C++中struct和class都区别很大，下面列举的说明可能比较无聊，因为struct和class本来就是基本一样的东西，无需多说。但这些说明可能有助于澄清一些常见的关于struct和class的错误认识：
-（1）都可以有成员函数；包括各类构造函数，析构函数，重载的运算符，友元类，友元结构，友元函数，虚函数，纯虚函数，静态函数；
-（2）都可以有一大堆public/private/protected修饰符在里边；
-（3）虽然这种风格不再被提倡，但语法上二者都可以使用大括号的方式初始化：Aa={1,2,3};不管A是个struct还是个class，前提是这个类/结构足够简单，比如所有的成员都是public的，所有的成员都是简单类型，没有显式声明的构造函数。
-（4）都可以进行复杂的继承甚至多重继承，一个struct可以继承自一个class，反之亦可；一个struct可以同时继承5个class和5个struct，虽然这样做不太好。
-（5）如果说class的设计需要注意OO的原则和风格，那么没任何理由说设计struct就不需要注意。
-（6）再次说明，以上所有说法都是指在C++语言中，至于在C里的情况，C里是根本没有“class”，而C的struct从根本上也只是个包装数据的语法机制。
-最后，作为语言的两个关键字，除去定义类型时有上述区别之外，另外还有一点点：“class”这个关键字还用于定义模板参数，就像“typename”。但关键字“struct”不用于定义模板参数。
-}}}
+* struct和class只有2点不同:
+  * 默认继承权限:如果不明确指定,来自class的继承按照private继承处理,来自struct的继承按照public继承处理.
+  * 成员默认访问权限:class is private; struct is public.

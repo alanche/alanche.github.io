@@ -4,13 +4,14 @@
 var vimwiki = 
 {
     "intro": {
-        "brief": "Welcome to Alan's Wiki\n",
-        "detail": "A vimwiki + github based personal knowledge management system, it records the\nvarious knowledge: notes,tips,experience and etc.\n"
+        "detail": "A vimwiki + github based personal knowledge management system, it records the\nvarious knowledge: notes,tips,experience and etc.\n",
+        "brief": "Welcome to Alan's Wiki\n"
     },
     "pages": [
         [
             "NOTES",
             "Meta_Programming_Ruby_2|Meta Programming Ruby 2",
+            "Programming_Ruby|Programming Ruby",
             "GEM5"
         ],
         [

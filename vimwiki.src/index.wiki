@@ -9,6 +9,7 @@ various knowledge: notes,tips,experience and etc.
 = PAGES =
 * NOTES
  * [[Meta_Programming_Ruby_2|Meta Programming Ruby 2]]
+ * [[Programming_Ruby|Programming Ruby]]
  * [[GEM5]]
 * TOOLS
  * [[Linux_Tips|Linux Tips]]

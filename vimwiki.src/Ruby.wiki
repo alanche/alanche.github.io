@@ -1,6 +1,8 @@
  = RubyTips =
 # 常数,类名以大写字母开头.
-# 文档惯例:用#引导实例方法，用::引导类方法,如:实例方法:Thread#alive,类方法:Thread::curent
+# 文档惯例:
+ * 用#引导实例方法,如:Thread#alive,String#to_sym
+ * 用::引导类方法,如:Thread::curent
 # ruby 对象的属性无法直接访问，都需要通过方法进行访问,可以定义 *attr_accessor*  *attr_reader* *attr_writer*
   来快捷定义属性的访问方法。
 # Query the instance methods defined a in specific class Foo?
@@ -35,62 +37,65 @@ when String
  puts "matched" # matched.
 end
 }}}
-# The *extend* and *include* behavior and its demo
-{{{ruby
-module Base
-  # defines a method on the Base object
-  def self.info
-  end
-  def message()
-  end
-  info # call the Info method
-end
-p Base.methods.include? :info # true
-class Demo
-  extend Base # omitted self. , import Base.instance_methods into Demo.methods
-end
-p Demo.methods.include? :info # false
-p Demo.methods.include? :message # true
-p Demo.instance_methods.include? :message # false
-class Info
-  include Base # import the Base.instace_methods into Info.instance_methods
-end
-p Info.methods.include? :info # false
-p Info.methods.include? :message # false
-p Info.instance_methods.include? :message # true
-}}}
+# The *extend* and *include* behavior:
+ * *extend Base*: import the Base.instance_methods into *#methods*
+ * *include Base*: import the Base.instace_methods as *#instance_methods*
+ {{{ruby
+ module Base
+   # in the current Base scope
+   # define the method on current class.
+   def self.info
+   end
+   # define the method on current class's instance.
+   def message()
+   end
+   info # call the Info method
+ end
+ Base.methods.include? :info # true
+ class Demo
+   extend Base # omitted self. , import Base.instance_methods into Demo.methods
+ end
+ Demo.methods.include? :info # false
+ Demo.methods.include? :message # true
+ Demo.instance_methods.include? :message # false
+ class Info
+   include Base # import the Base.instace_methods into Info.instance_methods
+ end
+ Info.methods.include? :info # false
+ Info.methods.include? :message # false
+ Info.instance_methods.include? :message # true
+ }}}
 # turn the instance methods into class methods
-{{{ruby
-module Base
-  self.extend self # OR extend self
-  # defaultly, it is a instance methods
-  def list
+  {{{ruby
+  module Base
+    self.extend self # OR extend self
+    # defaultly, it is a instance methods
+    def list
+    end
   end
-end
-p Base.methods.include? :list # true
-p Base.instance_methods.include? :list # true
-}}}
-# ruby-debug is as debugger for ruby program:
-  insert a directive `require 'debug'` in the program to enable the debuggers.
+  Base.methods.include? :list # true
+  Base.instance_methods.include? :list # true
+  }}}
+# ruby-debug is a debugger for ruby program: `require "ruby-debug";` or `require "debug";`
 # super不带括号表示调用父类的 *同名函数*,并将本函数的所有参数传入父类的同名函数;
-# super()带括号则表示调用父类的同名函数，但是不传入任何参数;
-{{{ruby
-class SParent  
-  def initialize *args
-    args.each {|arg| puts arg}  
+# super()带括号则表示调用父类的 *同名函数*,但是不传入任何参数;
+  {{{ruby
+  class SParent  
+    def initialize *args
+      args.each {|arg| puts arg}  
+    end  
   end  
-end  
-   
-class SChild < SParent  
-  def initialize a, b, c  
-    super  
+     
+  class SChild < SParent  
+    def initialize a, b, c  
+      super  
+    end  
   end  
-end  
-   
-a, b, c = *%W[a b c]  
-SChild.new a, b, c # puts a, b, c if super  
-SChild.new a, b, c # puts nothing if super()
-}}}
+     
+  a, b, c = *%W[a b c]   # create the array and upack it.
+  SChild.new a, b, c # puts a, b, c if super  
+  SChild.new a, b, c # puts nothing if super()
+  }}}
 # Debug Tips
  * query the object methods: *obj#methods*
  * using the *caller* to show the stacks.

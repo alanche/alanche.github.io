@@ -40,8 +40,16 @@
 常数,类名以大写字母开头.
 
 <li>
-文档惯例:用#引导实例方法，用::引导类方法,如:实例方法:Thread#alive,类方法:Thread::curent
+文档惯例:
 
+<ul>
+<li>
+用#引导实例方法,如:Thread#alive,String#to_sym
+
+<li>
+用::引导类方法,如:Thread::curent
+
+</ul>
 <li>
 ruby 对象的属性无法直接访问，都需要通过方法进行访问,可以定义 <span id="RubyTips-attr_accessor"></span><strong id="attr_accessor">attr_accessor</strong>  <span id="RubyTips-attr_reader"></span><strong id="attr_reader">attr_reader</strong> <span id="RubyTips-attr_writer"></span><strong id="attr_writer">attr_writer</strong>
   来快捷定义属性的访问方法。
@@ -101,69 +109,78 @@ end
 </pre>
 
 <li>
-The <span id="RubyTips-extend"></span><strong id="extend">extend</strong> and <span id="RubyTips-include"></span><strong id="include">include</strong> behavior and its demo
+The <span id="RubyTips-extend"></span><strong id="extend">extend</strong> and <span id="RubyTips-include"></span><strong id="include">include</strong> behavior:
+
+<ul>
+<li>
+<span id="RubyTips-extend Base"></span><strong id="extend Base">extend Base</strong>: import the Base.instance_methods into <span id="RubyTips-#methods"></span><strong id="#methods">#methods</strong>
+
+<li>
+<span id="RubyTips-include Base"></span><strong id="include Base">include Base</strong>: import the Base.instace_methods as <span id="RubyTips-#instance_methods"></span><strong id="#instance_methods">#instance_methods</strong>
 <pre class="code ruby">
-module Base
-  # defines a method on the Base object
-  def self.info
-  end
-  def message()
-  end
-  info # call the Info method
-end
-p Base.methods.include? :info # true
-class Demo
-  extend Base # omitted self. , import Base.instance_methods into Demo.methods
-end
-p Demo.methods.include? :info # false
-p Demo.methods.include? :message # true
-p Demo.instance_methods.include? :message # false
-class Info
-  include Base # import the Base.instace_methods into Info.instance_methods
-end
-p Info.methods.include? :info # false
-p Info.methods.include? :message # false
-p Info.instance_methods.include? :message # true
+ module Base
+   # in the current Base scope
+   # define the method on current class.
+   def self.info
+   end
+   # define the method on current class's instance.
+   def message()
+   end
+   info # call the Info method
+ end
+ Base.methods.include? :info # true
+ class Demo
+   extend Base # omitted self. , import Base.instance_methods into Demo.methods
+ end
+ Demo.methods.include? :info # false
+ Demo.methods.include? :message # true
+ Demo.instance_methods.include? :message # false
+ class Info
+   include Base # import the Base.instace_methods into Info.instance_methods
+ end
+ Info.methods.include? :info # false
+ Info.methods.include? :message # false
+ Info.instance_methods.include? :message # true
 </pre>
 
+</ul>
 <li>
 turn the instance methods into class methods
 <pre class="code ruby">
-module Base
-  self.extend self # OR extend self
-  # defaultly, it is a instance methods
-  def list
+  module Base
+    self.extend self # OR extend self
+    # defaultly, it is a instance methods
+    def list
+    end
   end
-end
-p Base.methods.include? :list # true
-p Base.instance_methods.include? :list # true
+  Base.methods.include? :list # true
+  Base.instance_methods.include? :list # true
 </pre>
 
 <li>
-ruby-debug is as debugger for ruby program:
-  insert a directive <code>require 'debug'</code> in the program to enable the debuggers.
+ruby-debug is a debugger for ruby program: <code>require "ruby-debug";</code> or <code>require "debug";</code>
 
 <li>
 super不带括号表示调用父类的 <span id="RubyTips-同名函数"></span><strong id="同名函数">同名函数</strong>,并将本函数的所有参数传入父类的同名函数;
 
 <li>
-super()带括号则表示调用父类的同名函数，但是不传入任何参数;
+super()带括号则表示调用父类的 <span id="RubyTips-同名函数"></span><strong id="同名函数">同名函数</strong>,但是不传入任何参数;
 <pre class="code ruby">
-class SParent  
-  def initialize *args
-    args.each {|arg| puts arg}  
+  class SParent  
+    def initialize *args
+      args.each {|arg| puts arg}  
+    end  
   end  
-end  
-   
-class SChild &lt; SParent  
-  def initialize a, b, c  
-    super  
+     
+  class SChild &lt; SParent  
+    def initialize a, b, c  
+      super  
+    end  
   end  
-end  
-   
-a, b, c = *%W[a b c]  
-SChild.new a, b, c # puts a, b, c if super  
-SChild.new a, b, c # puts nothing if super()
+     
+  a, b, c = *%W[a b c]   # create the array and upack it.
+  SChild.new a, b, c # puts a, b, c if super  
+  SChild.new a, b, c # puts nothing if super()
 </pre>
 
 <li>

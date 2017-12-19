@@ -64,6 +64,11 @@
       # &amp;block is evaluated using instance_eval
       self.class.send(:define_method,name,&amp;block)
     end
+    def add_method2(name,&amp;block)
+      self.class.class_eval {
+        define_method name,block
+      }
+    end
   end
   
   obj = Person.new("Alan")
@@ -74,6 +79,9 @@
   obj.gender # Male
   obj.sayhi # hello Alan
 </pre>
+
+<li>
+respond_to? call respond_to_missing? to determine whether a un-defined method is defined by method_missing?
 
 <li>
 当对象方法不存在时,会呼叫 <span id="Methods-method_missing"></span><strong id="method_missing">method_missing</strong>;实现该方法可以实现自己想要的行为. 称为幽灵方法(Ghost Methods).

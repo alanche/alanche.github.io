@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Programming Ruby</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="../styles/bootstrap.min.css" rel="stylesheet">
+      <link href="../styles/solarized-dark.css" rel="stylesheet">
+      <link href="../styles/vimwiki.css" rel="stylesheet">
+ 
+      <!--[if lt IE 9]>
+         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      <![endif]-->
+      <!-- jQuery should be imported before boostrap.min.js -->
+      <script src="../js/jquery-1.12.4.min.js"></script>
+      <script src="../js/bootstrap.min.js"></script>
+      <!-- The code syntax highlighter -->
+      <script src="../js/highlight.pack.js"></script>
+      <!-- the vimwiki customized scripts -->
+      <script src="../js/vimwiki_db.js" charset="utf-8"></script>
+      <script src="../js/vimwiki.js" charset="utf-8"></script>
+   </head>
+   <body>
+      <div class="container">
+	<div class="row clearfix">
+	  <div class="col-md-12 column">
+	    <ul class="nav nav-pills">
+	      <li class="active">
+		<a href="#">HOME</a>
+	      </li>
+	      <!-- more items are injected by the JS -->
+	    </ul>
+
+	    <div id="main-content">
+	    
+<ul>
+<li>
+control structures
+<pre class="code ruby">
+$name = "Alan" # global variable
+@instance_variable
+@@class_variable
+age = 10 # local variable
+if age &gt; 10 then puts "oops" end
+if age &lt; 10
+   puts "OK"
+ else if age &lt; 15
+   puts "em.."
+ else
+   puts "reject!"
+ end
+ while age &lt; 12
+   puts "#{age}"
+   age += 1
+ end
+ puts "you are too old" if age &gt; 30
+</pre>
+
+<li>
+Regular expression are almost as same as the one in the Perl.
+
+<li>
+Reading and writes: The <span id="-\(_"></span><strong id="\)_">$_</strong> is settled as the gets side effect and as the default argument.
+<pre class="code ruby">
+  while gets
+    if /Ruby/
+      print
+    end
+  end
+</pre>
+
+<li>
+classes - inheritance and messages
+
+<ul>
+<li>
+inheritance and Mixins: <span id="-include"></span><strong id="include">include</strong>
+
+<li>
+Class Methods: invoked through class object directly.
+<pre class="code ruby">
+    # when no explicit parent specified, the Object is assumed.
+    class Song
+      @@plays = 0 # class variable
+      def initialize(name,artist,duration)
+        @name = name # instance variable
+        @artist = artist
+        @duration = duration
+      end
+      def duration=(dur)
+         @duration = dur # setter function.
+      end
+      attr_writter: artist
+      attr_reader: name
+      def duration; @duration; end # getter function
+      def to_s # overrides the default implementation
+        "Song: #{@name} -- #{@artist} (#{@duration})"
+      end
+    end
+    class KaraokeSong &lt; Song # inheritance
+      def initialize(name,artist,duration,lyrics)
+        super(name,artist,duration) # call parent's initialize
+        @lyrics = lyrics
+      end
+      # it is not recommended to display the ancestor variable directly.
+      #  When you invoke super with no arguments, Ruby sends a message 
+      # to the current object's parent, asking it to invoke a method of
+      # the same name as the current method, and passing it the parameters
+      # that were passed to the current method.
+      def to_s
+        super + " [#{@lyrics}]"
+      end
+      def self.intro
+        "The KaraokeSong class holding place"
+      end
+    end
+    aSong = KaraokeSong.new("Bicylops","Fleck",260,"balabal..")
+    # read as: pass 'to_s' message to object aSong.
+    aSong.to_s # "Song: Bicylops--Fleck (260)"
+    aSong.inspect # display the object details.
+    KaraokeSong.intro # call the class method.
+    File.delete("doomedFile") # also a class methods.
+</pre>
+
+<li>
+Singletons and other Constructor
+<pre class="code ruby">
+      class Logger
+        private_class_method :new
+        @@logger = nil
+        def self.create
+          @@logger = new unless @@logger
+          @@logger
+        end
+      end
+      log = Logger.create
+      log1 = Logger.create
+      log == log1 # true
+</pre>
+
+<li>
+Access Control: keyword are: <span id="-protected,private,public"></span><strong id="protected,private,public">protected,private,public</strong>
+
+<ul>
+<li>
+Public methods can be called by anyone. Methods are public by default (except for initialize, which is always private).
+
+<li>
+Protected methods can be invoked only by objects of the defining class and its subclasses. Access is kept within the family.
+      If a method is protected, it may be called by <span id="-any"></span><strong id="any">any</strong> instance of the defining class or its subclasses.
+
+<li>
+Private methods cannot be called with an explicit receiver. Because you cannot specify an object when using them, private
+      methods can be called only in the defining class and by direct descendents within that same object.
+
+</ul>
+</ul>
+<li>
+Variables - are used to keep track of objects; each variable holds a reference to an object. Objects float around in a big pool
+  somewhere(the heap, most of the time) and are pointed to by variables.
+<pre class="code ruby">
+    person = "tim" # create a object contains "tim" , person refer to that object.
+    person2 = person # not create new object, both person and person2 point to same object.
+    person.__id__ == person2.__id__ # true
+    person3 = person.dup # create new object and return the reference and pass to person3
+    person3.__id == person.__id__ # false
+    person[0] = 'J'
+    person # Jim
+    person2 # Jim
+    person3 # Tim
+    person3.freeze # the object pointed by person3 can't be changed.
+</pre>
+
+<li>
+Arrays
+<pre class="code ruby">
+    a = [1,2,3,4,5,6,7] # array
+    a[-1] # 7 negative index
+    a[0] # 1
+    # array[start,count]
+    a[1,3] # 'cat',3.14,5
+    a[3,1] # 5
+    a[-3,2] # 5,6
+    # array[start..end] range access.
+    a[1..3] # 2,3,4 
+    # assignments.
+    a[0] = 5
+    a[1] = [5,6] # a = [5,[5,6],2,3,4,5,6,7]
+    a[1,1] = [5,6] # a = [5,5,6,2,3,4,5,6,7]
+    # [start,end]= : (like the Python Operation)
+    #  end ==0: insert operation.
+    #  end !=0: range replaced.
+    #  the right hand is expanded if array given.
+    a[2,2] = 'cat' # replaced a=[1,3,'cat',9]
+    a[2,1] = 'mew' # replaced a=[1,3,'mew',9]
+    a[2,0] = 'dog' # inserted a=[1,3,'dog','mew',9]
+    a[1,1] = [7,8,9] # replaced a= [1,7,8,9,'dog','mew',9]
+    a &lt;&lt; 6 # append elements.
+    a.push(7) # append element.
+    a.unshift(8) # prepend element.
+    
+    b = Array.new
+    c = %w{this is another array}
+    c.length # 4
+    a.each { |elem| puts elem } # iterator in the array.
+</pre>
+
+<li>
+Hashes
+<pre class="code ruby">
+    h = { 'dog' =&gt; 'canine', 'cat' =&gt; 'feline', 'donkey' =&gt; 'asinine' }
+    h.length  # 3
+    h['dog'] # "canine"
+    h['cow'] = 'bovine'
+    h[12]    = 'dodecine'
+    h['cat'] = 99
+    # h = {"cow"=&gt;"bovine", "cat"=&gt;99, 12=&gt;"dodecine", "donkey"=&gt;"asinine", "dog"=&gt;"canine"}
+    h = { "name" =&gt; "Alan","Age" =&gt;18} # hash
+    h.each {|k,v}| puts "#{k} =&gt; #{v}" }
+</pre>
+
+<li>
+Blocks and Iterators
+<pre class="code ruby">
+    class Array
+      def find
+        for i in 0...size
+          value = self[i]
+          return value if yield(value)
+	  # yield value is the return value of block.
+	  # yield parameter is passed to block as parameter
+        end
+        return nil
+      end
+    end
+    [1, 3, 5, 7, 9].find {|v| v*v &gt; 30 } # 7
+    [1,3,4,5].each {|v| v = 5} # [1,3,4,5] , not modify the original
+    [1,3,4,5].collect { |x| x.succ } # [2,3,5,6] modify the original
+    
+    # implement the sum function.
+    class Array
+      def inject(n)
+	 each { |value| n = yield(n, value) }
+	 n
+      end
+      def sum
+	inject(0) { |n, value| n + value }
+      end
+      def product
+	inject(1) { |n, value| n * value }
+      end
+    end
+    [ 1, 2, 3, 4, 5 ].sum # 15
+    [ 1, 2, 3, 4, 5 ].product # 120
+</pre>
+
+<ul>
+<li>
+<span id="-Closure"></span><strong id="Closure">Closure</strong>: Associated with a block (and hence a Proc object) is all the context in which the block was defined: the value of
+    self, and the methods, variables, and constants in scope
+<pre class="code ruby">
+      def nTimes(aThing)
+        return proc { |n| aThing * n }
+      end
+      p1 = nTimes(23)
+      p1.call(3) # 69
+      p1.call(4) # 92
+      p2 = nTimes("Hello")
+      p2.call(3)  # "Hello Hello Hello "
+</pre>
+
+<li>
+If the last parameter in a method definition is prefixed with an ampersand Ruby looks for a code block whenever that method is
+    called
+<pre class="code ruby">
+      def invoke(n, &amp;action)
+        if block_given?
+          n.times { action.call }
+	end
+      end
+      invoke { puts "hell world" }
+</pre>
+
+</ul>
+</ul>
+
+	    </div>
+	    <hr>
+	    <div id="footer">
+	      <span class="notes">
+		Thanks <a href="http://pages.github.com">githubPages</a> for
+		providing the web hosting environment
+	      </span>
+	    </div>
+	  </div>
+	</div>
+      </div> 
+   </body>
+</html>

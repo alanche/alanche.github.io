@@ -65,19 +65,6 @@ class 关键字的核心任务是把你带到类的上下文，让你可以在�
   可以获取相关信息.实例变量在对象中，而方法在类中.
 
 <li>
-类本身也是对象,其类为 <span id="-Class"></span><strong id="Class">Class</strong>
-<pre class="code ruby">
-  "hello".class       # String
-  String.class        # Class
-  Array.superclass    # Object
-  Object.superclass   # BasicObject
-  BasicObject.superclass # nil
-  Class.class         # Class
-  Class.superclass    # Module
-  Module.superclass   # Object
-</pre>
-
-<li>
 任何以大写字母开头的引用都是常量:包括类名/模块名,常量可以通过路径来访问:
 <pre class="code ruby">
   Y = 'a root level constant'
@@ -98,7 +85,22 @@ class 关键字的核心任务是把你带到类的上下文，让你可以在�
 </pre>
 
 <li>
+类本身也是对象,其类为 <span id="-Class"></span><strong id="Class">Class</strong>
+<pre class="code ruby">
+  "Hello World".class # String
+  String.class        # Class
+  Array.class         # Class
+  Class.class         # Class
+  Class.superclass    # Module
+  Module.superclass   # Object
+  Array.superclass    # Object
+  Object.superclass   # BasicObject
+  BasicObject.superclass # nil
+</pre>
+
+<li>
 方法查找: '向右一步，再向上'
+  <img src="../images/ruby-class-hierarchy.jpg" />
 <pre class="code ruby">
   class MyClass
     def my_method 
