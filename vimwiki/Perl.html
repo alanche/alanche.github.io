@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>GIT</title>
+      <title>Perl</title>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link href="../styles/bootstrap.min.css" rel="stylesheet">
@@ -34,44 +34,15 @@
 
 	    <div id="main-content">
 	    
-<div id="GIT Tips"><h1 id="GIT Tips" class="justcenter">GIT Tips</h1></div>
-
+<p>
+Tips
+</p>
 <ul>
 <li>
-Diff the working copy with the latest version:
-
-<ul>
-<li>
-<code>git diff HEAD file</code>
-
-</ul>
-<li>
-push your code to the remote branches:
-
-<ul>
-<li>
-git push origin umc_dev
-
-</ul>
-<li>
-pull other modification to local:
-
-<ul>
-<li>
-git pull origin umc_dev
-
-</ul>
-<li>
-merge a single file <span id="GIT Tips-file"></span><strong id="file">file</strong> from other branch B to branch A:
-<pre>
-  # if the B is remote, please checkout it firstly.
-  git checkout B # make branch B available at local git
-  git checkout A # switch to branch A
-  git checkout --patch B file # patch it.
-</pre>
+object is stringifed when used as hash keys: <a href="https:&#47;&#47;stackoverflow.com&#47;questions&#47;3479667&#47;object-as-hash-key">https://stackoverflow.com/questions/3479667/object-as-hash-key</a>
 
 <li>
-compare the content of file <span id="GIT Tips-file"></span><strong id="file">file</strong> in two version <span id="GIT Tips-a"></span><strong id="a">a</strong> and <span id="GIT Tips-b"></span><strong id="b">b</strong> by: <code>git diff a b -- file</code>
+<a href="https:&#47;&#47;metacpan.org&#47;pod&#47;Parse::Yapp">Parse::Yapp</a> can be used to parse the perl based parser.
 
 </ul>
 

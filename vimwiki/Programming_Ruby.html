@@ -38,23 +38,23 @@
 <li>
 control structures
 <pre class="code ruby">
-$name = "Alan" # global variable
-@instance_variable
-@@class_variable
-age = 10 # local variable
-if age &gt; 10 then puts "oops" end
-if age &lt; 10
-   puts "OK"
- else if age &lt; 15
-   puts "em.."
- else
-   puts "reject!"
- end
- while age &lt; 12
-   puts "#{age}"
-   age += 1
- end
- puts "you are too old" if age &gt; 30
+   $name = "Alan" # global variable
+   @instance_variable
+   @@class_variable
+   age = 10 # local variable
+   if age &gt; 10 then puts "oops" end
+   if age &lt; 10
+      puts "OK"
+    else if age &lt; 15
+      puts "em.."
+    else
+      puts "reject!"
+    end
+    while age &lt; 12
+      puts "#{age}"
+      age += 1
+    end
+    puts "you are too old" if age &gt; 30
 </pre>
 
 <li>
@@ -228,8 +228,7 @@ Blocks and Iterators
         for i in 0...size
           value = self[i]
           return value if yield(value)
-	  # yield value is the return value of block.
-	  # yield parameter is passed to block as parameter
+          # yield(value): pass value to block and return the return value of block.
         end
         return nil
       end
@@ -241,14 +240,14 @@ Blocks and Iterators
     # implement the sum function.
     class Array
       def inject(n)
-	 each { |value| n = yield(n, value) }
-	 n
+         each { |value| n = yield(n, value) }
+         n
       end
       def sum
-	inject(0) { |n, value| n + value }
+        inject(0) { |n, value| n + value }
       end
       def product
-	inject(1) { |n, value| n * value }
+        inject(1) { |n, value| n * value }
       end
     end
     [ 1, 2, 3, 4, 5 ].sum # 15
@@ -277,9 +276,9 @@ If the last parameter in a method definition is prefixed with an ampersand Ruby 
       def invoke(n, &amp;action)
         if block_given?
           n.times { action.call }
-	end
+        end
       end
-      invoke { puts "hell world" }
+      invoke { puts "hello world" }
 </pre>
 
 </ul>

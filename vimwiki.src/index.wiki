@@ -18,6 +18,7 @@ various knowledge: notes,tips,experience and etc.
 * Programming
  * [[SystemVerilog]]
  * [[C]]
+ * [[Perl]]
  * [[CPP]]
  * [[Python]]
  * [[Ruby]]

@@ -37,7 +37,7 @@
 <div id="RubyTips"><h1 id="RubyTips" class="justcenter">RubyTips</h1></div>
 <ol>
 <li>
-常数,类名以大写字母开头.
+Constant and Class name are begin with Capital letter.
 
 <li>
 文档惯例:
@@ -51,20 +51,15 @@
 
 </ul>
 <li>
-ruby 对象的属性无法直接访问，都需要通过方法进行访问,可以定义 <span id="RubyTips-attr_accessor"></span><strong id="attr_accessor">attr_accessor</strong>  <span id="RubyTips-attr_reader"></span><strong id="attr_reader">attr_reader</strong> <span id="RubyTips-attr_writer"></span><strong id="attr_writer">attr_writer</strong>
+ruby对象的属性无法直接访问，都需要通过方法进行访问,可以定义 <span id="RubyTips-attr_accessor"></span><strong id="attr_accessor">attr_accessor</strong>  <span id="RubyTips-attr_reader"></span><strong id="attr_reader">attr_reader</strong> <span id="RubyTips-attr_writer"></span><strong id="attr_writer">attr_writer</strong>
   来快捷定义属性的访问方法。
 
 <li>
-Query the instance methods defined a in specific class Foo?
-
-<ul>
-<li>
-<code>Foo.instance_methods(false)</code> : <span id="RubyTips-false"></span><strong id="false">false</strong> is instruct to ignore the inherited methods.
+Query the instance methods defined a in specific class Foo by <code>Fool.instance_methods(False)</code>
 
 <li>
-you can use the <span id="RubyTips-Array#grep"></span><strong id="Array#grep">Array#grep</strong> methods to further select the result: e.g. <code>String.instance_methods.grep /^re/</code>
+use the 'ancestors' to query the class method resolving orders.<code>String.ancestors</code>
 
-</ul>
 <li>
 list the class Array methods?
 
@@ -76,51 +71,44 @@ list the class Array methods?
 <li>
 <code>Module.contants</code> Return all the top level constants.
 <pre class="code ruby">
-Module.contants.include? :Object # True
-Module.contants.include? :Module # True
+    Module.contants.include? :Object # True
+    Module.contants.include? :Module # True
 </pre>
 
 <li>
 <span id="RubyTips-Module#contants"></span><strong id="Module#contants">Module#contants</strong> return the contants defined in current scope
 <pre class="code ruby">
-module M
-  Y = "A contant"
-  class C
+    module M
+      Y = "A contant"
+      class C
+      end
+    end
+    M.constaints # [:C,:Y]
+</pre>
+
+<li>
+The Module#=== is for type testing, used in case/when statements.
+<pre class="code ruby">
+    String === "hello" # true
+    case "hello"
+    when String
+     puts "matched" # matched.
   end
-end
-M.constaints # [:C,:Y]
 </pre>
 
 <li>
-instance methods and class methods are different
-<pre class="code ruby">
-String.instance_methods == "abc".methods # True
-String.methods == "abc".methods # False
-</pre>
-
-<li>
-The Module#=== is for type testing
-<pre class="code ruby">
-String === "hello" # true
-case "hello"
-when String
- puts "matched" # matched.
-end
-</pre>
-
-<li>
-The <span id="RubyTips-extend"></span><strong id="extend">extend</strong> and <span id="RubyTips-include"></span><strong id="include">include</strong> behavior:
+The <span id="RubyTips-extend"></span><strong id="extend">extend</strong> and <span id="RubyTips-include"></span><strong id="include">include</strong> behavior details:
 
 <ul>
 <li>
 <span id="RubyTips-extend Base"></span><strong id="extend Base">extend Base</strong>: import the Base.instance_methods into <span id="RubyTips-#methods"></span><strong id="#methods">#methods</strong>
 
 <li>
-<span id="RubyTips-include Base"></span><strong id="include Base">include Base</strong>: import the Base.instace_methods as <span id="RubyTips-#instance_methods"></span><strong id="#instance_methods">#instance_methods</strong>
+<span id="RubyTips-include Base"></span><strong id="include Base">include Base</strong>: import the Base.instace_methods as <span id="RubyTips-#instance_methods"></span><strong id="#instance_methods">#instance_methods</strong>, usually in class definition blocks
 <pre class="code ruby">
  module Base
    # in the current Base scope
-   # define the method on current class.
+   # define the method on current module only.
    def self.info
    end
    # define the method on current class's instance.
@@ -135,6 +123,7 @@ The <span id="RubyTips-extend"></span><strong id="extend">extend</strong> and <s
  Demo.methods.include? :info # false
  Demo.methods.include? :message # true
  Demo.instance_methods.include? :message # false
+ 
  class Info
    include Base # import the Base.instace_methods into Info.instance_methods
  end
@@ -144,6 +133,31 @@ The <span id="RubyTips-extend"></span><strong id="extend">extend</strong> and <s
 </pre>
 
 </ul>
+<li>
+3 ways to define the class method
+<pre class="code ruby">
+    class Demo
+      class &lt;&lt; self
+        def class_method
+          "class method"
+        end
+      end
+      class &lt;&lt; Demo
+        def class_method2
+          "class method"
+        end
+      end
+      def self.class_method3
+        "class method"
+      end
+      def Demo.class_metho4
+        "class method"
+      end
+      def inst_method
+        "instance method"
+      end
+</pre>
+
 <li>
 turn the instance methods into class methods
 <pre class="code ruby">
@@ -156,9 +170,6 @@ turn the instance methods into class methods
   Base.methods.include? :list # true
   Base.instance_methods.include? :list # true
 </pre>
-
-<li>
-ruby-debug is a debugger for ruby program: <code>require "ruby-debug";</code> or <code>require "debug";</code>
 
 <li>
 super不带括号表示调用父类的 <span id="RubyTips-同名函数"></span><strong id="同名函数">同名函数</strong>,并将本函数的所有参数传入父类的同名函数;
@@ -176,7 +187,7 @@ super()带括号则表示调用父类的 <span id="RubyTips-同名函数"></span
     def initialize a, b, c  
       super  
     end  
-  end  
+  end
      
   a, b, c = *%W[a b c]   # create the array and upack it.
   SChild.new a, b, c # puts a, b, c if super  
@@ -194,16 +205,149 @@ query the object methods: <span id="RubyTips-obj#methods"></span><strong id="obj
 using the <span id="RubyTips-caller"></span><strong id="caller">caller</strong> to show the stacks.
 
 <li>
-using <code>require debug</code> to enable the debug prompt.
-
-<li>
 The <span id="RubyTips-Proc#source_location"></span><strong id="Proc#source_location">Proc#source_location</strong> show the block defintion.
 
 <li>
 using <span id="RubyTips-defined?"></span><strong id="defined?">defined?</strong> to check the varaible/method exists or not.
 
 </ul>
+<li>
+statement modifier: <code>puts "Danger, Will Robinson" if radiation &gt; 3000</code>
+
+<li>
+Symbols are simply constant names that you don’t have to predeclare and that are guaranteed to be unique. <code>:symbol</code> it is usually
+  used as the hash keys.
+
+<li>
+Hashes
+<pre class="code ruby">
+    inst_section = {
+      'cello' =&gt; 'string',
+      'clarinet' =&gt; 'woodwind',
+    }
+    p inst_section['cello'] # string
+    inst_section['cello'] # =&gt; "string"
+    # frequently, we use the symbol as the key
+    inst_section = {
+      :cello =&gt; 'string',
+      :clarinet =&gt; 'woodwind',
+    }
+    inst_section[:oboe] # =&gt; "woodwind"
+    inst_section[:cello] # =&gt; "string"
+    # In fact, symbols are so frequently used as hash keys that Ruby has a shortcut syntax: you
+    # can use name: value pairs to create a hash if the keys are symbols:
+    inst_section = {
+      cello: 'string',
+      clarinet: 'woodwind',
+    }
+    inst_section[:cello] #string
+    # Note that strings aren't the same as symbols...
+    inst_section['cello'] # =&gt; nil
+</pre>
+
+<li>
+blocks are closure, the context where it is defind is remembered.
+<pre class="code ruby">
+    class BlockExample
+      CONST = 0
+      @@a = 3
+      def return_closure
+        a = 1
+        @a = 2
+        lambda { [ CONST, a, @a, @@a, yield ] }
+      end
+      def change_values
+        @a += 1
+        @@a += 1
+      end
+    end
+    eg = BlockExample.new
+    block = eg.return_closure { "original" }
+    block.call # =&gt; [0, 1, 2, 3, "original"]
+    eg.change_values
+    block.call # =&gt; [0, 1, 3, 4, "original"]
+    # Here, the return_closure method returns a lambda that encapsulates access to the local variable a, 
+    # instance variable @a, class variable @@a, and constant CONST. We call the block outside the scope 
+    # of the object that contains these values, but they are still available via the closure.  If we 
+    # then call the object to change some values, the values accessed via the closure also change.
+</pre>
+
+<li>
+the <span id="RubyTips-Proc"></span><strong id="Proc">Proc</strong> object can be called through: yield, call, [].
+<pre class="code ruby">
+   f = -&gt;(list){
+     list.each do |i|
+       puts i
+     end
+   }
+   f.call(%W[1 2]) # these form are identical to call and Proc object.
+   f.(%W[1 2])
+   f[%W[1 2]]
+</pre>
+
+<li>
+the '=&gt;' linked pairs are collected into a hash and pass to the function.
+<pre class="code ruby">
+    def foo(arg)
+     p arg
+    end
+    foo :name=&gt;'alan',:age=&gt;18 # {:name=&gt;"alan", :age=&gt;18}
+    foo {name:'alan',age:18}
+</pre>
+
+<li>
+the arguments prefix with a * will hold the collected the addtional position parameters. 
+<pre class="code ruby">
+    def foo(arg,*args)
+      p arg
+      p args
+    end
+    foo("alan",18,19) # "alan", [18,19]
+</pre>
+
 </ol>
+
+
+<div id="debug with pry"><h1 id="debug with pry">debug with pry</h1></div>
+<p>
+The <a href="https:&#47;&#47;github.com&#47;pry&#47;pry&#47;wiki">Pry</a> debugger for ruby code. usages:
+</p>
+<pre class="code ruby">
+  require 'pry'
+  binding.pry
+</pre>
+<p>
+Frequently Used Commands:
+</p>
+<ul>
+<li>
+<span id="debug with pry-cd"></span><strong id="cd">cd</strong>: changes the context to the specific objects.
+
+<li>
+<span id="debug with pry-ls"></span><strong id="ls">ls</strong>: show the methods and variables
+
+<li>
+<span id="debug with pry-up"></span><strong id="up">up</strong>/<span id="debug with pry-down"></span><strong id="down">down</strong>/<span id="debug with pry-frame"></span><strong id="frame">frame</strong>: to changes the frame accross the stack.
+
+<li>
+<span id="debug with pry-show-method"></span><strong id="show-method">show-method</strong>: show the method definition
+
+<li>
+<span id="debug with pry-show-stack"></span><strong id="show-stack">show-stack</strong>: show the stack
+
+<li>
+<span id="debug with pry-finish"></span><strong id="finish">finish</strong> : complete the current stack frame execution, e.g. the logger thread.
+
+<li>
+<span id="debug with pry-continue"></span><strong id="continue">continue</strong>: Abandon the Pry session and continue the program execution as normal. 
+
+<li>
+<span id="debug with pry-exit-program"></span><strong id="exit-program">exit-program</strong>: to cancel the effect of any following binding.pry statements, without, so to speak exiting your main program.
+
+<li>
+refer: <a href="http:&#47;&#47;www.jackkinsella.ie&#47;articles&#47;a-comprehensive-guide-to-debugging-rails">A comprehensive guide to debugging rails</a>
+
+</ul>
 
 	    </div>
 	    <hr>

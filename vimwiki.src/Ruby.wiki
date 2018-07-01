@@ -1,49 +1,43 @@
  = RubyTips =
-# 常数,类名以大写字母开头.
+# Constant and Class name are begin with Capital letter.
 # 文档惯例:
  * 用#引导实例方法,如:Thread#alive,String#to_sym
  * 用::引导类方法,如:Thread::curent
-# ruby 对象的属性无法直接访问，都需要通过方法进行访问,可以定义 *attr_accessor*  *attr_reader* *attr_writer*
+# ruby对象的属性无法直接访问，都需要通过方法进行访问,可以定义 *attr_accessor*  *attr_reader* *attr_writer*
   来快捷定义属性的访问方法。
-# Query the instance methods defined a in specific class Foo?
- * `Foo.instance_methods(false)` : *false* is instruct to ignore the inherited methods.
- * you can use the *Array#grep* methods to further select the result: e.g. `String.instance_methods.grep /^re/`
+# Query the instance methods defined a in specific class Foo by `Fool.instance_methods(False)`
+# use the 'ancestors' to query the class method resolving orders.`String.ancestors`
 # list the class Array methods?
  * `[].methods.grep /^re/`
 # `Module.contants` Return all the top level constants.
-{{{ruby
-Module.contants.include? :Object # True
-Module.contants.include? :Module # True
-}}}
+  {{{ruby
+    Module.contants.include? :Object # True
+    Module.contants.include? :Module # True
+  }}}
 # *Module#contants* return the contants defined in current scope
-{{{ruby
-module M
-  Y = "A contant"
-  class C
+  {{{ruby
+    module M
+      Y = "A contant"
+      class C
+      end
+    end
+    M.constaints # [:C,:Y]
+  }}}
+# The Module#=== is for type testing, used in case/when statements.
+  {{{ruby
+    String === "hello" # true
+    case "hello"
+    when String
+     puts "matched" # matched.
   end
-end
-M.constaints # [:C,:Y]
-}}}
-# instance methods and class methods are different
-{{{ruby
-String.instance_methods == "abc".methods # True
-String.methods == "abc".methods # False
-}}}
-# The Module#=== is for type testing
-{{{ruby
-String === "hello" # true
-case "hello"
-when String
- puts "matched" # matched.
-end
-}}}
-# The *extend* and *include* behavior:
+  }}}
+# The *extend* and *include* behavior details:
  * *extend Base*: import the Base.instance_methods into *#methods*
- * *include Base*: import the Base.instace_methods as *#instance_methods*
+ * *include Base*: import the Base.instace_methods as *#instance_methods*, usually in class definition blocks
  {{{ruby
  module Base
    # in the current Base scope
-   # define the method on current class.
+   # define the method on current module only.
    def self.info
    end
    # define the method on current class's instance.
@@ -58,6 +52,7 @@ end
  Demo.methods.include? :info # false
  Demo.methods.include? :message # true
  Demo.instance_methods.include? :message # false
+ 
  class Info
    include Base # import the Base.instace_methods into Info.instance_methods
  end
@@ -65,6 +60,29 @@ end
  Info.methods.include? :message # false
  Info.instance_methods.include? :message # true
  }}}
+# 3 ways to define the class method
+  {{{ruby
+    class Demo
+      class << self
+        def class_method
+          "class method"
+        end
+      end
+      class << Demo
+        def class_method2
+          "class method"
+        end
+      end
+      def self.class_method3
+        "class method"
+      end
+      def Demo.class_metho4
+        "class method"
+      end
+      def inst_method
+        "instance method"
+      end
+  }}}
 # turn the instance methods into class methods
   {{{ruby
   module Base
@@ -76,7 +94,6 @@ end
   Base.methods.include? :list # true
   Base.instance_methods.include? :list # true
   }}}
-# ruby-debug is a debugger for ruby program: `require "ruby-debug";` or `require "debug";`
 # super不带括号表示调用父类的 *同名函数*,并将本函数的所有参数传入父类的同名函数;
 # super()带括号则表示调用父类的 *同名函数*,但是不传入任何参数;
   {{{ruby
@@ -90,7 +107,7 @@ end
     def initialize a, b, c  
       super  
     end  
-  end  
+  end
      
   a, b, c = *%W[a b c]   # create the array and upack it.
   SChild.new a, b, c # puts a, b, c if super  
@@ -99,6 +116,103 @@ end
 # Debug Tips
  * query the object methods: *obj#methods*
  * using the *caller* to show the stacks.
- * using `require debug` to enable the debug prompt.
  * The *Proc#source_location* show the block defintion.
  * using *defined?* to check the varaible/method exists or not.
+# statement modifier: `puts "Danger, Will Robinson" if radiation > 3000`
+# Symbols are simply constant names that you don’t have to predeclare and that are guaranteed to be unique. `:symbol` it is usually
+  used as the hash keys.
+# Hashes
+  {{{ruby
+    inst_section = {
+      'cello' => 'string',
+      'clarinet' => 'woodwind',
+    }
+    p inst_section['cello'] # string
+    inst_section['cello'] # => "string"
+    # frequently, we use the symbol as the key
+    inst_section = {
+      :cello => 'string',
+      :clarinet => 'woodwind',
+    }
+    inst_section[:oboe] # => "woodwind"
+    inst_section[:cello] # => "string"
+    # In fact, symbols are so frequently used as hash keys that Ruby has a shortcut syntax: you
+    # can use name: value pairs to create a hash if the keys are symbols:
+    inst_section = {
+      cello: 'string',
+      clarinet: 'woodwind',
+    }
+    inst_section[:cello] #string
+    # Note that strings aren't the same as symbols...
+    inst_section['cello'] # => nil
+  }}}
+# blocks are closure, the context where it is defind is remembered.
+  {{{ruby
+    class BlockExample
+      CONST = 0
+      @@a = 3
+      def return_closure
+        a = 1
+        @a = 2
+        lambda { [ CONST, a, @a, @@a, yield ] }
+      end
+      def change_values
+        @a += 1
+        @@a += 1
+      end
+    end
+    eg = BlockExample.new
+    block = eg.return_closure { "original" }
+    block.call # => [0, 1, 2, 3, "original"]
+    eg.change_values
+    block.call # => [0, 1, 3, 4, "original"]
+    # Here, the return_closure method returns a lambda that encapsulates access to the local variable a, 
+    # instance variable @a, class variable @@a, and constant CONST. We call the block outside the scope 
+    # of the object that contains these values, but they are still available via the closure.  If we 
+    # then call the object to change some values, the values accessed via the closure also change.
+  }}}
+# the *Proc* object can be called through: yield, call, [].
+  {{{ruby
+   f = ->(list){
+     list.each do |i|
+       puts i
+     end
+   }
+   f.call(%W[1 2]) # these form are identical to call and Proc object.
+   f.(%W[1 2])
+   f[%W[1 2]]
+  }}}
+# the '=>' linked pairs are collected into a hash and pass to the function.
+  {{{ruby
+    def foo(arg)
+     p arg
+    end
+    foo :name=>'alan',:age=>18 # {:name=>"alan", :age=>18}
+    foo {name:'alan',age:18}
+  }}}
+# the arguments prefix with a * will hold the collected the addtional position parameters. 
+  {{{ruby
+    def foo(arg,*args)
+      p arg
+      p args
+    end
+    foo("alan",18,19) # "alan", [18,19]
+  }}}
+
+
+= debug with pry =
+The [[https://github.com/pry/pry/wiki|Pry]] debugger for ruby code. usages:
+{{{ruby
+  require 'pry'
+  binding.pry
+}}}
+Frequently Used Commands:
+* *cd*: changes the context to the specific objects.
+* *ls*: show the methods and variables
+* *up*/*down*/*frame*: to changes the frame accross the stack.
+* *show-method*: show the method definition
+* *show-stack*: show the stack
+* *finish* : complete the current stack frame execution, e.g. the logger thread.
+* *continue*: Abandon the Pry session and continue the program execution as normal. 
+* *exit-program*: to cancel the effect of any following binding.pry statements, without, so to speak exiting your main program.
+* refer: [[http://www.jackkinsella.ie/articles/a-comprehensive-guide-to-debugging-rails|A comprehensive guide to debugging rails]]

@@ -120,8 +120,33 @@ class 关键字的核心任务是把你带到类的上下文，让你可以在�
   <code>Kernel.private_instance_methods.grep(/^pr/) # =&gt; [:print,:printf,:proc]</code> 
 
 <li>
-self 关键字 : 每一行代码都在当前对象执行.所有没有明确指明接收者的方法，都在当前对象调用.
+self 关键字 : 每一行代码都在当前对象执行.所有没有明确指明接收者的方法，都在当前对象调用. self
+  也可以表示当前对象，可以利用self对其进行访问。调用一个方法时，接收者就成为self. 
+  从这一刻起，所有的实例变量都是self的实例变量，所有没有明确指明接收者的方法都是在self上调用。 
+  一旦你的代码转而调用其他对象的方法，这个对象就成为self.
 
+<ul>
+<li>
+在类和模块的定义之中，且在方法定义之外,self = 类或模块本身
+
+<li>
+在顶层，没有调用任何的方法时: self = main.
+<pre class="code ruby">
+    class Myclass
+      def testing_self
+        @var = 10
+        my_method()
+        self
+      end
+      def my_method
+        @var = @var + 1
+      end 
+    end
+    obj = Myclass.new
+    obj.testing_self # &lt;Myclass:0x007fcdef @var = 11&gt;
+</pre>
+
+</ul>
 <li>
 <span id="-私有规则"></span><strong id="私有规则">私有规则</strong>
 

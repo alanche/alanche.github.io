@@ -1,23 +1,23 @@
 %title Programming Ruby
 * control structures
  {{{ruby
-$name = "Alan" # global variable
-@instance_variable
-@@class_variable
-age = 10 # local variable
-if age > 10 then puts "oops" end
-if age < 10
-   puts "OK"
- else if age < 15
-   puts "em.."
- else
-   puts "reject!"
- end
- while age < 12
-   puts "#{age}"
-   age += 1
- end
- puts "you are too old" if age > 30
+   $name = "Alan" # global variable
+   @instance_variable
+   @@class_variable
+   age = 10 # local variable
+   if age > 10 then puts "oops" end
+   if age < 10
+      puts "OK"
+    else if age < 15
+      puts "em.."
+    else
+      puts "reject!"
+    end
+    while age < 12
+      puts "#{age}"
+      age += 1
+    end
+    puts "you are too old" if age > 30
 }}}
 * Regular expression are almost as same as the one in the Perl.
 * Reading and writes: The *$_* is settled as the gets side effect and as the default argument.
@@ -159,8 +159,7 @@ if age < 10
         for i in 0...size
           value = self[i]
           return value if yield(value)
-	  # yield value is the return value of block.
-	  # yield parameter is passed to block as parameter
+          # yield(value): pass value to block and return the return value of block.
         end
         return nil
       end
@@ -172,14 +171,14 @@ if age < 10
     # implement the sum function.
     class Array
       def inject(n)
-	 each { |value| n = yield(n, value) }
-	 n
+         each { |value| n = yield(n, value) }
+         n
       end
       def sum
-	inject(0) { |n, value| n + value }
+        inject(0) { |n, value| n + value }
       end
       def product
-	inject(1) { |n, value| n * value }
+        inject(1) { |n, value| n * value }
       end
     end
     [ 1, 2, 3, 4, 5 ].sum # 15
@@ -203,8 +202,8 @@ if age < 10
       def invoke(n, &action)
         if block_given?
           n.times { action.call }
-	end
+        end
       end
-      invoke { puts "hell world" }
+      invoke { puts "hello world" }
     }}}
     

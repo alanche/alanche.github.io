@@ -9,6 +9,11 @@
 * tcsh: bind the arrow keys to search the command line history:
   * `bindkey -k up history-search-backward`
   * `bindkey -k down history-search-forward`
+* find the broken links: `find -type l -follow`
+* Get the changelist number of current workspace: `p4 changes -m 1 #have`
+* vim: `set clipboard=unnamed`: use the "* register as the holding place for yank and paste.
+* xterm: the `shift + insert` and `middle mouse button` paste from vim "* register.
+* firefox: the `shift + insert` paste from vim "+ register; the 'middle mouse button' paste from "* register.
 = putty tips =
 * copy large quantity of linux text into window clipboard:
  * Changes *Putty Settings -> Window -> Lines of Scrollback* to large enough to hold your contents.  {{local:../images/putty-settings.jpg}}

@@ -13,3 +13,4 @@
   git checkout A # switch to branch A
   git checkout --patch B file # patch it.
   }}}
+* compare the content of file *file* in two version *a* and *b* by: `git diff a b -- file`
