@@ -83,6 +83,24 @@ xterm: the <code>shift + insert</code> and <code>middle mouse button</code> past
 <li>
 firefox: the <code>shift + insert</code> paste from vim "+ register; the 'middle mouse button' paste from "* register.
 
+<li>
+xterm: show the chinese characters(it requires specific font library):
+
+<ol>
+<li>
+add following lines to ~/.Xresources
+<pre class="code text">
+      XTerm*faceName: Consolas:style=Regular:antialias=True:pixelsize=20
+      XTerm*faceNameDoublesize:AR PL Uming CN
+</pre>
+
+<li>
+reload the resource files by <code>xrdb -merge .Xresources</code>. 
+
+<li>
+restart xterm.
+
+</ol>
 </ul>
 <div id="putty tips"><h1 id="putty tips">putty tips</h1></div>
 <ul>

@@ -58,7 +58,7 @@ control structures
 </pre>
 
 <li>
-Regular expression are almost as same as the one in the Perl.
+Regular expression are almost as same as the one in the Perl. return nil when not matched, otherwise, return match location.
 
 <li>
 Reading and writes: The <span id="-\(_"></span><strong id="\)_">$_</strong> is settled as the gets side effect and as the default argument.
@@ -178,46 +178,38 @@ Arrays
     a = [1,2,3,4,5,6,7] # array
     a[-1] # 7 negative index
     a[0] # 1
-    # array[start,count]
-    a[1,3] # 'cat',3.14,5
-    a[3,1] # 5
-    a[-3,2] # 5,6
+    a[1,3] # [start,count] =&gt; 2,3,4
     # array[start..end] range access.
-    a[1..3] # 2,3,4 
-    # assignments.
+    a[2..3] # 3,4 # assignments.
     a[0] = 5
-    a[1] = [5,6] # a = [5,[5,6],2,3,4,5,6,7]
-    a[1,1] = [5,6] # a = [5,5,6,2,3,4,5,6,7]
+    a[1] = [5,6] # [5,[5,6],3,4,5,6,7]
+    a[1,1] = [8,9] # [5,8,9,3,4,5,6,7]
     # [start,end]= : (like the Python Operation)
     #  end ==0: insert operation.
     #  end !=0: range replaced.
     #  the right hand is expanded if array given.
-    a[2,2] = 'cat' # replaced a=[1,3,'cat',9]
-    a[2,1] = 'mew' # replaced a=[1,3,'mew',9]
-    a[2,0] = 'dog' # inserted a=[1,3,'dog','mew',9]
-    a[1,1] = [7,8,9] # replaced a= [1,7,8,9,'dog','mew',9]
-    a &lt;&lt; 6 # append elements.
-    a.push(7) # append element.
+    a[2,2] = 'cat' # replacement [5,8,"cat",4,5,6,7]
+    a[2,1] = 'meo' # replacement [5,8,"meo",4,5,6,7]
+    a[2,0] = 'dog' # insertion [5,8,"dog","meo',4,5,6,7]
+    a &lt;&lt; 6 # [5,8,"dog","meo',4,5,6,7,6]
     a.unshift(8) # prepend element.
     
-    b = Array.new
-    c = %w{this is another array}
-    c.length # 4
+    b = Array.new(3,[0,1]) # [[0,1],[0,1],[0,1],
+    b[0][1] += 1 # [[0,2],[0,2],[0,2]] # 1 object is placed in 3 location
+    c = Array.new(3) { [0,1] } # [[0,1],[0,1],[0,1] # 3 objects duplicated from block and placed in 3 locations
+    c[0][1] += 1 # [[0,2],[0,1],[0,1]]
+    d = %w{this is another array}
+    d.length # 4
     a.each { |elem| puts elem } # iterator in the array.
 </pre>
 
 <li>
-Hashes
+Hashes - with various forms.
 <pre class="code ruby">
-    h = { 'dog' =&gt; 'canine', 'cat' =&gt; 'feline', 'donkey' =&gt; 'asinine' }
+    h = { 'dog' =&gt; 'string key', :cat =&gt; 'symbol key', symbol:'symbol key too'}
+    # =&gt; { "dog" =&gt; "string key", :cat =&gt; 'symbol key', :symbol =&gt; 'symbol key too'}
     h.length  # 3
-    h['dog'] # "canine"
-    h['cow'] = 'bovine'
-    h[12]    = 'dodecine'
-    h['cat'] = 99
-    # h = {"cow"=&gt;"bovine", "cat"=&gt;99, 12=&gt;"dodecine", "donkey"=&gt;"asinine", "dog"=&gt;"canine"}
-    h = { "name" =&gt; "Alan","Age" =&gt;18} # hash
-    h.each {|k,v}| puts "#{k} =&gt; #{v}" }
+    h.each {|k,v| puts "#{k} =&gt; #{v}" }
 </pre>
 
 <li>
@@ -282,7 +274,55 @@ If the last parameter in a method definition is prefixed with an ampersand Ruby 
 </pre>
 
 </ul>
+<li>
+logical true false: only <span id="-nil"></span><strong id="nil">nil</strong> and <span id="-false"></span><strong id="false">false</strong> and treat as false, others are treat as true.  
+
+<li>
+class method definition variant
+<pre class="code ruby">
+    class HelloWorld
+      def HelloWorld.hello end
+      def self.hello end
+      class &lt;&lt; self
+        def hello end
+      end
+    end
+    def HelloWorld.hello
+    end
+</pre>
+
+<li>
+module function:
+<pre class="code ruby">
+    module HelloModule
+      Version = "1.0"
+      def hello
+      end
+      def hello_m
+      end
+      module_function :hello_m
+    end
+    HelloModule::Version # 1.0
+    HelloModule.instance_method(false) # :hello
+    HelloModule.methods(false) # :hello_m
+</pre>
+
+<li>
+method resolution query: obj#ancestors
+
+<li>
+proc miniutes
+<pre class="code ruby">
+      p0 = Proc.new { |name| p name } # creating proc object.
+      p1 = proc { |name| p name }
+      p0.call("alan") # call the proc
+      p0["alan"] # call the proc
+      p2 = lambda do |a,b,c| p [a,b,c] end
+      p2['a','b'] # ArgumentError
+      p2['a,','b','c'] # ['a','b','c']
+
 </ul>
+</pre>
 
 	    </div>
 	    <hr>

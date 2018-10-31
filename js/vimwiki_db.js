@@ -3,6 +3,10 @@
 //  index-converter.py
 var vimwiki = 
 {
+    "intro": {
+        "brief": "Welcome to Alan's Wiki\n",
+        "detail": "A vimwiki + github based personal knowledge manage system\n"
+    },
     "pages": [
         [
             "NOTES",
@@ -37,9 +41,5 @@ var vimwiki =
             "About",
             "ME"
         ]
-    ],
-    "intro": {
-        "detail": "A vimwiki + github based personal knowledge management system, it records the\nvarious knowledge: notes,tips,experience and etc.\n",
-        "brief": "Welcome to Alan's Wiki\n"
-    }
+    ]
 };

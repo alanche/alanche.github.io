@@ -55,6 +55,16 @@ ruby对象的属性无法直接访问，都需要通过方法进行访问,可以
   来快捷定义属性的访问方法。
 
 <li>
+范围运算符
+<pre class="code ruby">
+    for i in (1..2)
+     p i
+    end
+    p (5..10).to_a # =&gt; [5,6,7,8,9,10]
+    p (5...10).to_a # =&gt; [5,6,7,8,9]
+</pre>
+
+<li>
 Query the instance methods defined a in specific class Foo by <code>Fool.instance_methods(False)</code>
 
 <li>
@@ -133,6 +143,17 @@ The <span id="RubyTips-extend"></span><strong id="extend">extend</strong> and <s
 </pre>
 
 </ul>
+<li>
+block argument: {,} has higher precedence over the begin/end construct:
+<pre class="code ruby">
+    method_1 method_2 {
+      # ... block is sent to method_2
+    }
+    method_1 method_2 do
+      # block is sent to method_1
+    end
+</pre>
+
 <li>
 3 ways to define the class method
 <pre class="code ruby">
@@ -305,44 +326,60 @@ the arguments prefix with a * will hold the collected the addtional position par
     foo("alan",18,19) # "alan", [18,19]
 </pre>
 
-</ol>
-
-
-<div id="debug with pry"><h1 id="debug with pry">debug with pry</h1></div>
-<p>
-The <a href="https:&#47;&#47;github.com&#47;pry&#47;pry&#47;wiki">Pry</a> debugger for ruby code. usages:
-</p>
+<li>
+safe navigation operator: '&amp;.', the following are equivalent.
 <pre class="code ruby">
+    item = ary &amp;&amp; ary.first
+    item = ary&amp;.first # requires ruby 2.3
+</pre>
+
+<li>
+range operator x..y and x...y .
+<pre class="code ruby">
+    x..y # [x,y]
+    x...y # [x,y)
+
+
+
+
+= debug with pry =
+The [[https://github.com/pry/pry/wiki|Pry]] debugger for ruby code. usages:
+{{{ruby
   require 'pry'
   binding.pry
 </pre>
+
+</ol>
 <p>
 Frequently Used Commands:
 </p>
 <ul>
 <li>
-<span id="debug with pry-cd"></span><strong id="cd">cd</strong>: changes the context to the specific objects.
+<span id="RubyTips-cd"></span><strong id="cd">cd</strong>: changes the context to the specific objects.
 
 <li>
-<span id="debug with pry-ls"></span><strong id="ls">ls</strong>: show the methods and variables
+<span id="RubyTips-ls"></span><strong id="ls">ls</strong>: show the methods and variables
 
 <li>
-<span id="debug with pry-up"></span><strong id="up">up</strong>/<span id="debug with pry-down"></span><strong id="down">down</strong>/<span id="debug with pry-frame"></span><strong id="frame">frame</strong>: to changes the frame accross the stack.
+<span id="RubyTips-up"></span><strong id="up">up</strong>/<span id="RubyTips-down"></span><strong id="down">down</strong>/<span id="RubyTips-frame"></span><strong id="frame">frame</strong>: to changes the frame accross the stack.
 
 <li>
-<span id="debug with pry-show-method"></span><strong id="show-method">show-method</strong>: show the method definition
+<span id="RubyTips-show-method"></span><strong id="show-method">show-method</strong>: show the method definition
 
 <li>
-<span id="debug with pry-show-stack"></span><strong id="show-stack">show-stack</strong>: show the stack
+<span id="RubyTips-show-stack"></span><strong id="show-stack">show-stack</strong>: show the stack
 
 <li>
-<span id="debug with pry-finish"></span><strong id="finish">finish</strong> : complete the current stack frame execution, e.g. the logger thread.
+<span id="RubyTips-finish"></span><strong id="finish">finish</strong> : complete the current stack frame execution, e.g. the logger thread.
 
 <li>
-<span id="debug with pry-continue"></span><strong id="continue">continue</strong>: Abandon the Pry session and continue the program execution as normal. 
+<span id="RubyTips-continue"></span><strong id="continue">continue</strong>: Abandon the Pry session and continue the program execution as normal. 
 
 <li>
-<span id="debug with pry-exit-program"></span><strong id="exit-program">exit-program</strong>: to cancel the effect of any following binding.pry statements, without, so to speak exiting your main program.
+<span id="RubyTips-exit-program"></span><strong id="exit-program">exit-program</strong>: to cancel the effect of any following binding.pry statements, without, so to speak exiting your main program.
+
+<li>
+<span id="RubyTips-method.source"></span><strong id="method.source">method.source</strong> : to show the source code of the specified method.
 
 <li>
 refer: <a href="http:&#47;&#47;www.jackkinsella.ie&#47;articles&#47;a-comprehensive-guide-to-debugging-rails">A comprehensive guide to debugging rails</a>

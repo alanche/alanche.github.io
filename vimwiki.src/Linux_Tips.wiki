@@ -14,6 +14,14 @@
 * vim: `set clipboard=unnamed`: use the "* register as the holding place for yank and paste.
 * xterm: the `shift + insert` and `middle mouse button` paste from vim "* register.
 * firefox: the `shift + insert` paste from vim "+ register; the 'middle mouse button' paste from "* register.
+* xterm: show the chinese characters(it requires specific font library):
+  # add following lines to ~/.Xresources
+    {{{text
+      XTerm*faceName: Consolas:style=Regular:antialias=True:pixelsize=20
+      XTerm*faceNameDoublesize:AR PL Uming CN
+    }}}
+  # reload the resource files by `xrdb -merge .Xresources`. 
+  # restart xterm.
 = putty tips =
 * copy large quantity of linux text into window clipboard:
  * Changes *Putty Settings -> Window -> Lines of Scrollback* to large enough to hold your contents.  {{local:../images/putty-settings.jpg}}

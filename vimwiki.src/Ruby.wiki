@@ -5,6 +5,14 @@
  * 用::引导类方法,如:Thread::curent
 # ruby对象的属性无法直接访问，都需要通过方法进行访问,可以定义 *attr_accessor*  *attr_reader* *attr_writer*
   来快捷定义属性的访问方法。
+# 范围运算符
+  {{{ruby
+    for i in (1..2)
+     p i
+    end
+    p (5..10).to_a # => [5,6,7,8,9,10]
+    p (5...10).to_a # => [5,6,7,8,9]
+  }}}
 # Query the instance methods defined a in specific class Foo by `Fool.instance_methods(False)`
 # use the 'ancestors' to query the class method resolving orders.`String.ancestors`
 # list the class Array methods?
@@ -60,6 +68,15 @@
  Info.methods.include? :message # false
  Info.instance_methods.include? :message # true
  }}}
+# block argument: {,} has higher precedence over the begin/end construct:
+  {{{ruby
+    method_1 method_2 {
+      # ... block is sent to method_2
+    }
+    method_1 method_2 do
+      # block is sent to method_1
+    end
+  }}}
 # 3 ways to define the class method
   {{{ruby
     class Demo
@@ -198,6 +215,17 @@
     end
     foo("alan",18,19) # "alan", [18,19]
   }}}
+# safe navigation operator: '&.', the following are equivalent.
+  {{{ruby
+    item = ary && ary.first
+    item = ary&.first # requires ruby 2.3
+  }}}
+# range operator x..y and x...y .
+  {{{ruby
+    x..y # [x,y]
+    x...y # [x,y)
+
+
 
 
 = debug with pry =
@@ -215,4 +243,5 @@ Frequently Used Commands:
 * *finish* : complete the current stack frame execution, e.g. the logger thread.
 * *continue*: Abandon the Pry session and continue the program execution as normal. 
 * *exit-program*: to cancel the effect of any following binding.pry statements, without, so to speak exiting your main program.
+* *method.source* : to show the source code of the specified method.
 * refer: [[http://www.jackkinsella.ie/articles/a-comprehensive-guide-to-debugging-rails|A comprehensive guide to debugging rails]]

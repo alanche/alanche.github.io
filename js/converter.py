@@ -59,7 +59,7 @@ var vimwiki =
 """
   with open(filename,'w',encoding='utf8') as f:
     f.write(headers) 
-    json.dump(vimwiki,f,indent=4)
+    json.dump(vimwiki,f,indent=4,sort_keys=True)
     f.write(';')
 
 getIntro(inputfile,vimwiki)

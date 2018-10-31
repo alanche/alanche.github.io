@@ -2,10 +2,8 @@
 = INTRO =
 == BRIEF ==
 Welcome to Alan's Wiki
-== detail ==
-A vimwiki + github based personal knowledge management system, it records the
-various knowledge: notes,tips,experience and etc.
-
+== DETAIL ==
+A vimwiki + github based personal knowledge manage system
 = PAGES =
 * NOTES
  * [[Meta_Programming_Ruby_2|Meta Programming Ruby 2]]
