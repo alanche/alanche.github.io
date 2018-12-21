@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title> Effective Ruby: 48 Specific Ways to Write Better Ruby</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="../styles/bootstrap.min.css" rel="stylesheet">
+      <link href="../styles/solarized-dark.css" rel="stylesheet">
+      <link href="../styles/vimwiki.css" rel="stylesheet">
+ 
+      <!--[if lt IE 9]>
+         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      <![endif]-->
+      <!-- jQuery should be imported before boostrap.min.js -->
+      <script src="../js/jquery-1.12.4.min.js"></script>
+      <script src="../js/bootstrap.min.js"></script>
+      <!-- The code syntax highlighter -->
+      <script src="../js/highlight.pack.js"></script>
+      <!-- the vimwiki customized scripts -->
+      <script src="../js/vimwiki_db.js" charset="utf-8"></script>
+      <script src="../js/vimwiki.js" charset="utf-8"></script>
+   </head>
+   <body>
+      <div class="container">
+	<div class="row clearfix">
+	  <div class="col-md-12 column">
+	    <ul class="nav nav-pills">
+	      <li class="active">
+		<a href="#">HOME</a>
+	      </li>
+	      <!-- more items are injected by the JS -->
+	    </ul>
+
+	    <div id="main-content">
+	    
+<ol>
+<li>
+在Ruby中,除了false和nil,其它值都是真值.<code>true</code>,<code>false</code> 不是关键字,只是一个普通的常量. 
+<pre class="code ruby">
+    if 0 then puts "will be printed" end # 0 is recognized as true
+    if 0.nil? then puts "will not be printed" end
+    true.class # TrueClass
+    false.class # FalseClass
+</pre>
+
+<li>
+所有对象的值都有可能为nil:可以通过<code>nil?</code>对接收者进行断言.推荐将变量显示转换为期望的类型后,再进行方法调用.
+<pre class="code ruby">
+    person.save unless person.nil?
+    def fix_titile(title)
+      title.to_s.capitalize # call .capitalize after it is converted to String by .to_s
+    end
+    [1,2,nil].compact # [1,2] Array#compact return the copy w/o nil.
+</pre>
+
+<li>
+避免使用古怪的Perl语法: 推荐使用String#match代替=~ .避免使用隐式全局变量$_.
+
+<li>
+请冻结常量防止其被改变.如果常量引用了集合对象:数组或散列,需要冻结集合及元素.冻结常量定义的模块防止其被重新赋值.
+<pre class="code ruby">
+    module Defaults
+      NETWORKS = ["192.168.1","192.168.2"].map!(&amp;:freeze).freeze
+      # first freeze let array element be freezed. second freeze let array be freezed.
+    end
+    Defaults.freeze # let NETWORKS can't be changed to point to another object.
+</pre>
+
+</ol>
+
+	    </div>
+	    <hr>
+	    <div id="footer">
+	      <span class="notes">
+		Thanks <a href="http://pages.github.com">githubPages</a> for
+		providing the web hosting environment
+	      </span>
+	    </div>
+	  </div>
+	</div>
+      </div> 
+   </body>
+</html>

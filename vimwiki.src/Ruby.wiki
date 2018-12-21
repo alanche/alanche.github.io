@@ -224,7 +224,13 @@
   {{{ruby
     x..y # [x,y]
     x...y # [x,y)
-
+  }}}
+# the `map(&:name)` is a short hand for `map(&:name.to_proc)`, it calls to_proc method of the symbol :name to obtain a Proc object
+  and passed to map.described verbosely in [[https://stackoverflow.com/questions/1217088/what-does-mapname-mean-in-ruby|map_&_name]] and [[https://blog.csdn.net/baodongdong123/article/details/65443171|map shortcut]].
+  {{{ruby
+    # equivalent with: dirs.map { |elem| elem.length }
+    dirs = ['/usr','/local'].map(&:length) # [4,6]
+  }}}
 
 
 

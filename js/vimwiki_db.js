@@ -11,6 +11,7 @@ var vimwiki =
         [
             "NOTES",
             "Meta_Programming_Ruby_2|Meta Programming Ruby 2",
+            "Effective_Ruby|Effective Ruby",
             "Programming_Ruby|Programming Ruby",
             "GEM5"
         ],

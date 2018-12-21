@@ -1,0 +1,25 @@
+%title  Effective Ruby: 48 Specific Ways to Write Better Ruby
+# 在Ruby中,除了false和nil,其它值都是真值.`true`,`false` 不是关键字,只是一个普通的常量. 
+  {{{ruby
+    if 0 then puts "will be printed" end # 0 is recognized as true
+    if 0.nil? then puts "will not be printed" end
+    true.class # TrueClass
+    false.class # FalseClass
+  }}}
+# 所有对象的值都有可能为nil:可以通过`nil?`对接收者进行断言.推荐将变量显示转换为期望的类型后,再进行方法调用.
+  {{{ruby
+    person.save unless person.nil?
+    def fix_titile(title)
+      title.to_s.capitalize # call .capitalize after it is converted to String by .to_s
+    end
+    [1,2,nil].compact # [1,2] Array#compact return the copy w/o nil.
+  }}}
+# 避免使用古怪的Perl语法: 推荐使用String#match代替=~ .避免使用隐式全局变量$_.
+# 请冻结常量防止其被改变.如果常量引用了集合对象:数组或散列,需要冻结集合及元素.冻结常量定义的模块防止其被重新赋值.
+  {{{ruby
+    module Defaults
+      NETWORKS = ["192.168.1","192.168.2"].map!(&:freeze).freeze
+      # first freeze let array element be freezed. second freeze let array be freezed.
+    end
+    Defaults.freeze # let NETWORKS can't be changed to point to another object.
+  }}}

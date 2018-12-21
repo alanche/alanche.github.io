@@ -22,6 +22,8 @@
     }}}
   # reload the resource files by `xrdb -merge .Xresources`. 
   # restart xterm.
+* tcsh shell script can't exited,it may be caused by the locking of .history, it can be remedied by remove the .history.
+  [[https://stackoverflow.com/questions/35708942/tcsh-script-does-not-exit|detail]]
 = putty tips =
 * copy large quantity of linux text into window clipboard:
  * Changes *Putty Settings -> Window -> Lines of Scrollback* to large enough to hold your contents.  {{local:../images/putty-settings.jpg}}
