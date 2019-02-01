@@ -351,13 +351,14 @@ the <code>map(&amp;:name)</code> is a short hand for <code>map(&amp;:name.to_pro
 </ol>
 
 
-
-<div id="debug with pry"><h1 id="debug with pry">debug with pry</h1></div>
+<div id="debug ruby programs"><h1 id="debug ruby programs" class="justcenter">debug ruby programs</h1></div>
 <p>
-The <a href="https:&#47;&#47;github.com&#47;pry&#47;pry&#47;wiki">Pry</a> debugger for ruby code. usages:
+The  <a href="https:&#47;&#47;rubygems.org&#47;gems&#47;pry-debugger">pry-debugger</a> combine <a href="http:&#47;&#47;pryrepl.org">pry</a> with 'debugger'.  Adds 'step',
+'next', and 'continue' commands to control execution. 
+<a href="https:&#47;&#47;github.com&#47;pry&#47;pry-stack_explorer">pry-stack_explorer</a> add the pry with execution stack exploration capability.
 </p>
 <pre class="code ruby">
-  require 'pry'
+  require 'pry-debugger'
   binding.pry
 </pre>
 <p>
@@ -365,34 +366,45 @@ Frequently Used Commands:
 </p>
 <ul>
 <li>
-<span id="debug with pry-cd"></span><strong id="cd">cd</strong>: changes the context to the specific objects.
+<span id="debug ruby programs-cd"></span><strong id="cd">cd</strong>: changes the context to the specific objects.
 
 <li>
-<span id="debug with pry-ls"></span><strong id="ls">ls</strong>: show the methods and variables
+<span id="debug ruby programs-ls"></span><strong id="ls">ls</strong>: show the methods and variables
 
 <li>
-<span id="debug with pry-up"></span><strong id="up">up</strong>/<span id="debug with pry-down"></span><strong id="down">down</strong>/<span id="debug with pry-frame"></span><strong id="frame">frame</strong>: to changes the frame accross the stack.
+<span id="debug ruby programs-up"></span><strong id="up">up</strong>/<span id="debug ruby programs-down"></span><strong id="down">down</strong>/<span id="debug ruby programs-frame"></span><strong id="frame">frame</strong>: to changes the frame accross the stack.
 
 <li>
-<span id="debug with pry-show-method"></span><strong id="show-method">show-method</strong>: show the method definition
+<span id="debug ruby programs-show-method"></span><strong id="show-method">show-method</strong>: show the method definition
 
 <li>
-<span id="debug with pry-show-stack"></span><strong id="show-stack">show-stack</strong>: show the stack
+<span id="debug ruby programs-show-stack"></span><strong id="show-stack">show-stack</strong>: show the stack
 
 <li>
-<span id="debug with pry-finish"></span><strong id="finish">finish</strong> : complete the current stack frame execution, e.g. the logger thread.
+<span id="debug ruby programs-finish"></span><strong id="finish">finish</strong> : complete the current stack frame execution, e.g. the logger thread.
 
 <li>
-<span id="debug with pry-continue"></span><strong id="continue">continue</strong>: Abandon the Pry session and continue the program execution as normal. 
+<span id="debug ruby programs-continue"></span><strong id="continue">continue</strong>: Abandon the Pry session and continue the program execution as normal. 
 
 <li>
-<span id="debug with pry-exit-program"></span><strong id="exit-program">exit-program</strong>: to cancel the effect of any following binding.pry statements, without, so to speak exiting your main program.
+<span id="debug ruby programs-exit-program"></span><strong id="exit-program">exit-program</strong>: to cancel the effect of any following binding.pry statements, without, so to speak exiting your main program.
 
 <li>
-<span id="debug with pry-method.source"></span><strong id="method.source">method.source</strong> : to show the source code of the specified method.
+<span id="debug ruby programs-method.source"></span><strong id="method.source">method.source</strong> : to show the source code of the specified method.
 
 <li>
 refer: <a href="http:&#47;&#47;www.jackkinsella.ie&#47;articles&#47;a-comprehensive-guide-to-debugging-rails">A comprehensive guide to debugging rails</a>
+
+</ul>
+
+<div id="Useful Links"><h1 id="Useful Links" class="justcenter">Useful Links</h1></div>
+<ul>
+<li>
+<a href="http:&#47;&#47;pryrepl.org">pry</a> Pry is a powerful alternative to the standard IRB shell for Ruby It features syntax highlighting, a
+  flexible plugin architecture, runtime invocation and source and documentation browsing.
+
+<li>
+rubygems: <a href="https:&#47;&#47;rubygems.org">https://rubygems.org</a>
 
 </ul>
 

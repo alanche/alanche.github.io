@@ -233,11 +233,12 @@
   }}}
 
 
-
-= debug with pry =
-The [[https://github.com/pry/pry/wiki|Pry]] debugger for ruby code. usages:
+ = debug ruby programs =
+The  [[https://rubygems.org/gems/pry-debugger|pry-debugger]] combine [[http://pryrepl.org|pry]] with 'debugger'.  Adds 'step',
+'next', and 'continue' commands to control execution. 
+[[https://github.com/pry/pry-stack_explorer|pry-stack_explorer]] add the pry with execution stack exploration capability.
 {{{ruby
-  require 'pry'
+  require 'pry-debugger'
   binding.pry
 }}}
 Frequently Used Commands:
@@ -251,3 +252,8 @@ Frequently Used Commands:
 * *exit-program*: to cancel the effect of any following binding.pry statements, without, so to speak exiting your main program.
 * *method.source* : to show the source code of the specified method.
 * refer: [[http://www.jackkinsella.ie/articles/a-comprehensive-guide-to-debugging-rails|A comprehensive guide to debugging rails]]
+
+ = Useful Links =
+* [[http://pryrepl.org|pry]] Pry is a powerful alternative to the standard IRB shell for Ruby It features syntax highlighting, a
+  flexible plugin architecture, runtime invocation and source and documentation browsing.
+* rubygems: https://rubygems.org

@@ -48,9 +48,7 @@
 所有对象的值都有可能为nil:可以通过<code>nil?</code>对接收者进行断言.推荐将变量显示转换为期望的类型后,再进行方法调用.
 <pre class="code ruby">
     person.save unless person.nil?
-    def fix_titile(title)
-      title.to_s.capitalize # call .capitalize after it is converted to String by .to_s
-    end
+    title.to_s.capitalize # call .capitalize after it is converted to String by .to_s
     [1,2,nil].compact # [1,2] Array#compact return the copy w/o nil.
 </pre>
 
@@ -67,6 +65,30 @@
     Defaults.freeze # let NETWORKS can't be changed to point to another object.
 </pre>
 
+<li>
+启用ruby的编译时警告: 设置环境变量<code>RUBYOPT</code>或者命令行参数包含:<span id="--w"></span><strong id="-w">-w</strong>;控制运行时警告:设定$VERBOSE为true/false/nil.
+
+<li>
+对象模型:
+
+<ul>
+<li>
+对象是实例变量的容器,通过obj#class与其类联系.方法位于类上,称为类的实例方法.
+
+<li>
+类是方法和常量的容器.类也是对象,其变量称为:类变量,类方法.
+
+<li>
+模块与类基本相同只是无法实例化.(无#new函数).
+
+<li>
+单例类(sigleton class) 只服务一个对象.隐藏不可见.通过#singleton_class访问.单例方法位于单例类单例类(sigleton class)
+    只服务一个对象.隐藏不可见.通过#singleton_class访问.单例方法位于单例类上.
+
+<li>
+可以用Object#singleton_class, Class#ancestors, included_modules 返回搜索树.
+
+</ul>
 </ol>
 
 	    </div>
