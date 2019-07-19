@@ -22,8 +22,27 @@
     }}}
   # reload the resource files by `xrdb -merge .Xresources`. 
   # restart xterm.
-* tcsh shell script can't exited,it may be caused by the locking of .history, it can be remedied by remove the .history.
+* tcsh shell script can't be exited phenomenon may be caused by the locking of .history, it can be remedied by remove the .history.
   [[https://stackoverflow.com/questions/35708942/tcsh-script-does-not-exit|detail]]
+* awk perform calculation examples:
+  {{{sh
+    cat data|awk '{sum+=$1} END {print "Sum = ", sum}'
+    cat data|awk '{sum+=$1} END {print "Average = ", sum/NR}'
+    cat data|awk 'BEGIN {max = 0} {if ($1>max) max=$1 } END {print "Max=", max}'
+    awk 'BEGIN {min = 1999999} {if ($1<min) min=$1} END {print "Min=", min}'
+  }}}
+* bash: `set -o pipefail`: defaultly, the return status of a pipeline is the exit status of the last command, unless the pipefail
+  option is enabled. If *pipefail* is enabled, the pipeline's return status is the value of the last (rightmost) command to exit
+  with a non-zero status, or zero if all commands exit successfully. this is useful to inject the a tee pipe for the commannd in
+  makefile and also can exit immediately
+* perforce: steps to rollback to early version:
+  {{{sh
+    p4 sync somefile#2 # retrieve the early version
+    p4 edit somefile
+    p4 sync somefile # sync to latest version
+    p4 resolve -ay # resolve and accept your local copy.
+  }}}
+
 = putty tips =
 * copy large quantity of linux text into window clipboard:
  * Changes *Putty Settings -> Window -> Lines of Scrollback* to large enough to hold your contents.  {{local:../images/putty-settings.jpg}}

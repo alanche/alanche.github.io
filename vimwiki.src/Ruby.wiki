@@ -256,4 +256,5 @@ Frequently Used Commands:
  = Useful Links =
 * [[http://pryrepl.org|pry]] Pry is a powerful alternative to the standard IRB shell for Ruby It features syntax highlighting, a
   flexible plugin architecture, runtime invocation and source and documentation browsing.
-* rubygems: https://rubygems.org
+* rubygems: the ruby package system. https://rubygems.org
+* ruby document server: http://www.rubydoc.info

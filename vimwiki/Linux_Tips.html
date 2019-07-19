@@ -102,10 +102,35 @@ restart xterm.
 
 </ol>
 <li>
-tcsh shell script can't exited,it may be caused by the locking of .history, it can be remedied by remove the .history.
+tcsh shell script can't be exited phenomenon may be caused by the locking of .history, it can be remedied by remove the .history.
   <a href="https:&#47;&#47;stackoverflow.com&#47;questions&#47;35708942&#47;tcsh-script-does-not-exit">detail</a>
 
+<li>
+awk perform calculation examples:
+<pre class="code sh">
+    cat data|awk '{sum+=$1} END {print "Sum = ", sum}'
+    cat data|awk '{sum+=$1} END {print "Average = ", sum/NR}'
+    cat data|awk 'BEGIN {max = 0} {if ($1&gt;max) max=$1 } END {print "Max=", max}'
+    awk 'BEGIN {min = 1999999} {if ($1&lt;min) min=$1} END {print "Min=", min}'
+</pre>
+
+<li>
+bash: <code>set -o pipefail</code>: defaultly, the return status of a pipeline is the exit status of the last command, unless the pipefail
+  option is enabled. If <span id="Linux Tips-pipefail"></span><strong id="pipefail">pipefail</strong> is enabled, the pipeline's return status is the value of the last (rightmost) command to exit
+  with a non-zero status, or zero if all commands exit successfully. this is useful to inject the a tee pipe for the commannd in
+  makefile and also can exit immediately
+
+<li>
+perforce: steps to rollback to early version:
+<pre class="code sh">
+    p4 sync somefile#2 # retrieve the early version
+    p4 edit somefile
+    p4 sync somefile # sync to latest version
+    p4 resolve -ay # resolve and accept your local copy.
+</pre>
+
 </ul>
+
 <div id="putty tips"><h1 id="putty tips">putty tips</h1></div>
 <ul>
 <li>
