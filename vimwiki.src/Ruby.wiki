@@ -215,6 +215,7 @@
     end
     foo("alan",18,19) # "alan", [18,19]
   }}}
+# next,break,return in the block:[[https://blog.csdn.net/lslxdx/article/details/11489419|details]]
 # safe navigation operator: '&.', the following are equivalent.
   {{{ruby
     item = ary && ary.first

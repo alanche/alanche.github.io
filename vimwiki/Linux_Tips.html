@@ -34,7 +34,7 @@
 
 	    <div id="main-content">
 	    
-<div id="Linux Tips"><h1 id="Linux Tips">Linux Tips</h1></div>
+<div id="Linux Tips"><h1 id="Linux Tips" class="header"><a href="#Linux Tips">Linux Tips</a></h1></div>
 <ul>
 <li>
 Avoid the ssh prompt for asking the confirmation to add host to known_hosts: 
@@ -53,6 +53,9 @@ Install the packages from RPM: <code>rpm2cpio packages.rpm | cpio -idv</code>
 
 <li>
 Querying the LSF group host information: <code>bmgroup</code>
+
+<li>
+terminal color control sequence: <a href="https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences">here</a>
 
 <li>
 add the 'Window List' to the pannel: to make the windows like task icon.
@@ -78,10 +81,13 @@ Get the changelist number of current workspace: <code>p4 changes -m 1 #have</cod
 vim: <code>set clipboard=unnamed</code>: use the "* register as the holding place for yank and paste.
 
 <li>
-xterm: the <code>shift + insert</code> and <code>middle mouse button</code> paste from vim "* register.
+firefox: the <code>shift + insert</code> paste from vim "+ register; the 'middle mouse button' paste from "* register.
 
 <li>
-firefox: the <code>shift + insert</code> paste from vim "+ register; the 'middle mouse button' paste from "* register.
+GNOME: <code>ctrl + alt + ArrowKey</code>: switch the workspace
+
+<li>
+xterm: the <code>shift + insert</code> and <code>middle mouse button</code> paste from vim "* register.
 
 <li>
 xterm: show the chinese characters(it requires specific font library):
@@ -103,7 +109,7 @@ restart xterm.
 </ol>
 <li>
 tcsh shell script can't be exited phenomenon may be caused by the locking of .history, it can be remedied by remove the .history.
-  <a href="https:&#47;&#47;stackoverflow.com&#47;questions&#47;35708942&#47;tcsh-script-does-not-exit">detail</a>
+  <a href="https://stackoverflow.com/questions/35708942/tcsh-script-does-not-exit">detail</a>
 
 <li>
 awk perform calculation examples:
@@ -129,9 +135,12 @@ perforce: steps to rollback to early version:
     p4 resolve -ay # resolve and accept your local copy.
 </pre>
 
+<li>
+LSF: environment variable <code>LSB_DEFAULTQUEUE</code> control the default queue.
+
 </ul>
 
-<div id="putty tips"><h1 id="putty tips">putty tips</h1></div>
+<div id="putty tips"><h1 id="putty tips" class="header"><a href="#putty tips">putty tips</a></h1></div>
 <ul>
 <li>
 copy large quantity of linux text into window clipboard:

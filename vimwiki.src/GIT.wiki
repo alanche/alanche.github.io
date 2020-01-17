@@ -14,3 +14,5 @@
   git checkout --patch B file # patch it.
   }}}
 * compare the content of file *file* in two version *a* and *b* by: `git diff a b -- file`
+* list the files in the bare repository:
+  * cd into the bare tree and do: `git ls-tree --full-tree -r HEAD`

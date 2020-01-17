@@ -5,6 +5,7 @@
 * Enable the X11 fowwarding defaultly:~/.ssh/config:`ForwardX11=yes`
 * Install the packages from RPM: `rpm2cpio packages.rpm | cpio -idv`
 * Querying the LSF group host information: `bmgroup`
+* terminal color control sequence: [[https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences|here]]
 * add the 'Window List' to the pannel: to make the windows like task icon.
 * tcsh: bind the arrow keys to search the command line history:
   * `bindkey -k up history-search-backward`
@@ -12,8 +13,9 @@
 * find the broken links: `find -type l -follow`
 * Get the changelist number of current workspace: `p4 changes -m 1 #have`
 * vim: `set clipboard=unnamed`: use the "* register as the holding place for yank and paste.
-* xterm: the `shift + insert` and `middle mouse button` paste from vim "* register.
 * firefox: the `shift + insert` paste from vim "+ register; the 'middle mouse button' paste from "* register.
+* GNOME: `ctrl + alt + ArrowKey`: switch the workspace
+* xterm: the `shift + insert` and `middle mouse button` paste from vim "* register.
 * xterm: show the chinese characters(it requires specific font library):
   # add following lines to ~/.Xresources
     {{{text
@@ -42,6 +44,7 @@
     p4 sync somefile # sync to latest version
     p4 resolve -ay # resolve and accept your local copy.
   }}}
+* LSF: environment variable `LSB_DEFAULTQUEUE` control the default queue.
 
 = putty tips =
 * copy large quantity of linux text into window clipboard:
