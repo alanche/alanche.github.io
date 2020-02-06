@@ -1,2 +1,23 @@
-= Introduction =
-The hardware design and verification langauges
+= SystemVerilog Minutes =
+== Array ==
+* iterate on multiple dimention array
+  {{{systemverilog
+    int md[2][3] = '{'{0,1,2},'{3,4,5}}; // multiple dimention array
+    bit [31:0] src[5],dst[1:5]; // unpacked array
+    initial begin
+      foreach(md[i,j]) $display("md[i][j] = %x ",i,j,md[i][j]);
+      for(int i=0;i<$size(md);i++) begin
+        for (int j=0;j<$size(md[i]);j++) begin
+          $display("md[i][j] = %x ",i,j,md[i][j]);
+        end
+    end
+  }}}
+* arrays can be compared (equal, nonequal) and copied 
+  {{{systemverilog
+    initial begin
+      bit [31:0] src[5] = '{0,1,2,3,4},
+                 dst[5] = '{5,4,2,3,4};
+      $display("src %s dst", (src == dst) ? "==" : "!=");// aggregate comparing. 
+      dst = src;// aggregate copy all values.
+    end
+  }}}

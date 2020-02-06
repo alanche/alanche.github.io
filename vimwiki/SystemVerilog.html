@@ -5,6 +5,7 @@
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link href="../styles/bootstrap.min.css" rel="stylesheet">
+      <link href="../styles/solarized-dark.css" rel="stylesheet">
       <link href="../styles/vimwiki.css" rel="stylesheet">
  
       <!--[if lt IE 9]>
@@ -14,6 +15,8 @@
       <!-- jQuery should be imported before boostrap.min.js -->
       <script src="../js/jquery-1.12.4.min.js"></script>
       <script src="../js/bootstrap.min.js"></script>
+      <!-- The code syntax highlighter -->
+      <script src="../js/highlight.pack.js"></script>
       <!-- the vimwiki customized scripts -->
       <script src="../js/vimwiki_db.js" charset="utf-8"></script>
       <script src="../js/vimwiki.js" charset="utf-8"></script>
@@ -31,17 +34,43 @@
 
 	    <div id="main-content">
 	    
-<div id="Introduction"><h1 id="Introduction">Introduction</h1></div>
-<p>
-The hardware design and verification langauges
-</p>
+<div id="SystemVerilog Minutes"><h1 id="SystemVerilog Minutes" class="header"><a href="#SystemVerilog Minutes">SystemVerilog Minutes</a></h1></div>
+<div id="SystemVerilog Minutes-Array"><h2 id="Array" class="header"><a href="#SystemVerilog Minutes-Array">Array</a></h2></div>
+<ul>
+<li>
+iterate on multiple dimention array
+<pre class="code systemverilog">
+    int md[2][3] = '{'{0,1,2},'{3,4,5}}; // multiple dimention array
+    bit [31:0] src[5],dst[1:5]; // unpacked array
+    initial begin
+      foreach(md[i,j]) $display("md[i][j] = %x ",i,j,md[i][j]);
+      for(int i=0;i&lt;$size(md);i++) begin
+        for (int j=0;j&lt;$size(md[i]);j++) begin
+          $display("md[i][j] = %x ",i,j,md[i][j]);
+        end
+    end
+</pre>
+
+<li>
+arrays can be compared (equal, nonequal) and copied 
+<pre class="code systemverilog">
+    initial begin
+      bit [31:0] src[5] = '{0,1,2,3,4},
+                 dst[5] = '{5,4,2,3,4};
+      $display("src %s dst", (src == dst) ? "==" : "!=");// aggregate comparing. 
+      dst = src;// aggregate copy all values.
+    end
+</pre>
+
+</ul>
 
 	    </div>
 	    <hr>
 	    <div id="footer">
 	      <span class="notes">
-		Thanks <a href="http://pages.github.com">githubPages</a> for
-		providing the web hosting environment
+                This site is composed with <a href="http://vimwiki.github.io/">vimwiki</a>,
+                hosted by<a href="http://pages.github.com">github</a>,
+                code block syntax highliging with <a href="https://highlightjs.org/"> highight.js</a>
 	      </span>
 	    </div>
 	  </div>
