@@ -34,9 +34,11 @@
 
 	    <div id="main-content">
 	    
-<div id="SystemVerilog Minutes"><h1 id="SystemVerilog Minutes" class="header"><a href="#SystemVerilog Minutes">SystemVerilog Minutes</a></h1></div>
-<div id="SystemVerilog Minutes-Array"><h2 id="Array" class="header"><a href="#SystemVerilog Minutes-Array">Array</a></h2></div>
+<div id="SystemVerilog Minutes"><h1 id="SystemVerilog Minutes" class="header justcenter"><a href="#SystemVerilog Minutes">SystemVerilog Minutes</a></h1></div>
 <ul>
+<li>
+4 state(0/1/x/z) type includes: <span id="SystemVerilog Minutes-logic,reg,integer,time"></span><strong id="logic,reg,integer,time">logic,reg,integer,time</strong>. others are 2 state types.
+
 <li>
 iterate on multiple dimention array
 <pre class="code systemverilog">
@@ -52,14 +54,215 @@ iterate on multiple dimention array
 </pre>
 
 <li>
-arrays can be compared (equal, nonequal) and copied 
+arrays can be compared (equal, nonequal) and assignment 
 <pre class="code systemverilog">
     initial begin
       bit [31:0] src[5] = '{0,1,2,3,4},
                  dst[5] = '{5,4,2,3,4};
       $display("src %s dst", (src == dst) ? "==" : "!=");// aggregate comparing. 
-      dst = src;// aggregate copy all values.
+      dst = src;// assignment is done when src and dst have same size and type, each element is copied correspondingly.
     end
+</pre>
+
+<li>
+array methods: reduction(sum,product,xor), allocator
+<pre class="code systemverilog">
+    int ar[4] = '{1,2,3,3};
+    int rs[$]; // allocator returns Queue.
+    ar.sum; // 9
+    ar.product; // 18;
+    rs = ar.find with (item &gt; 1); // {2,3}
+    rs = ar.min; // {1}
+    rs = ar.max; // {3}
+    rs = ar.unique; // {1,2,3}
+    rs = ar.find_index with (item &gt; 2); // {2,3}
+    rs = ar.find_first_index with (item == 3); // {2}
+    c  = ar.sum with (item == 3); // 2 : {3,3} sum adding up the times of expression is true.
+</pre>
+
+<li>
+pass array to function/task with <span id="SystemVerilog Minutes-ref"></span><strong id="ref">ref</strong>.
+
+<li>
+<span id="SystemVerilog Minutes-static"></span><strong id="static">static</strong> variable defined in <span id="SystemVerilog Minutes-class"></span><strong id="class">class</strong> scope shared among all instances, known as class variables. static methods has no access
+  to nonstatic members, can access static member and static methods.
+<pre class="code systemverilog">
+    class MyStatic;
+      static int serial_number; // shared among all instances, known as class variable.
+      static string className = "MyStatic"; // class variable initialized in declaration.
+      extern function new(); // constructor, no return type, body is external defined. 
+      task initialize(int val);
+        serial_number = val;
+      endtask
+      task static foo(); endtask     // nonstatic class method with static    variable lifetime.
+      static function int next_id(); //    static class method with automatic variable lifetime
+        next_id = ++serial_number; // ok to access static variable.
+      endfunction
+    endclass
+    function MyStatic::new(); /* declare out of class definition */ endfunction
+    MyStatic p;
+    p.initialize(); // p is null, but ok to call task access static variable only.
+</pre>
+
+<li>
+<span id="SystemVerilog Minutes-typedef class"></span><strong id="typedef class">typedef class</strong> resolve the compile order issues
+<pre class="code systemverilog">
+    typedef class C2; // class can be omitted.
+    // typedef C2;    // this still works.
+    class C1;
+      C2 c; // recognize C2 as a type to avoid compiler error.
+    endclass
+    class C2; // C2 is re-enforced as a type by class definition.
+      C1 c;
+    endclass
+</pre>
+
+<li>
+modifying handle in a task require <span id="SystemVerilog Minutes-ref"></span><strong id="ref">ref</strong> modifier.
+<pre class="code systemverilog">
+    class BusTrans; int addr; endclass
+    task create_packet(ref BusTrans lb); // ref is must. it designate the lb is a reference(alias) of b.
+      lb = new(); // modify the handle
+    endtask
+    // ref is not required,since we only modify the object not the handle.
+    // object(and array) is passed by handle as a reference defaulty.
+    task modify_packet(BusTrans lb); 
+      lb.addr = $random; // modify the object refered by the handle.
+    endtask
+    BusTrans b[10]; // array of object handle.
+    foreach (b[i]) begin
+      create_packet(b[i]); // pass as reference of handle.
+      modify_packet(b[i]); // pass by value (of handle/pointer) / ref of object.
+      $display("packet address = %x",b[i].addr);
+    end
+</pre>
+
+<li>
+<span id="SystemVerilog Minutes-new obj"></span><strong id="new obj">new obj</strong> only do shallow copy, object contains object need deep copy.
+<pre class="code systemverilog">
+    class Field;
+      int value;
+      function new(int v);
+        this.value = v;
+      endfunction
+    endclass
+    class BusTrans;
+      Field id;
+      function new(string name="noname",int id);
+        this.id = new(id);
+        this.name = name;
+      endfunction
+      function BusTrans copy; // customized copy function, reenforce the constructor calling.
+        copy = new(this.name,this.id.value);
+      endfunction
+    endclass
+    src = new("first",1);
+    dst = new src; // dst.id == src.id, refer to same Field object.
+    // only do shallow copy. it does not do call the constructor new to build the object,
+    // the src object value just is copied lieterally: handle rather than object is copied.
+    dst = src.copy; // deep copy.
+</pre>
+
+<li>
+weighted distribution of random in constraints
+<pre class="code systemverilog">
+    rand int src,dst;
+    rand int b,c,d;
+    int forty = 40,sixty = 60; // dist range can be variable.
+    constraint c {
+      b &lt; d; c == b; d &lt; 30; c &gt; 25; // b,c,d can only be 26 ~ 29.
+      src dist { 0 := forty,[1:3] := sixty }; // the weight is the same for every specified value in the range
+      dst dist { 0 /= 40,[1:3] /= 60 }; // the weight is to be equally divided between all the values
+      // value    : possibility
+      // src = 0 : 40/(40 + 60 * 3) = 40 /220
+      // src = 1,2,3 : 60/(40 + 60 * 3) = 60 /220
+      // dst = 0 : 40/100
+      // dst = 1,2,3 : 20/(40 + 60) = 20/100
+    }
+</pre>
+
+<li>
+constraints implication is bidirectional: 2 expression is determinted together.
+<pre class="code systemverilog">
+    class impl;
+      rand bit x; // 0,1
+      rand bit [1:0] y; // 0,1,2,3
+      constraint c {
+        y &gt; 0; // y is forced to non-zero value.
+        x == 0 -&gt; y == 0; // -&gt; : x = 0 requires y is 0. as bidirectional: x is forced to non-zero value too.
+      }
+    endclass
+    // solution  X   Y   Probability
+    //   0       0   0    
+    //   1       0   1    
+    //   2       0   2    
+    //   3       0   3    
+    //   4       1   0    
+    //   5       1   1    1/3 // only these solution santisfy constraint.
+    //   6       1   2    1/3 // only these solution santisfy constraint.
+    //   7       1   3    1/3 // only these solution santisfy constraint.
+</pre>
+
+<li>
+guiding distribution with <span id="SystemVerilog Minutes-solve .. before"></span><strong id="solve .. before">solve .. before</strong> statement.
+<pre class="code systemverilog">
+    class impl;
+      rand bit x; // 0,1
+      rand bit [1:0] y; // 0,1,2,3
+      constraint c_xy {
+        x == 0 -&gt; y == 0;
+        solve x before y; // firstly, randomize 'x' equality among its possible values: 0,1
+        // solve y before x; // firstly, randomize 'y' equality among its possible values: 0,1,2,3
+      }
+    endclass
+    // when solve x before y; firstly equaly randomize 'x' among its possible value.
+    // solution  x   y   probability
+    //   0       0   0   1/2
+    //   1       0   1   0
+    //   2       0   2   0  
+    //   3       0   3   0
+    //   4       1   0   1/2 * 1/4 = 1/8 
+    //   5       1   1   1/2 * 1/4 = 1/8
+    //   6       1   2   1/2 * 1/4 = 1/8
+    //   7       1   3   1/2 * 1/4 = 1/8
+
+    // solve y before x;
+    // solution  x   y   probability
+    //   0       0   0  1/4 * 1/2 ( 2 possibles x selection)
+    //   1       0   1  not satisfied.
+    //   2       0   2  not satisfied.
+    //   3       0   3  not satisfied.
+    //   4       1   0  1/4 * 1/2( 2 possible x ) = 1/8 
+    //   5       1   1  1/4 
+    //   6       1   2  1/4 
+    //   7       1   3  1/4 
+</pre>
+
+<li>
+<span id="SystemVerilog Minutes-handle.randomize(null)"></span><strong id="handle.randomize(null)">handle.randomize(null)</strong> not do randomization,just ensure all constraint are santisfied.
+
+<li>
+<span id="SystemVerilog Minutes-rand_mode"></span><strong id="rand_mode">rand_mode</strong> control whether a random variable is active or inactive (as <span id="SystemVerilog Minutes-rand"></span><strong id="rand">rand</strong> is not specified).<code>obj[.var.].rand_mode(0/1)</code>.
+
+<li>
+<code>$urandom</code> is similar with <code>$random</code> with 2 exceptions: <span id="SystemVerilog Minutes-thread stable"></span><strong id="thread stable">thread stable</strong> and unsigned number. every object and seed has it's own
+  PRNG.
+
+<li>
+should use <span id="SystemVerilog Minutes-automatic"></span><strong id="automatic">automatic</strong> variables to hold values in concurrent threads. example:
+<pre class="code systemverilog">
+    for (int i=0;i&lt;3;i++) begin
+      fork // schedule thread, not executed.
+        // notes: without the following statement, the loop variable is overwritten by later iteration.
+        automatic int j = i; // save into automatic variable. 
+        $write(j);
+      join_none
+    end
+    #0; // block current thread,reschedule the following statement in the later of current slot,
+    // then execute the above scheduled thread.
+    $display;
+    // with automatic outputs: 1 2 3 ;
+    // without automatic statement, outputs: 3 3 3
 </pre>
 
 </ul>
@@ -69,7 +272,7 @@ arrays can be compared (equal, nonequal) and copied
 	    <div id="footer">
 	      <span class="notes">
                 This site is composed with <a href="http://vimwiki.github.io/">vimwiki</a>,
-                hosted by<a href="http://pages.github.com">github</a>,
+                hosted by <a href="http://pages.github.com">github</a>,
                 code block syntax highliging with <a href="https://highlightjs.org/"> highight.js</a>
 	      </span>
 	    </div>

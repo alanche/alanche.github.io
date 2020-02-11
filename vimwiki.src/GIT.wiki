@@ -7,10 +7,11 @@
 * pull other modification to local:
  * git pull origin umc_dev
 * merge a single file *file* from other branch B to branch A:
-  {{{
+  {{{bash
   # if the B is remote, please checkout it firstly.
   git checkout B # make branch B available at local git
   git checkout A # switch to branch A
   git checkout --patch B file # patch it.
   }}}
 * compare the content of file *file* in two version *a* and *b* by: `git diff a b -- file`
+* Git Books: https://www.git-scm.com/book/zh/v2
