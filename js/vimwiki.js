@@ -80,7 +80,6 @@ $(document).ready(function() {
   // remove the same count of leading space char at each line
   $('pre.code').each(function(i,block) {
     var txt = this.innerText
-    console.log(txt)
     lines = txt.split("\n")
     first = lines[0]
     space = 0
