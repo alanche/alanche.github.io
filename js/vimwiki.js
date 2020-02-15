@@ -62,6 +62,7 @@ $(document).ready(function() {
       // the digit location in number
       var idx = obj.tagName.slice(-1) - 1;
       if (obj.className.indexOf('justcenter') != -1) continue;
+      if (obj.innerText == "Contents") continue
       if (obj.className.indexOf('nonumber') != -1) continue;
       // incremental current level digit
       number[idx++]++; 
