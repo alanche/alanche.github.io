@@ -34,10 +34,30 @@
 
 	    <div id="main-content">
 	    
-<div id="SystemVerilog Minutes"><h1 id="SystemVerilog Minutes" class="header justcenter"><a href="#SystemVerilog Minutes">SystemVerilog Minutes</a></h1></div>
+<h1 id="SystemVerilog Minutes" class="header justcenter">SystemVerilog Minutes</h1>
 <ul>
 <li>
 4 state(0/1/x/z) type includes: <span id="SystemVerilog Minutes-logic,reg,integer,time"></span><strong id="logic,reg,integer,time">logic,reg,integer,time</strong>. others are 2 state types.
+
+<li>
+the default enumerated type is an <span id="SystemVerilog Minutes-int"></span><strong id="int">int</strong>, and started with 0, it can be assigned to int,integer. reverserly, require explict type
+  conversion.
+<pre class="code systemverilog">
+    typedef enum {RED, BLUE, GREEN} COLOR_E;
+    COLOR_E color, c2; // initialized as 0, that is, RED.
+    integer c;
+    initial begin
+      c = color;            // Convert from enum to integer
+      c++;                  // Increment integer
+      if (!$cast(color, c)) // Cast integer back to enum
+        $display("Cast failed for c=%0d", c);
+      $display("Color is %0d / %0s", color, color.name);
+      c2 = COLOR_E'(c);     // No type checking done
+    end
+    typedef enum {FIRST=1, SECOND, THIRD} ordinal_e;
+    // should fixed as: typedef enum {ERR=0,FIRST=1, SECOND, THIRD} ordinal_e;
+    ordinal_e position; // buggy: try to assign position as 0.
+</pre>
 
 <li>
 iterate on multiple dimention array
@@ -81,8 +101,29 @@ array methods: reduction(sum,product,xor), allocator
 </pre>
 
 <li>
-pass array to function/task with <span id="SystemVerilog Minutes-ref"></span><strong id="ref">ref</strong>.
+function/task call argument handling:
 
+<ul>
+<li>
+input/inout was copied to local variable at the start of routine.
+
+<li>
+output/inout was copied when the routine exited.
+
+<li>
+function call is pass by value defaultly. pass by reference is specified by <span id="SystemVerilog Minutes-ref"></span><strong id="ref">ref</strong>:
+<pre class="code systemverilog">
+     // pass by value: total array is copied to the function stack. expensive operation.
+     // pass by reference: the variable's address/handle is passed, so, routine can modify it.
+     // best practice: Always use ref when passing arrays to a routine. const protect array be modified.
+     function void print_sum (const ref int a[]);
+       int sum = 0;
+       foreach (a[i]) sum += a[i];
+       $display("The sum of the arrays is ", sum);
+     endfunction
+</pre>
+
+</ul>
 <li>
 <span id="SystemVerilog Minutes-static"></span><strong id="static">static</strong> variable defined in <span id="SystemVerilog Minutes-class"></span><strong id="class">class</strong> scope shared among all instances, known as class variables. static methods has no access
   to nonstatic members, can access static member and static methods.
@@ -264,6 +305,82 @@ should use <span id="SystemVerilog Minutes-automatic"></span><strong id="automat
     // with automatic outputs: 1 2 3 ;
     // without automatic statement, outputs: 3 3 3
 </pre>
+
+<li>
+<span id="SystemVerilog Minutes-mailbox"></span><strong id="mailbox">mailbox</strong> store the <span id="SystemVerilog Minutes-handle of an object rather than the object itself"></span><strong id="handle of an object rather than the object itself">handle of an object rather than the object itself</strong>:
+<pre class="code systemverilog">
+    mailbox#(BusTrans) mb = new;
+    mailbox#(Bus) mc = new;
+    BusTrans b;
+    Bus c;
+    c = new; // buggy version.
+    repeat(10) begin
+      b = new; // should allocate new object, w
+      assert(tr.randomize()); assert(c.randomize());
+      mb.put(b); // there are 10 distinct copies of handle point to 10 object.
+      mc.put(c);  // there are 10 copies of same handle point to same object.
+    end
+</pre>
+
+<li>
+A thread continue to run until there is a blocking statement e.g. #0, wait, @event and etc.
+
+<li>
+SystemVerilog always based on the handle's type to call it's <span id="SystemVerilog Minutes-new"></span><strong id="new">new</strong> (constructor). 
+
+<li>
+the extended class <span id="SystemVerilog Minutes-must"></span><strong id="must">must</strong> call the base class's constructor as <span id="SystemVerilog Minutes-the first executable line"></span><strong id="the first executable line">the first executable line</strong> of it's constructor if base class has
+  constructor with argument. Thus, all the constructors are called, in the proper order, beginning with the rootbase class and
+  ending with the current class.
+
+<li>
+<span id="SystemVerilog Minutes-covergroup"></span><strong id="covergroup">covergroup</strong> can be defined in class,program,module level, it can sample variable in the scope where it is defined,e.g:
+  program/module variables, signals from an interface, or any signal in the design (using a hierarchical reference),variables in
+  class, as well as data values from embedded classes.
+
+<li>
+When a covergroup is defined within a class and no explicit variables of that covergroup are declared in the class, then a
+  variable with the same name as the coveragegroup is implicitly declared.
+<pre class="code systemverilog">
+    class xyz;
+      bit [3:0] m_x; int m_y; bit m_z;
+      covergroup cov1 @m_z; // embedded covergroup , trigged when m_z is toggled.
+        coverpoint m_x;
+	coverpoint m_y;
+      endgroup
+      // implicit written as: cov1 cov1;
+      function new(); cov1 = new; endfunction
+      function run();
+        cov1.sample(); // explicity sample at the proper time.
+      endfunction
+    endclass
+</pre>
+
+</ul>
+  
+<h1 id="Verification" class="header justcenter">Verification</h1>
+ 
+<ul>
+<li>
+Functional coverage information is only valid for a successful simulation.Some verification teams periodically measure all
+  functional coverage from scratch so that it reflects the current state of the design.
+
+<li>
+If the coverage level has plateaued,with no recent progress,it is time to modify the constraints. Only if you think that
+  reaching the last few test cases for one particular section may take too long for constrained-random simulation should you
+  consider writing a directed test.
+
+<li>
+keep track bug rate through project life. when sags,find different way to create corner cases.
+
+<li>
+anticipate what are the key design features, corner cases, and possible failure modes for verification planning.
+
+<li>
+coverage: only measure data what you are going to use.
+
+<li>
+coverage: gathering information rather than data.
 
 </ul>
 

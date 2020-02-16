@@ -1,5 +1,23 @@
  = SystemVerilog Minutes =
 * 4 state(0/1/x/z) type includes: *logic,reg,integer,time*. others are 2 state types.
+* the default enumerated type is an *int*, and started with 0, it can be assigned to int,integer. reverserly, require explict type
+  conversion.
+  {{{systemverilog
+    typedef enum {RED, BLUE, GREEN} COLOR_E;
+    COLOR_E color, c2; // initialized as 0, that is, RED.
+    integer c;
+    initial begin
+      c = color;            // Convert from enum to integer
+      c++;                  // Increment integer
+      if (!$cast(color, c)) // Cast integer back to enum
+        $display("Cast failed for c=%0d", c);
+      $display("Color is %0d / %0s", color, color.name);
+      c2 = COLOR_E'(c);     // No type checking done
+    end
+    typedef enum {FIRST=1, SECOND, THIRD} ordinal_e;
+    // should fixed as: typedef enum {ERR=0,FIRST=1, SECOND, THIRD} ordinal_e;
+    ordinal_e position; // buggy: try to assign position as 0.
+  }}}
 * iterate on multiple dimention array
   {{{systemverilog
     int md[2][3] = '{'{0,1,2},'{3,4,5}}; // multiple dimention array
@@ -35,7 +53,20 @@
     rs = ar.find_first_index with (item == 3); // {2}
     c  = ar.sum with (item == 3); // 2 : {3,3} sum adding up the times of expression is true.
   }}}
-* pass array to function/task with *ref*.
+* function/task call argument handling:
+  * input/inout was copied to local variable at the start of routine.
+  * output/inout was copied when the routine exited.
+  * function call is pass by value defaultly. pass by reference is specified by *ref*:
+   {{{systemverilog
+     // pass by value: total array is copied to the function stack. expensive operation.
+     // pass by reference: the variable's address/handle is passed, so, routine can modify it.
+     // best practice: Always use ref when passing arrays to a routine. const protect array be modified.
+     function void print_sum (const ref int a[]);
+       int sum = 0;
+       foreach (a[i]) sum += a[i];
+       $display("The sum of the arrays is ", sum);
+     endfunction
+   }}}
 * *static* variable defined in *class* scope shared among all instances, known as class variables. static methods has no access
   to nonstatic members, can access static member and static methods.
   {{{systemverilog
@@ -196,3 +227,53 @@
     // with automatic outputs: 1 2 3 ;
     // without automatic statement, outputs: 3 3 3
   }}}
+* *mailbox* store the *handle of an object rather than the object itself*:
+  {{{systemverilog
+    mailbox#(BusTrans) mb = new;
+    mailbox#(Bus) mc = new;
+    BusTrans b;
+    Bus c;
+    c = new; // buggy version.
+    repeat(10) begin
+      b = new; // should allocate new object, w
+      assert(tr.randomize()); assert(c.randomize());
+      mb.put(b); // there are 10 distinct copies of handle point to 10 object.
+      mc.put(c);  // there are 10 copies of same handle point to same object.
+    end
+  }}}
+* A thread continue to run until there is a blocking statement e.g. #0, wait, @event and etc.
+* SystemVerilog always based on the handle's type to call it's *new* (constructor). 
+* the extended class *must* call the base class's constructor as *the first executable line* of it's constructor if base class has
+  constructor with argument. Thus, all the constructors are called, in the proper order, beginning with the rootbase class and
+  ending with the current class.
+* *covergroup* can be defined in class,program,module level, it can sample variable in the scope where it is defined,e.g:
+  program/module variables, signals from an interface, or any signal in the design (using a hierarchical reference),variables in
+  class, as well as data values from embedded classes.
+* When a covergroup is defined within a class and no explicit variables of that covergroup are declared in the class, then a
+  variable with the same name as the coveragegroup is implicitly declared.
+  {{{systemverilog
+    class xyz;
+      bit [3:0] m_x; int m_y; bit m_z;
+      covergroup cov1 @m_z; // embedded covergroup , trigged when m_z is toggled.
+        coverpoint m_x;
+	coverpoint m_y;
+      endgroup
+      // implicit written as: cov1 cov1;
+      function new(); cov1 = new; endfunction
+      function run();
+        cov1.sample(); // explicity sample at the proper time.
+      endfunction
+    endclass
+  }}}
+  
+ = Verification =
+ 
+* Functional coverage information is only valid for a successful simulation.Some verification teams periodically measure all
+  functional coverage from scratch so that it reflects the current state of the design.
+* If the coverage level has plateaued,with no recent progress,it is time to modify the constraints. Only if you think that
+  reaching the last few test cases for one particular section may take too long for constrained-random simulation should you
+  consider writing a directed test.
+* keep track bug rate through project life. when sags,find different way to create corner cases.
+* anticipate what are the key design features, corner cases, and possible failure modes for verification planning.
+* coverage: only measure data what you are going to use.
+* coverage: gathering information rather than data.
