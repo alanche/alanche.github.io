@@ -7,7 +7,7 @@
 * pull other modification to local:
  * git pull origin umc_dev
 * merge a single file *file* from other branch B to branch A:
-  {{{
+  {{{bash
   # if the B is remote, please checkout it firstly.
   git checkout B # make branch B available at local git
   git checkout A # switch to branch A
@@ -16,3 +16,4 @@
 * compare the content of file *file* in two version *a* and *b* by: `git diff a b -- file`
 * list the files in the bare repository:
   * cd into the bare tree and do: `git ls-tree --full-tree -r HEAD`
+* Git Books: https://www.git-scm.com/book/zh/v2

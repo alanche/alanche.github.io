@@ -5,7 +5,8 @@
 * Enable the X11 fowwarding defaultly:~/.ssh/config:`ForwardX11=yes`
 * Install the packages from RPM: `rpm2cpio packages.rpm | cpio -idv`
 * Querying the LSF group host information: `bmgroup`
-* terminal color control sequence: [[https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences|here]]
+* terminal color control sequence: [[https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences|here]], also
+  check the perl module: Term::ANSIColor for more referece.
 * add the 'Window List' to the pannel: to make the windows like task icon.
 * tcsh: bind the arrow keys to search the command line history:
   * `bindkey -k up history-search-backward`

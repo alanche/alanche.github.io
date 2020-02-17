@@ -38,8 +38,9 @@
 	    <hr>
 	    <div id="footer">
 	      <span class="notes">
-		Thanks <a href="http://pages.github.com">githubPages</a> for
-		providing the web hosting environment
+                This site is composed with <a href="http://vimwiki.github.io/">vimwiki</a>,
+                hosted by <a href="http://pages.github.com">github</a>,
+                code block syntax highliging with <a href="https://highlightjs.org/"> highight.js</a>
 	      </span>
 	    </div>
 	  </div>
