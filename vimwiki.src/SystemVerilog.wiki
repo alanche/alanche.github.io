@@ -249,7 +249,7 @@
 * *covergroup* can be defined in class,program,module level, it can sample variable in the scope where it is defined,e.g:
   program/module variables, signals from an interface, or any signal in the design (using a hierarchical reference),variables in
   class, as well as data values from embedded classes.
-* When a covergroup is defined within a class and no explicit variables of that covergroup are declared in the class, then a
+* `embedded covergroup`: is defined within a class and no explicit variables of that covergroup are declared in the class, then a
   variable with the same name as the coveragegroup is implicitly declared.
   {{{systemverilog
     class xyz;
@@ -265,6 +265,12 @@
       endfunction
     endclass
   }}}
+* the default `%t` use the smallest precision of timescale in the session, we must use `$timeformat` to set it explicitly to avoid
+  confusing.
+  {{{systemverilog
+    $timeformat(-9, 5, " ns", 10);
+  }}}
+* class variable access control: `local` limits the variable access from current class, `protected` = `local` + access from subclass.
   
  = Verification =
  
@@ -277,3 +283,6 @@
 * anticipate what are the key design features, corner cases, and possible failure modes for verification planning.
 * coverage: only measure data what you are going to use.
 * coverage: gathering information rather than data.
+ = 延迟 =
+* 传输延迟一般为输入信号变化到对应输出信号变化经过的时间，不会对输入信号进行滤除处理，所以传输延迟是一种绝对延迟，这种延迟类似于物理传输线的延迟，在仿真中用于模拟连线延迟。如下图所示，输入一般不会被滤除
+* 惯性延迟().

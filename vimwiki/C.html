@@ -34,7 +34,7 @@
 
 	    <div id="main-content">
 	    
-<div id="The C Programming Language"><h1 id="The C Programming Language" class="justcenter">The C Programming Language</h1></div>
+<h1 id="The C Programming Language" class="header justcenter">The C Programming Language</h1>
 <ul>
 <li>
 在函数外的 <span id="The C Programming Language-static"></span><strong id="static">static</strong> 变量可见性为当前文件。
@@ -115,12 +115,32 @@ variable length argument expression: <code>int printf(char *format,...)</code>, 
 
 </ul>
 
+<h1 id="GDB" class="header justcenter">GDB</h1>
+<ul>
+<li>
+<code>ulimit -c unlimited</code> enable the coredump files capability.
+
+<li>
+The gdbinit sample to enable the tracing of shared object:
+<pre class="code text">
+    # let gdb set up the breakpoint not load yet, required for dynamic loading shared object debugging.
+    set breakpoint pending on
+    set auto-load safe-path /
+    file executable
+    set args 'the command line argument'
+    break source code path of shared-object.
+    catch signal # debug on signal received
+</pre>
+
+</ul>
+
 	    </div>
 	    <hr>
 	    <div id="footer">
 	      <span class="notes">
-		Thanks <a href="http://pages.github.com">githubPages</a> for
-		providing the web hosting environment
+                This site is composed with <a href="http://vimwiki.github.io/">vimwiki</a>,
+                hosted by <a href="http://pages.github.com">github</a>,
+                code block syntax highliging with <a href="https://highlightjs.org/"> highight.js</a>
 	      </span>
 	    </div>
 	  </div>

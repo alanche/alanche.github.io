@@ -52,3 +52,16 @@
   
   }}}
 # variable length argument expression: `int printf(char *format,...)`, the stdarg.h provide macro to handle it.
+
+ = GDB =
+* `ulimit -c unlimited` enable the coredump files capability.
+* The gdbinit sample to enable the tracing of shared object:
+  {{{text
+    # let gdb set up the breakpoint not load yet, required for dynamic loading shared object debugging.
+    set breakpoint pending on
+    set auto-load safe-path /
+    file executable
+    set args 'the command line argument'
+    break source code path of shared-object.
+    catch signal # debug on signal received
+  }}}

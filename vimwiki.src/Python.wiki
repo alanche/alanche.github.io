@@ -1,6 +1,7 @@
  = Sample Code =
 * Save the clipboard images into a specific file
 {{{python
+# pip install pillow
 from PIL import ImageGrab
 import sys
 filename = sys.argv[1]

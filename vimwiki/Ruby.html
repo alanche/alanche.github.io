@@ -34,7 +34,7 @@
 
 	    <div id="main-content">
 	    
-<div id="RubyTips"><h1 id="RubyTips" class="justcenter">RubyTips</h1></div>
+<h1 id="RubyTips" class="header justcenter">RubyTips</h1>
 <ol>
 <li>
 Constant and Class name are begin with Capital letter.
@@ -327,7 +327,7 @@ the arguments prefix with a * will hold the collected the addtional position par
 </pre>
 
 <li>
-next,break,return in the block:<a href="https:&#47;&#47;blog.csdn.net&#47;lslxdx&#47;article&#47;details&#47;11489419">details</a>
+next,break,return in the block:<a href="https://blog.csdn.net/lslxdx/article/details/11489419">details</a>
 
 <li>
 safe navigation operator: '&amp;.', the following are equivalent.
@@ -345,20 +345,47 @@ range operator x..y and x...y .
 
 <li>
 the <code>map(&amp;:name)</code> is a short hand for <code>map(&amp;:name.to_proc)</code>, it calls to_proc method of the symbol :name to obtain a Proc object
-  and passed to map.described verbosely in <a href="https:&#47;&#47;stackoverflow.com&#47;questions&#47;1217088&#47;what-does-mapname-mean-in-ruby">map_&amp;_name</a> and <a href="https:&#47;&#47;blog.csdn.net&#47;baodongdong123&#47;article&#47;details&#47;65443171">map shortcut</a>.
+  and passed to map.described verbosely in <a href="https://stackoverflow.com/questions/1217088/what-does-mapname-mean-in-ruby">map_&amp;_name</a> and <a href="https://blog.csdn.net/baodongdong123/article/details/65443171">map shortcut</a>.
 <pre class="code ruby">
     # equivalent with: dirs.map { |elem| elem.length }
     dirs = ['/usr','/local'].map(&amp;:length) # [4,6]
 </pre>
 
+<li>
+Thread.current return parent thread information in the child thread's initialize process, the execution is parallized after
+  originial initialize &amp;blk is executed.
+<pre class="code ruby">
+    class Thread
+      alias original_init initialize
+      def initialize &amp;blk
+        original_init &amp;blk
+        # the following line execution is parallized with &amp;blk execution.
+        self == Thread.current # false, Thread.current 
+      end
+    end
+    t = Thread.new { 
+      self == Thread.current # true 
+    }
+</pre>
+
+<li>
+The return,break has different behavior between lamba and non-lambda(regular procs), Differences are:
+
+<ul>
+<li>
+In lambdas, return means exit from this lambda;
+
+<li>
+In regular procs, return means exit from embracing method (and will throw LocalJumpError if invoked outside the method);
+
+</ul>
 </ol>
 
-
-<div id="debug ruby programs"><h1 id="debug ruby programs" class="justcenter">debug ruby programs</h1></div>
+<h1 id="debug ruby programs" class="header justcenter">debug ruby programs</h1>
 <p>
-The  <a href="https:&#47;&#47;rubygems.org&#47;gems&#47;pry-debugger">pry-debugger</a> combine <a href="http:&#47;&#47;pryrepl.org">pry</a> with 'debugger'.  Adds 'step',
+The  <a href="https://rubygems.org/gems/pry-debugger">pry-debugger</a> combine <a href="http://pryrepl.org">pry</a> with 'debugger'.  Adds 'step',
 'next', and 'continue' commands to control execution. 
-<a href="https:&#47;&#47;github.com&#47;pry&#47;pry-stack_explorer">pry-stack_explorer</a> add the pry with execution stack exploration capability.
+<a href="https://github.com/pry/pry-stack_explorer">pry-stack_explorer</a> add the pry with execution stack exploration capability.
 </p>
 <pre class="code ruby">
   require 'pry-debugger'
@@ -396,21 +423,21 @@ Frequently Used Commands:
 <span id="debug ruby programs-method.source"></span><strong id="method.source">method.source</strong> : to show the source code of the specified method.
 
 <li>
-refer: <a href="http:&#47;&#47;www.jackkinsella.ie&#47;articles&#47;a-comprehensive-guide-to-debugging-rails">A comprehensive guide to debugging rails</a>
+refer: <a href="http://www.jackkinsella.ie/articles/a-comprehensive-guide-to-debugging-rails">A comprehensive guide to debugging rails</a>
 
 </ul>
 
-<div id="Useful Links"><h1 id="Useful Links" class="justcenter">Useful Links</h1></div>
+<h1 id="Useful Links" class="header justcenter">Useful Links</h1>
 <ul>
 <li>
-<a href="http:&#47;&#47;pryrepl.org">pry</a> Pry is a powerful alternative to the standard IRB shell for Ruby It features syntax highlighting, a
+<a href="http://pryrepl.org">pry</a> Pry is a powerful alternative to the standard IRB shell for Ruby It features syntax highlighting, a
   flexible plugin architecture, runtime invocation and source and documentation browsing.
 
 <li>
-rubygems: the ruby package system. <a href="https:&#47;&#47;rubygems.org">https://rubygems.org</a>
+rubygems: the ruby package system. <a href="https://rubygems.org">https://rubygems.org</a>
 
 <li>
-ruby document server: <a href="http:&#47;&#47;www.rubydoc.info">http://www.rubydoc.info</a>
+ruby document server: <a href="http://www.rubydoc.info">http://www.rubydoc.info</a>
 
 </ul>
 
@@ -418,8 +445,9 @@ ruby document server: <a href="http:&#47;&#47;www.rubydoc.info">http://www.rubyd
 	    <hr>
 	    <div id="footer">
 	      <span class="notes">
-		Thanks <a href="http://pages.github.com">githubPages</a> for
-		providing the web hosting environment
+                This site is composed with <a href="http://vimwiki.github.io/">vimwiki</a>,
+                hosted by <a href="http://pages.github.com">github</a>,
+                code block syntax highliging with <a href="https://highlightjs.org/"> highight.js</a>
 	      </span>
 	    </div>
 	  </div>

@@ -232,7 +232,24 @@
     # equivalent with: dirs.map { |elem| elem.length }
     dirs = ['/usr','/local'].map(&:length) # [4,6]
   }}}
-
+# Thread.current return parent thread information in the child thread's initialize process, the execution is parallized after
+  originial initialize &blk is executed.
+  {{{ruby
+    class Thread
+      alias original_init initialize
+      def initialize &blk
+        original_init &blk
+        # the following line execution is parallized with &blk execution.
+        self == Thread.current # false, Thread.current 
+      end
+    end
+    t = Thread.new { 
+      self == Thread.current # true 
+    }
+  }}}
+# The return,break has different behavior between lamba and non-lambda(regular procs), Differences are:
+  * In lambdas, return means exit from this lambda;
+  * In regular procs, return means exit from embracing method (and will throw LocalJumpError if invoked outside the method);
 
  = debug ruby programs =
 The  [[https://rubygems.org/gems/pry-debugger|pry-debugger]] combine [[http://pryrepl.org|pry]] with 'debugger'.  Adds 'step',

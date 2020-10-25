@@ -339,7 +339,7 @@ the extended class <span id="SystemVerilog Minutes-must"></span><strong id="must
   class, as well as data values from embedded classes.
 
 <li>
-When a covergroup is defined within a class and no explicit variables of that covergroup are declared in the class, then a
+<code>embedded covergroup</code>: is defined within a class and no explicit variables of that covergroup are declared in the class, then a
   variable with the same name as the coveragegroup is implicitly declared.
 <pre class="code systemverilog">
     class xyz;
@@ -355,6 +355,16 @@ When a covergroup is defined within a class and no explicit variables of that co
       endfunction
     endclass
 </pre>
+
+<li>
+the default <code>%t</code> use the smallest precision of timescale in the session, we must use <code>$timeformat</code> to set it explicitly to avoid
+  confusing.
+<pre class="code systemverilog">
+    $timeformat(-9, 5, " ns", 10);
+</pre>
+
+<li>
+class variable access control: <code>local</code> limits the variable access from current class, <code>protected</code> = <code>local</code> + access from subclass.
 
 </ul>
   
@@ -381,6 +391,13 @@ coverage: only measure data what you are going to use.
 
 <li>
 coverage: gathering information rather than data.
+ = 延迟 =
+
+<li>
+传输延迟一般为输入信号变化到对应输出信号变化经过的时间，不会对输入信号进行滤除处理，所以传输延迟是一种绝对延迟，这种延迟类似于物理传输线的延迟，在仿真中用于模拟连线延迟。如下图所示，输入一般不会被滤除
+
+<li>
+惯性延迟().
 
 </ul>
 
