@@ -114,6 +114,15 @@ class 关键字的核心任务是把你带到类的上下文，让你可以在�
   # the Object class includes Kernel modules.
   MySubClass.ancestors # =&gt; [MySubClass,MyClass,Object,Kernel,BasicObject]
 </pre>
+  我们可以通过下列方法来查询某个方法定义的位置:
+<pre class="code ruby">
+    # monkey patch: mimic the step right, and lookup behaviors.
+    module Kernel
+      def locate(m)
+	singleton_class.ancestors.filter {|v| v.instance_methods(false).include? m}[0]
+      end
+    end
+</pre>
 
 <li>
 <span id="-内核方法"></span><strong id="内核方法">内核方法</strong> : Kernel模块被包含在Object类中，成为了每一个类的祖先链，其中的方法对所有对象可见. 使得一些方法称为关键字:
@@ -191,8 +200,9 @@ self 关键字 : 每一行代码都在当前对象执行.所有没有明确指�
 	    <hr>
 	    <div id="footer">
 	      <span class="notes">
-		Thanks <a href="http://pages.github.com">githubPages</a> for
-		providing the web hosting environment
+                This site is composed with <a href="http://vimwiki.github.io/">vimwiki</a>,
+                hosted by <a href="http://pages.github.com">github</a>,
+                code block syntax highliging with <a href="https://highlightjs.org/"> highight.js</a>
 	      </span>
 	    </div>
 	  </div>

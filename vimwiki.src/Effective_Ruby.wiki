@@ -21,13 +21,13 @@
     end
     Defaults.freeze # let NETWORKS can't be changed to point to another object.
   }}}
-# 启用ruby的编译时警告: 设置环境变量`RUBYOPT`或者命令行参数包含:*-w*;控制运行时警告:设定$VERBOSE为true/false/nil.
+# 启用ruby的编译时警告: 设置环境变量`RUBYOPT`或者命令行参数包含:*-w*;控制运行时警告:设定`$VERBOSE`为true/false/nil.
 # 对象模型:
   * 对象是实例变量的容器,通过obj#class与其类联系.方法位于类上,称为类的实例方法.
-  * 类是方法和常量的容器.类也是对象,其变量称为:类变量,类方法.
+  * 类是方法和常量的容器.类也是 *对象*,其变量称为:类变量,类方法.
   * 模块与类基本相同只是无法实例化.(无#new函数).
-  * 单例类(sigleton class) 只服务一个对象.隐藏不可见.通过#singleton_class访问.单例方法位于单例类单例类(sigleton class)
-    只服务一个对象.隐藏不可见.通过#singleton_class访问.单例方法位于单例类上.
+  * 单例类(singleton/meta class) 只服务一个对象.隐藏不可见.通过#singleton_class访问.单例方法位于单例类单例类(singleton class)
+    只服务一个对象.
   * 可以用Object#singleton_class, Class#ancestors, included_modules 返回搜索树.
 # 创建子类时,默认不会调用父类的initialize函数,需要显示的调用父类的初始化函数: super 进行初始化.
 # 当两者为同一个对象时,`equal?` 返回为true. `==` 值相等时为true.`eql?` 不同类型有不同的重载. 对于数值对象需要同类型同值.

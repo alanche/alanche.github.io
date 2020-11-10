@@ -271,6 +271,7 @@
     $timeformat(-9, 5, " ns", 10);
   }}}
 * class variable access control: `local` limits the variable access from current class, `protected` = `local` + access from subclass.
+* the force statement right hand must be static value(or constant), can't be automatic values.
   
  = Verification =
  
