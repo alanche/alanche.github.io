@@ -65,6 +65,15 @@
   # the Object class includes Kernel modules.
   MySubClass.ancestors # => [MySubClass,MyClass,Object,Kernel,BasicObject]
   }}}
+  我们可以通过下列方法来查询某个方法定义的位置:
+  {{{ruby
+    # monkey patch: mimic the step right, and lookup behaviors.
+    module Kernel
+      def locate(m)
+	singleton_class.ancestors.filter {|v| v.instance_methods(false).include? m}[0]
+      end
+    end
+  }}}
 # *内核方法* : Kernel模块被包含在Object类中，成为了每一个类的祖先链，其中的方法对所有对象可见. 使得一些方法称为关键字:
   `Kernel.private_instance_methods.grep(/^pr/) # => [:print,:printf,:proc]` 
 # self 关键字 : 每一行代码都在当前对象执行.所有没有明确指明接收者的方法，都在当前对象调用. self
