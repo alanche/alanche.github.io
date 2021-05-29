@@ -61,7 +61,7 @@ control structures
 Regular expression are almost as same as the one in the Perl. return nil when not matched, otherwise, return match location.
 
 <li>
-Reading and writes: The <span id="-\(_"></span><strong id="\)_">$_</strong> is settled as the gets side effect and as the default argument.
+Reading and writes: The <span id="-$_"></span><strong id="$_">$_</strong> is settled as the gets side effect and as the default argument.
 <pre class="code ruby">
   while gets
     if /Ruby/
@@ -147,12 +147,10 @@ Access Control: keyword are: <span id="-protected,private,public"></span><strong
 Public methods can be called by anyone. Methods are public by default (except for initialize, which is always private).
 
 <li>
-Protected methods can be invoked only by objects of the defining class and its subclasses. Access is kept within the family.
-      If a method is protected, it may be called by <span id="-any"></span><strong id="any">any</strong> instance of the defining class or its subclasses.
+Protected methods: the sender must be a subclass of receiver.
 
 <li>
-Private methods cannot be called with an explicit receiver. Because you cannot specify an object when using them, private
-      methods can be called only in the defining class and by direct descendents within that same object.
+Private methods can not be called with an explicit receiver.
 
 </ul>
 </ul>
@@ -328,8 +326,9 @@ proc miniutes
 	    <hr>
 	    <div id="footer">
 	      <span class="notes">
-		Thanks <a href="http://pages.github.com">githubPages</a> for
-		providing the web hosting environment
+                This site is composed with <a href="http://vimwiki.github.io/">vimwiki</a>,
+                hosted by <a href="http://pages.github.com">github</a>,
+                code block syntax highliging with <a href="https://highlightjs.org/"> highight.js</a>
 	      </span>
 	    </div>
 	  </div>

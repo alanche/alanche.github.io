@@ -274,7 +274,6 @@
 * the force statement right hand must be static value(or constant), can't be automatic values.
   
  = Verification =
- 
 * Functional coverage information is only valid for a successful simulation.Some verification teams periodically measure all
   functional coverage from scratch so that it reflects the current state of the design.
 * If the coverage level has plateaued,with no recent progress,it is time to modify the constraints. Only if you think that
@@ -285,5 +284,5 @@
 * coverage: only measure data what you are going to use.
 * coverage: gathering information rather than data.
  = 延迟 =
-* 传输延迟一般为输入信号变化到对应输出信号变化经过的时间，不会对输入信号进行滤除处理，所以传输延迟是一种绝对延迟，这种延迟类似于物理传输线的延迟，在仿真中用于模拟连线延迟。如下图所示，输入一般不会被滤除
+* 传输延迟一般为输入信号变化到对应输出信号变化经过的时间,不会对输入信号进行滤除处理,所以传输延迟是一种绝对延迟,这种延迟类似于物理传输线的延迟,在仿真中用于模拟连线延迟.如下图所示,输入一般不会被滤除
 * 惯性延迟().

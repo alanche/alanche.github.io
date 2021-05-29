@@ -64,5 +64,5 @@
     file executable
     set args 'the command line argument'
     break source code path of shared-object.
-    catch signal # debug on signal received
+    catch signal 11 # debug on signal segment fault received
   }}}

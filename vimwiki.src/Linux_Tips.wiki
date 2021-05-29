@@ -5,6 +5,7 @@
 * Enable the X11 fowwarding defaultly:~/.ssh/config:`ForwardX11=yes`
 * Install the packages from RPM: `rpm2cpio packages.rpm | cpio -idv`
 * Querying the LSF group host information: `bmgroup`
+* switching the desktop: `ctrl + alt + left/right arrow`
 * terminal color control sequence: [[https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences|here]], also
   check the perl module: Term::ANSIColor for more referece.
 * add the 'Window List' to the pannel: to make the windows like task icon.
@@ -14,7 +15,7 @@
 * find the broken links: `find -type l -follow`
 * Get the changelist number of current workspace: `p4 changes -m 1 #have`
 * vim: `set clipboard=unnamed`: use the "* register as the holding place for yank and paste.
-* firefox: the `shift + insert` paste from vim "+ register; the 'middle mouse button' paste from "* register.
+* firefox: the `shift + insert` paste from vim "+ register; the 'middle mouse button' paste from "* register(the primary selection).
 * GNOME: `ctrl + alt + ArrowKey`: switch the workspace
 * xterm: the `shift + insert` and `middle mouse button` paste from vim "* register.
 * xterm: show the chinese characters(it requires specific font library):
@@ -46,6 +47,7 @@
     p4 resolve -ay # resolve and accept your local copy.
   }}}
 * LSF: environment variable `LSB_DEFAULTQUEUE` control the default queue.
+* [[http://www.nongnu.org/autocutsel|autocutsel]] keep sync of the Xwindow primary selection and cutbuffer clipboard.
 
 = putty tips =
 * copy large quantity of linux text into window clipboard:

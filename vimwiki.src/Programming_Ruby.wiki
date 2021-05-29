@@ -90,10 +90,8 @@
     }}}
   * Access Control: keyword are: *protected,private,public*
     * Public methods can be called by anyone. Methods are public by default (except for initialize, which is always private).
-    * Protected methods can be invoked only by objects of the defining class and its subclasses. Access is kept within the family.
-      If a method is protected, it may be called by *any* instance of the defining class or its subclasses.
-    * Private methods cannot be called with an explicit receiver. Because you cannot specify an object when using them, private
-      methods can be called only in the defining class and by direct descendents within that same object.
+    * Protected methods: the sender must be a subclass of receiver.
+    * Private methods can not be called with an explicit receiver.
 * Variables - are used to keep track of objects; each variable holds a reference to an object. Objects float around in a big pool
   somewhere(the heap, most of the time) and are pointed to by variables.
   {{{ruby
