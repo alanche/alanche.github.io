@@ -51,6 +51,15 @@ else:
   print("ERROR")
 </pre>
 
+<li>
+The solution to error for print chinese: <code>UnicodeEncodeError: 'ascii' codec can't encode characters</code>:
+<pre class="code python">
+    import sys
+    import codecs
+    sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
+    print("中文")
+</pre>
+
 </ul>
 
 	    </div>

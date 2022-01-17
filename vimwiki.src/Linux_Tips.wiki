@@ -16,6 +16,7 @@
 * Get the changelist number of current workspace: `p4 changes -m 1 #have`
 * vim: `set clipboard=unnamed`: use the "* register as the holding place for yank and paste.
 * vim: re-order the line of a range: create a mark c in front of range a,b, and then: `'a,'bg/^/m'c` 
+* vim: copy matched lines in range into another location marked as mc: `'a,'bg/pat/y | normal 'cp`
 * gvim: display underscore as space, solution: `set linespace=5`
 * firefox: the `shift + insert` paste from vim "+ register; the 'middle mouse button' paste from "* register(the primary selection).
 * GNOME: `ctrl + alt + ArrowKey`: switch the workspace

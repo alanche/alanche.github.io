@@ -12,3 +12,10 @@ if im is not None:
 else:
   print("ERROR")
 }}}
+* The solution to error for print chinese: `UnicodeEncodeError: 'ascii' codec can't encode characters`:
+  {{{python
+    import sys
+    import codecs
+    sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
+    print("中文")
+  }}}
