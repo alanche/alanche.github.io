@@ -53,7 +53,7 @@
   }}}
 # variable length argument expression: `int printf(char *format,...)`, the stdarg.h provide macro to handle it.
 
- = GDB =
+ = DEBUG TIPS =
 * `ulimit -c unlimited` enable the coredump files capability.
 * `gdb executable core.xxx` to load the coredump files of executable for debuging: `bt`, `f` can examine the stack trace.
 * The gdbinit sample to enable the tracing of shared object:
@@ -67,3 +67,12 @@
     catch signal 11 # debug on signal segment fault received
   }}}
 * gdb conditional break points [[https://www.fayewilliams.com/2011/07/13/gdb-conditional-breakpoints/|examples]]
+* get the signal for gdb outputs: `<signal handler called>` with `print $_siginfo.si_signo`,e.g.
+  {{{text
+    (gdb) bt
+    #15 <signal handler called>
+    (gdb) frame 15
+    (gdb) print $_siginfo.si_signo
+  }}}
+* Dummp the content of *std::string* : `print *(char**)address_of_object`
+* *ld can not find -l* solution: pass `--verbose` to ld or  `-Wl,--verbose` gcc to print more information
