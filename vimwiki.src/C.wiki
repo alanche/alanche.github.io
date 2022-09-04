@@ -52,12 +52,24 @@
   
   }}}
 # variable length argument expression: `int printf(char *format,...)`, the stdarg.h provide macro to handle it.
+# 宏展开的一些高级用法:
+  {{{c
+    // concat the string with ##
+    #define Conn(x,y) x##y
+    n = Conn(123,456); // n = 123456;
+    #define FUNC(a,b) vo##a##b ()
+    FUN(id ma,in) // void main()
+    
+    // add double quote
+    #define ToString(x) #x
+    char* str = ToString(123132); // str="123132";
+  }}}
 
  = DEBUG TIPS =
 * `ulimit -c unlimited` enable the coredump files capability.
 * `gdb executable core.xxx` to load the coredump files of executable for debuging: `bt`, `f` can examine the stack trace.
 * The gdbinit sample to enable the tracing of shared object:
-  {{{text
+  {{{gdb
     # let gdb set up the breakpoint not load yet, required for dynamic loading shared object debugging.
     set breakpoint pending on
     set auto-load safe-path /
@@ -68,7 +80,7 @@
   }}}
 * gdb conditional break points [[https://www.fayewilliams.com/2011/07/13/gdb-conditional-breakpoints/|examples]]
 * get the signal for gdb outputs: `<signal handler called>` with `print $_siginfo.si_signo`,e.g.
-  {{{text
+  {{{gdb
     (gdb) bt
     #15 <signal handler called>
     (gdb) frame 15
@@ -76,3 +88,7 @@
   }}}
 * Dummp the content of *std::string* : `print *(char**)address_of_object`
 * *ld can not find -l* solution: pass `--verbose` to ld or  `-Wl,--verbose` gcc to print more information
+* [[https://www.cprogramming.com/tutorial/shared-libraries-linux-gcc.html|build sharded library and static library]]: key point:
+  * compile source code with *-fPIC* , 
+  * link with *-shared* for dynamic linked library and use the *ar* to create static libraries.
+  * with the *-lxx* to load the library libxx.so and *-Wl,-rpath* to specify the library path.

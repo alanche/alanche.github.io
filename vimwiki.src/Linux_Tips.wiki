@@ -51,6 +51,8 @@
   }}}
 * LSF: environment variable `LSB_DEFAULTQUEUE` control the default queue.
 * [[http://www.nongnu.org/autocutsel|autocutsel]] keep sync of the Xwindow primary selection and cutbuffer clipboard.
+* `ld: cannot find -lxx` errors can be digged by passing argument `-Wl,-verbose` to gcc/g++ for more debug information.
+* xterm full screen shortcut: `ALT(left) + ENTER`
 
 = putty tips =
 * copy large quantity of linux text into window clipboard:
@@ -66,3 +68,5 @@
 * window Appearance: hide mouse pointer when typing in window 
 * choise: window->Behaviour: Full screen on Alt-Enter
 * window/Translation: Remote character set: utf-8
+= windows tips =
+* let command window display the unicode character correctly, activate the code page to UTF-8 by: `chcp 65001` 

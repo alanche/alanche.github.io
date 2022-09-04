@@ -73,7 +73,8 @@ $(document).ready(function() {
       }
       // conctat the levels
       var prefix = number.filter(function(i){return i}).join('.');
-      obj.innerHTML = prefix + ' ' + obj.innerHTML;
+      // NOTE: disable the numbering. use the vimwiki native numbering mechanism.
+      //obj.innerHTML = prefix + ' ' + obj.innerHTML;
     }
   })();
   // support the responsive images

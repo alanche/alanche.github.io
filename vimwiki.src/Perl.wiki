@@ -1,5 +1,14 @@
-Tips
+= Tips =
 * object is stringifed when used as hash keys: https://stackoverflow.com/questions/3479667/object-as-hash-key
 * [[https://metacpan.org/pod/Parse::Yapp|Parse::Yapp]] can be used to parse the perl based parser.
 * customize the perl package install location `perl MAKEFILE.PL INSTALL_BASE=<your path>`
 * set the environment `PERL5DB_THREADED` to 1 to debug the perl with threads enabled.
+
+= Example code =
+* update the JPEG modification time
+  {{{perl
+    use Image::ExifTool qw(:Public);
+    $exifTool = new Image::ExifTool;
+    $success = $exifTool->SetNewValue(FileModifyDate => "2022:09:04 08:00:00+08:00",Protected=>1);
+    $exifTool->SetFileModifyDate($fname);
+  }}}

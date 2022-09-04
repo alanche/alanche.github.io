@@ -34,7 +34,7 @@
 
 	    <div id="main-content">
 	    
-<h1 id="The C Programming Language" class="header justcenter">The C Programming Language</h1>
+<h1 id="The C Programming Language" class="header justcenter">1 The C Programming Language</h1>
 <ul>
 <li>
 在函数外的 <span id="The C Programming Language-static"></span><strong id="static">static</strong> 变量可见性为当前文件。
@@ -113,9 +113,23 @@ Unions provide a way to manipulate different kinds of data in a single area of s
 <li>
 variable length argument expression: <code>int printf(char *format,...)</code>, the stdarg.h provide macro to handle it.
 
+<li>
+宏展开的一些高级用法:
+<pre class="code c">
+    // concat the string with ##
+    #define Conn(x,y) x##y
+    n = Conn(123,456); // n = 123456;
+    #define FUNC(a,b) vo##a##b ()
+    FUN(id ma,in) // void main()
+    
+    // add double quote
+    #define ToString(x) #x
+    char* str = ToString(123132); // str="123132";
+</pre>
+
 </ul>
 
-<h1 id="GDB" class="header justcenter">GDB</h1>
+<h1 id="DEBUG TIPS" class="header justcenter">2 DEBUG TIPS</h1>
 <ul>
 <li>
 <code>ulimit -c unlimited</code> enable the coredump files capability.
@@ -125,7 +139,7 @@ variable length argument expression: <code>int printf(char *format,...)</code>, 
 
 <li>
 The gdbinit sample to enable the tracing of shared object:
-<pre class="code text">
+<pre class="code gdb">
     # let gdb set up the breakpoint not load yet, required for dynamic loading shared object debugging.
     set breakpoint pending on
     set auto-load safe-path /
@@ -138,6 +152,35 @@ The gdbinit sample to enable the tracing of shared object:
 <li>
 gdb conditional break points <a href="https://www.fayewilliams.com/2011/07/13/gdb-conditional-breakpoints/">examples</a>
 
+<li>
+get the signal for gdb outputs: <code>&lt;signal handler called&gt;</code> with <code>print $_siginfo.si_signo</code>,e.g.
+<pre class="code gdb">
+    (gdb) bt
+    #15 &lt;signal handler called&gt;
+    (gdb) frame 15
+    (gdb) print $_siginfo.si_signo
+</pre>
+
+<li>
+Dummp the content of <span id="DEBUG TIPS-std::string"></span><strong id="std::string">std::string</strong> : <code>print *(char**)address_of_object</code>
+
+<li>
+<span id="DEBUG TIPS-ld can not find -l"></span><strong id="ld can not find -l">ld can not find -l</strong> solution: pass <code>--verbose</code> to ld or  <code>-Wl,--verbose</code> gcc to print more information
+
+<li>
+<a href="https://www.cprogramming.com/tutorial/shared-libraries-linux-gcc.html">build sharded library and static library</a>: key point:
+
+<ul>
+<li>
+compile source code with <span id="DEBUG TIPS--fPIC"></span><strong id="-fPIC">-fPIC</strong> , 
+
+<li>
+link with <span id="DEBUG TIPS--shared"></span><strong id="-shared">-shared</strong> for dynamic linked library and use the <span id="DEBUG TIPS-ar"></span><strong id="ar">ar</strong> to create static libraries.
+
+<li>
+with the <span id="DEBUG TIPS--lxx"></span><strong id="-lxx">-lxx</strong> to load the library libxx.so and <span id="DEBUG TIPS--Wl,-rpath"></span><strong id="-Wl,-rpath">-Wl,-rpath</strong> to specify the library path.
+
+</ul>
 </ul>
 
 	    </div>

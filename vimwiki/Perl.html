@@ -34,9 +34,7 @@
 
 	    <div id="main-content">
 	    
-<p>
-Tips
-</p>
+<h1 id="Tips" class="header">1 Tips</h1>
 <ul>
 <li>
 object is stringifed when used as hash keys: <a href="https://stackoverflow.com/questions/3479667/object-as-hash-key">https://stackoverflow.com/questions/3479667/object-as-hash-key</a>
@@ -49,6 +47,19 @@ customize the perl package install location <code>perl MAKEFILE.PL INSTALL_BASE=
 
 <li>
 set the environment <code>PERL5DB_THREADED</code> to 1 to debug the perl with threads enabled.
+
+</ul>
+
+<h1 id="Example code" class="header">2 Example code</h1>
+<ul>
+<li>
+update the JPEG modification time
+<pre class="code perl">
+    use Image::ExifTool qw(:Public);
+    $exifTool = new Image::ExifTool;
+    $success = $exifTool-&gt;SetNewValue(FileModifyDate =&gt; "2022:09:04 08:00:00+08:00",Protected=&gt;1);
+    $exifTool-&gt;SetFileModifyDate($fname);
+</pre>
 
 </ul>
 
