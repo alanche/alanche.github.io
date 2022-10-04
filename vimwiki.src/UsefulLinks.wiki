@@ -7,3 +7,5 @@ This page hold the useful links:
   verilog,In particular the Xprop Tool is one of it's most unique features as when it is used properly it can greatly reduce the need for gate level simulation.
 * CPP reference: http://en.cppreference.com/w/
 * syntax highlights for codeblock with google syntaxHilighter: http://www.planetb.ca/syntax-highlight-word
+* online program trial: [[https://www.onlinegdb.com/|online gdb]]
+* online EDA playground: [[https://www.edaplayground.com|eda playground]]
