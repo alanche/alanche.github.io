@@ -19,7 +19,8 @@ var vimwiki =
             "TOOLS",
             "Linux_Tips|Linux Tips",
             "GIT",
-            "EDA"
+            "EDA",
+            "UVM"
         ],
         [
             "Programming",
