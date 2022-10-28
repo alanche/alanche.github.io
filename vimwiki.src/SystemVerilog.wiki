@@ -265,13 +265,20 @@
       endfunction
     endclass
   }}}
-* the default `%t` use the smallest precision of timescale in the session, we must use `$timeformat` to set it explicitly to avoid
-  confusing.
+* the default `%t` use the smallest precision of timescale in the session, we must use `$timeformat` to set it 
+  explicitly to avoid confusing.
   {{{systemverilog
     $timeformat(-9, 5, " ns", 10);
   }}}
 * class variable access control: `local` limits the variable access from current class, `protected` = `local` + access from subclass.
 * the force statement right hand must be static value(or constant), can't be automatic values.
+* in the partial assignment, the highest x/z bit will expand to the specified width and left upper signal as 0.
+  {{{systemverilog
+    reg [47:0] bus;
+    bus = 48'b11; #1;  // bus[47:2] = 0; bus[1:0] = 11
+    bus = 24'bx1; #1;  // bus[47:24] = 0, bus[23:1] = x;
+    bus = 12'bz1; #1;  // bus[47:12] = 0, bus[11:1] = z; bus[0] = 1
+  }}}
   
  = Verification =
 * Functional coverage information is only valid for a successful simulation.Some verification teams periodically measure all

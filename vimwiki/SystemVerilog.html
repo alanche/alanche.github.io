@@ -357,8 +357,8 @@ the extended class <span id="SystemVerilog Minutes-must"></span><strong id="must
 </pre>
 
 <li>
-the default <code>%t</code> use the smallest precision of timescale in the session, we must use <code>$timeformat</code> to set it explicitly to avoid
-  confusing.
+the default <code>%t</code> use the smallest precision of timescale in the session, we must use <code>$timeformat</code> to set it 
+  explicitly to avoid confusing.
 <pre class="code systemverilog">
     $timeformat(-9, 5, " ns", 10);
 </pre>
@@ -368,6 +368,15 @@ class variable access control: <code>local</code> limits the variable access fro
 
 <li>
 the force statement right hand must be static value(or constant), can't be automatic values.
+
+<li>
+in the partial assignment, the highest x/z bit will expand to the specified width and left upper signal as 0.
+<pre class="code systemverilog">
+    reg [47:0] bus;
+    bus = 48'b11; #1;  // bus[47:2] = 0; bus[1:0] = 11
+    bus = 24'bx1; #1;  // bus[47:24] = 0, bus[23:1] = x;
+    bus = 12'bz1; #1;  // bus[47:12] = 0, bus[11:1] = z; bus[0] = 1
+</pre>
 
 </ul>
   
