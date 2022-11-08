@@ -147,7 +147,7 @@
     constraint c {
       b < d; c == b; d < 30; c > 25; // b,c,d can only be 26 ~ 29.
       src dist { 0 := forty,[1:3] := sixty }; // the weight is the same for every specified value in the range
-      dst dist { 0 /= 40,[1:3] /= 60 }; // the weight is to be equally divided between all the values
+      dst dist { 0 :/ 40,[1:3] :/ 60 }; // the weight is to be equally divided between all the values
       // value    : possibility
       // src = 0 : 40/(40 + 60 * 3) = 40 /220
       // src = 1,2,3 : 60/(40 + 60 * 3) = 60 /220
