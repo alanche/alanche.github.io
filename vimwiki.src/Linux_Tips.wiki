@@ -70,3 +70,11 @@
 * window/Translation: Remote character set: utf-8
 = windows tips =
 * let command window display the unicode character correctly, activate the code page to UTF-8 by: `chcp 65001` 
+
+= iptables =
+[[https://www.frozentux.net/iptables-tutorial/iptables-tutorial.html|iptables tutorial]]
+
+The iptables packet routing path:
+{{local:../images/iptables-packet-route.jpg}}
+
+
