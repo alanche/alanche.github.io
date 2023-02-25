@@ -34,7 +34,7 @@
 
 	    <div id="main-content">
 	    
-<h1 id="SystemVerilog Minutes" class="header justcenter">1 SystemVerilog Minutes</h1>
+<h1 id="SystemVerilog Minutes" class="header justcenter">SystemVerilog Minutes</h1>
 <ul>
 <li>
 4 state(0/1/x/z) type includes: <span id="SystemVerilog Minutes-logic,reg,integer,time"></span><strong id="logic,reg,integer,time">logic,reg,integer,time</strong>. others are 2 state types.
@@ -378,9 +378,13 @@ in the partial assignment, the highest x/z bit will expand to the specified widt
     bus = 12'bz1; #1;  // bus[47:12] = 0, bus[11:1] = z; bus[0] = 1
 </pre>
 
+<li>
+<code>$asserton</code>,<code>$assertoff</code> tips: the second argument can be: hierarchical path, string constant, 
+  string variable <span id="SystemVerilog Minutes-hiername"></span><strong id="hiername">hiername</strong>. e.g. <code>$assertoff(0,hiername)</code> where hiername can be constructed dynamically.
+
 </ul>
   
-<h1 id="Verification" class="header justcenter">2 Verification</h1>
+<h1 id="Verification" class="header justcenter">Verification</h1>
 <ul>
 <li>
 Functional coverage information is only valid for a successful simulation.Some verification teams periodically measure all
