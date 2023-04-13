@@ -119,7 +119,7 @@ class 关键字的核心任务是把你带到类的上下文，让你可以在�
     # monkey patch: mimic the step right, and lookup behaviors.
     module Kernel
       def locate(m)
-	singleton_class.ancestors.filter {|v| v.instance_methods(false).include? m}[0]
+        singleton_class.ancestors.filter {|v| v.instance_methods(false).include? m}[0]
       end
     end
 </pre>
