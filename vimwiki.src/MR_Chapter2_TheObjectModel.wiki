@@ -70,7 +70,7 @@
     # monkey patch: mimic the step right, and lookup behaviors.
     module Kernel
       def locate(m)
-	singleton_class.ancestors.filter {|v| v.instance_methods(false).include? m}[0]
+        singleton_class.ancestors.filter {|v| v.instance_methods(false).include? m}[0]
       end
     end
   }}}
