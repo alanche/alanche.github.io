@@ -15,8 +15,11 @@ A vimwiki + github based personal knowledge manage system
  * [[GIT]]
  * [[EDA]]
  * [[UVM]]
-* Programming
+* IC
+ * [[Design]]
+ * [[Verification]]
  * [[SystemVerilog]]
+* Programming
  * [[C]]
  * [[Perl]]
  * [[CPP]]
@@ -28,5 +31,5 @@ A vimwiki + github based personal knowledge manage system
  * [[Excel-VBA_转换人民币为大写]]
  * [[解决16K截图软件黑屏问题]]
  * [[VPN连接无法访问互联网的解决办法]]
-* About
- * [[ME]]
+%%* About
+%% * [[ME]]

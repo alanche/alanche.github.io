@@ -23,8 +23,13 @@ var vimwiki =
             "UVM"
         ],
         [
+            "IC",
+            "Design",
+            "Verification",
+            "SystemVerilog"
+        ],
+        [
             "Programming",
-            "SystemVerilog",
             "C",
             "Perl",
             "CPP",
@@ -38,10 +43,6 @@ var vimwiki =
             "Excel-VBA_\u8f6c\u6362\u4eba\u6c11\u5e01\u4e3a\u5927\u5199",
             "\u89e3\u51b316K\u622a\u56fe\u8f6f\u4ef6\u9ed1\u5c4f\u95ee\u9898",
             "VPN\u8fde\u63a5\u65e0\u6cd5\u8bbf\u95ee\u4e92\u8054\u7f51\u7684\u89e3\u51b3\u529e\u6cd5"
-        ],
-        [
-            "About",
-            "ME"
         ]
     ]
 };

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Perl</title>
+      <title>Integrated Circuit Design</title>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link href="../styles/bootstrap.min.css" rel="stylesheet">
@@ -34,39 +34,9 @@
 
 	    <div id="main-content">
 	    
-<h1 id="Tips" class="header">Tips</h1>
 <ul>
 <li>
-object is stringifed when used as hash keys: <a href="https://stackoverflow.com/questions/3479667/object-as-hash-key">https://stackoverflow.com/questions/3479667/object-as-hash-key</a>
-
-<li>
-<a href="https://metacpan.org/pod/Parse::Yapp">Parse::Yapp</a> can be used to parse the perl based parser.
-
-<li>
-customize the perl package install location <code>perl MAKEFILE.PL INSTALL_BASE=&lt;your path&gt;</code>
-
-<li>
-set the environment <code>PERL5DB_THREADED</code> to 1 to debug the perl with threads enabled.
-
-<li>
-<span id="Tips-Can't locate strict.pm"></span><strong id="Can't locate strict.pm">Can't locate strict.pm</strong> : this error reported due to somepath path in @INC can't be accessed due to permission denied.
-
-</ul>
-<p>
-*
-<a href="https://stackoverflow.com/questions/47940662/how-to-get-rid-of-wide-character-in-print-at">get-rid-of-wide-character-in-print</a>
-</p>
-
-<h1 id="Example code" class="header">Example code</h1>
-<ul>
-<li>
-update the JPEG modification time
-<pre class="code perl">
-    use Image::ExifTool qw(:Public);
-    $exifTool = new Image::ExifTool;
-    $success = $exifTool-&gt;SetNewValue(FileModifyDate =&gt; "2022:09:04 08:00:00+08:00",Protected=&gt;1);
-    $exifTool-&gt;SetFileModifyDate($fname);
-</pre>
+Skip Buffer Materials: <a href="https://chipmunklogic.com/digital-logic-design/designing-skid-buffers-for-pipelines/">Skid Buffer</a>
 
 </ul>
 

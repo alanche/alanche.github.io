@@ -4,6 +4,8 @@
 * customize the perl package install location `perl MAKEFILE.PL INSTALL_BASE=<your path>`
 * set the environment `PERL5DB_THREADED` to 1 to debug the perl with threads enabled.
 * *Can't locate strict.pm* : this error reported due to somepath path in @INC can't be accessed due to permission denied.
+*
+[[https://stackoverflow.com/questions/47940662/how-to-get-rid-of-wide-character-in-print-at|get-rid-of-wide-character-in-print]]
 
 = Example code =
 * update the JPEG modification time

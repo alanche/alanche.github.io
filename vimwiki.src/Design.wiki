@@ -1,0 +1,2 @@
+%title Integrated Circuit Design
+* Skip Buffer Materials: [[https://chipmunklogic.com/digital-logic-design/designing-skid-buffers-for-pipelines/|Skid Buffer]]
