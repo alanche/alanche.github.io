@@ -380,7 +380,20 @@ in the partial assignment, the highest x/z bit will expand to the specified widt
 
 <li>
 <code>$asserton</code>,<code>$assertoff</code> tips: the second argument can be: hierarchical path, string constant, 
-  string variable <span id="SystemVerilog Minutes-hiername"></span><strong id="hiername">hiername</strong>. e.g. <code>$assertoff(0,hiername)</code> where hiername can be constructed dynamically.
+  reg variable <span id="SystemVerilog Minutes-hiername"></span><strong id="hiername">hiername</strong>. e.g. <code>$assertoff(0,hiername)</code> where hiername can be constructed dynamically.
+<pre class="code systemverilog">
+    reg [8*512-1:0] hiername;
+    $asserton(0,hiername);
+</pre>
+
+<li>
+<span id="SystemVerilog Minutes-interface::self"></span><strong id="interface::self">interface::self</strong> can be used to refer the virtual interface while registering into uvm_resource_db in VCS.
+<pre class="code systemverilog">
+    interface bus_if;
+       // register the current instance into uvm_resource_db as its hierarchical name
+      initial uvm_resource_db#(virtual bus_if)::set("*", $sformatf("%m"), interface::self());
+    endinterface
+</pre>
 
 </ul>
   
