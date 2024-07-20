@@ -161,8 +161,9 @@
       rand bit x; // 0,1
       rand bit [1:0] y; // 0,1,2,3
       constraint c {
-        y > 0; // y is forced to non-zero value.
-        x == 0 -> y == 0; // -> : x = 0 requires y is 0. as bidirectional: x is forced to non-zero value too.
+        y > 0; // y is forced to non-zero value
+        x == 0 -> y == 0; // -> : x = 0 requires y is 0.
+        // with above 2 expression and bidirectional principle: x is forced to non-zero too
       }
     endclass
     // solution  X   Y   Probability
@@ -303,6 +304,7 @@
 * anticipate what are the key design features, corner cases, and possible failure modes for verification planning.
 * coverage: only measure data what you are going to use.
 * coverage: gathering information rather than data.
+
  = 延迟 =
 * 传输延迟一般为输入信号变化到对应输出信号变化经过的时间,不会对输入信号进行滤除处理,所以传输延迟是一种绝对延迟,这种延迟类似于物理传输线的延迟,在仿真中用于模拟连线延迟.如下图所示,输入一般不会被滤除
 * 惯性延迟().
