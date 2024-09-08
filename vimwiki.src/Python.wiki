@@ -19,3 +19,5 @@ else:
     sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
     print("中文")
   }}}
+* `UnicodeDecodeError: 'ascii' codec can't decode byte xx in position xxx: oridinal not in range(128)` solution: setup the
+  enviornment variable `export LANG=en_US.UTF-8`.
