@@ -50,7 +50,7 @@ if im is not None:
 else:
   print("ERROR")
 </pre>
-
+</li>
 <li>
 The solution to error for print chinese: <code>UnicodeEncodeError: 'ascii' codec can't encode characters</code>:
 <pre class="code python">
@@ -59,7 +59,11 @@ The solution to error for print chinese: <code>UnicodeEncodeError: 'ascii' codec
     sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
     print("中文")
 </pre>
-
+</li>
+<li>
+<code>UnicodeDecodeError: 'ascii' codec can't decode byte xx in position xxx: oridinal not in range(128)</code> solution: setup the
+  enviornment variable <code>export LANG=en_US.UTF-8</code>.
+</li>
 </ul>
 
 	    </div>

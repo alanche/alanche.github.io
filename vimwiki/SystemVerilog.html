@@ -38,7 +38,7 @@
 <ul>
 <li>
 4 state(0/1/x/z) type includes: <span id="SystemVerilog Minutes-logic,reg,integer,time"></span><strong id="logic,reg,integer,time">logic,reg,integer,time</strong>. others are 2 state types.
-
+</li>
 <li>
 the default enumerated type is an <span id="SystemVerilog Minutes-int"></span><strong id="int">int</strong>, and started with 0, it can be assigned to int,integer. reverserly, require explict type
   conversion.
@@ -58,7 +58,7 @@ the default enumerated type is an <span id="SystemVerilog Minutes-int"></span><s
     // should fixed as: typedef enum {ERR=0,FIRST=1, SECOND, THIRD} ordinal_e;
     ordinal_e position; // buggy: try to assign position as 0.
 </pre>
-
+</li>
 <li>
 iterate on multiple dimention array
 <pre class="code systemverilog">
@@ -72,7 +72,7 @@ iterate on multiple dimention array
         end
     end
 </pre>
-
+</li>
 <li>
 arrays can be compared (equal, nonequal) and assignment 
 <pre class="code systemverilog">
@@ -83,7 +83,7 @@ arrays can be compared (equal, nonequal) and assignment
       dst = src;// assignment is done when src and dst have same size and type, each element is copied correspondingly.
     end
 </pre>
-
+</li>
 <li>
 array methods: reduction(sum,product,xor), allocator
 <pre class="code systemverilog">
@@ -99,17 +99,17 @@ array methods: reduction(sum,product,xor), allocator
     rs = ar.find_first_index with (item == 3); // {2}
     c  = ar.sum with (item == 3); // 2 : {3,3} sum adding up the times of expression is true.
 </pre>
-
+</li>
 <li>
 function/task call argument handling:
-
+</li>
 <ul>
 <li>
 input/inout was copied to local variable at the start of routine.
-
+</li>
 <li>
 output/inout was copied when the routine exited.
-
+</li>
 <li>
 function call is pass by value defaultly. pass by reference is specified by <span id="SystemVerilog Minutes-ref"></span><strong id="ref">ref</strong>:
 <pre class="code systemverilog">
@@ -122,7 +122,7 @@ function call is pass by value defaultly. pass by reference is specified by <spa
        $display("The sum of the arrays is ", sum);
      endfunction
 </pre>
-
+</li>
 </ul>
 <li>
 <span id="SystemVerilog Minutes-static"></span><strong id="static">static</strong> variable defined in <span id="SystemVerilog Minutes-class"></span><strong id="class">class</strong> scope shared among all instances, known as class variables. static methods has no access
@@ -144,7 +144,7 @@ function call is pass by value defaultly. pass by reference is specified by <spa
     MyStatic p;
     p.initialize(); // p is null, but ok to call task access static variable only.
 </pre>
-
+</li>
 <li>
 <span id="SystemVerilog Minutes-typedef class"></span><strong id="typedef class">typedef class</strong> resolve the compile order issues
 <pre class="code systemverilog">
@@ -157,7 +157,7 @@ function call is pass by value defaultly. pass by reference is specified by <spa
       C1 c;
     endclass
 </pre>
-
+</li>
 <li>
 modifying handle in a task require <span id="SystemVerilog Minutes-ref"></span><strong id="ref">ref</strong> modifier.
 <pre class="code systemverilog">
@@ -177,7 +177,7 @@ modifying handle in a task require <span id="SystemVerilog Minutes-ref"></span><
       $display("packet address = %x",b[i].addr);
     end
 </pre>
-
+</li>
 <li>
 <span id="SystemVerilog Minutes-new obj"></span><strong id="new obj">new obj</strong> only do shallow copy, object contains object need deep copy.
 <pre class="code systemverilog">
@@ -203,7 +203,7 @@ modifying handle in a task require <span id="SystemVerilog Minutes-ref"></span><
     // the src object value just is copied lieterally: handle rather than object is copied.
     dst = src.copy; // deep copy.
 </pre>
-
+</li>
 <li>
 weighted distribution of random in constraints
 <pre class="code systemverilog">
@@ -221,7 +221,7 @@ weighted distribution of random in constraints
       // dst = 1,2,3 : 20/(40 + 60) = 20/100
     }
 </pre>
-
+</li>
 <li>
 constraints implication is bidirectional: 2 expression is determinted together.
 <pre class="code systemverilog">
@@ -229,8 +229,9 @@ constraints implication is bidirectional: 2 expression is determinted together.
       rand bit x; // 0,1
       rand bit [1:0] y; // 0,1,2,3
       constraint c {
-        y &gt; 0; // y is forced to non-zero value.
-        x == 0 -&gt; y == 0; // -&gt; : x = 0 requires y is 0. as bidirectional: x is forced to non-zero value too.
+        y &gt; 0; // y is forced to non-zero value
+        x == 0 -&gt; y == 0; // -&gt; : x = 0 requires y is 0.
+        // with above 2 expression and bidirectional principle: x is forced to non-zero too
       }
     endclass
     // solution  X   Y   Probability
@@ -243,7 +244,7 @@ constraints implication is bidirectional: 2 expression is determinted together.
     //   6       1   2    1/3 // only these solution santisfy constraint.
     //   7       1   3    1/3 // only these solution santisfy constraint.
 </pre>
-
+</li>
 <li>
 guiding distribution with <span id="SystemVerilog Minutes-solve .. before"></span><strong id="solve .. before">solve .. before</strong> statement.
 <pre class="code systemverilog">
@@ -278,17 +279,17 @@ guiding distribution with <span id="SystemVerilog Minutes-solve .. before"></spa
     //   6       1   2  1/4 
     //   7       1   3  1/4 
 </pre>
-
+</li>
 <li>
 <span id="SystemVerilog Minutes-handle.randomize(null)"></span><strong id="handle.randomize(null)">handle.randomize(null)</strong> not do randomization,just ensure all constraint are santisfied.
-
+</li>
 <li>
 <span id="SystemVerilog Minutes-rand_mode"></span><strong id="rand_mode">rand_mode</strong> control whether a random variable is active or inactive (as <span id="SystemVerilog Minutes-rand"></span><strong id="rand">rand</strong> is not specified).<code>obj[.var.].rand_mode(0/1)</code>.
-
+</li>
 <li>
 <code>$urandom</code> is similar with <code>$random</code> with 2 exceptions: <span id="SystemVerilog Minutes-thread stable"></span><strong id="thread stable">thread stable</strong> and unsigned number. every object and seed has it's own
   PRNG.
-
+</li>
 <li>
 should use <span id="SystemVerilog Minutes-automatic"></span><strong id="automatic">automatic</strong> variables to hold values in concurrent threads. example:
 <pre class="code systemverilog">
@@ -305,7 +306,7 @@ should use <span id="SystemVerilog Minutes-automatic"></span><strong id="automat
     // with automatic outputs: 1 2 3 ;
     // without automatic statement, outputs: 3 3 3
 </pre>
-
+</li>
 <li>
 <span id="SystemVerilog Minutes-mailbox"></span><strong id="mailbox">mailbox</strong> store the <span id="SystemVerilog Minutes-handle of an object rather than the object itself"></span><strong id="handle of an object rather than the object itself">handle of an object rather than the object itself</strong>:
 <pre class="code systemverilog">
@@ -321,23 +322,23 @@ should use <span id="SystemVerilog Minutes-automatic"></span><strong id="automat
       mc.put(c);  // there are 10 copies of same handle point to same object.
     end
 </pre>
-
+</li>
 <li>
 A thread continue to run until there is a blocking statement e.g. #0, wait, @event and etc.
-
+</li>
 <li>
 SystemVerilog always based on the handle's type to call it's <span id="SystemVerilog Minutes-new"></span><strong id="new">new</strong> (constructor). 
-
+</li>
 <li>
 the extended class <span id="SystemVerilog Minutes-must"></span><strong id="must">must</strong> call the base class's constructor as <span id="SystemVerilog Minutes-the first executable line"></span><strong id="the first executable line">the first executable line</strong> of it's constructor if base class has
   constructor with argument. Thus, all the constructors are called, in the proper order, beginning with the rootbase class and
   ending with the current class.
-
+</li>
 <li>
 <span id="SystemVerilog Minutes-covergroup"></span><strong id="covergroup">covergroup</strong> can be defined in class,program,module level, it can sample variable in the scope where it is defined,e.g:
   program/module variables, signals from an interface, or any signal in the design (using a hierarchical reference),variables in
   class, as well as data values from embedded classes.
-
+</li>
 <li>
 <code>embedded covergroup</code>: is defined within a class and no explicit variables of that covergroup are declared in the class, then a
   variable with the same name as the coveragegroup is implicitly declared.
@@ -355,20 +356,20 @@ the extended class <span id="SystemVerilog Minutes-must"></span><strong id="must
       endfunction
     endclass
 </pre>
-
+</li>
 <li>
 the default <code>%t</code> use the smallest precision of timescale in the session, we must use <code>$timeformat</code> to set it 
   explicitly to avoid confusing.
 <pre class="code systemverilog">
     $timeformat(-9, 5, " ns", 10);
 </pre>
-
+</li>
 <li>
 class variable access control: <code>local</code> limits the variable access from current class, <code>protected</code> = <code>local</code> + access from subclass.
-
+</li>
 <li>
 the force statement right hand must be static value(or constant), can't be automatic values.
-
+</li>
 <li>
 in the partial assignment, the highest x/z bit will expand to the specified width and left upper signal as 0.
 <pre class="code systemverilog">
@@ -377,7 +378,7 @@ in the partial assignment, the highest x/z bit will expand to the specified widt
     bus = 24'bx1; #1;  // bus[47:24] = 0, bus[23:1] = x;
     bus = 12'bz1; #1;  // bus[47:12] = 0, bus[11:1] = z; bus[0] = 1
 </pre>
-
+</li>
 <li>
 <code>$asserton</code>,<code>$assertoff</code> tips: the second argument can be: hierarchical path, string constant, 
   reg variable <span id="SystemVerilog Minutes-hiername"></span><strong id="hiername">hiername</strong>. e.g. <code>$assertoff(0,hiername)</code> where hiername can be constructed dynamically.
@@ -385,7 +386,7 @@ in the partial assignment, the highest x/z bit will expand to the specified widt
     reg [8*512-1:0] hiername;
     $asserton(0,hiername);
 </pre>
-
+</li>
 <li>
 <span id="SystemVerilog Minutes-interface::self"></span><strong id="interface::self">interface::self</strong> can be used to refer the virtual interface while registering into uvm_resource_db in VCS.
 <pre class="code systemverilog">
@@ -394,7 +395,7 @@ in the partial assignment, the highest x/z bit will expand to the specified widt
       initial uvm_resource_db#(virtual bus_if)::set("*", $sformatf("%m"), interface::self());
     endinterface
 </pre>
-
+</li>
 </ul>
   
 <h1 id="Verification" class="header justcenter">Verification</h1>
@@ -402,31 +403,34 @@ in the partial assignment, the highest x/z bit will expand to the specified widt
 <li>
 Functional coverage information is only valid for a successful simulation.Some verification teams periodically measure all
   functional coverage from scratch so that it reflects the current state of the design.
-
+</li>
 <li>
 If the coverage level has plateaued,with no recent progress,it is time to modify the constraints. Only if you think that
   reaching the last few test cases for one particular section may take too long for constrained-random simulation should you
   consider writing a directed test.
-
+</li>
 <li>
 keep track bug rate through project life. when sags,find different way to create corner cases.
-
+</li>
 <li>
 anticipate what are the key design features, corner cases, and possible failure modes for verification planning.
-
+</li>
 <li>
 coverage: only measure data what you are going to use.
-
+</li>
 <li>
 coverage: gathering information rather than data.
- = 延迟 =
+</li>
+</ul>
 
+<h1 id="延迟" class="header justcenter">延迟</h1>
+<ul>
 <li>
 传输延迟一般为输入信号变化到对应输出信号变化经过的时间,不会对输入信号进行滤除处理,所以传输延迟是一种绝对延迟,这种延迟类似于物理传输线的延迟,在仿真中用于模拟连线延迟.如下图所示,输入一般不会被滤除
-
+</li>
 <li>
 惯性延迟().
-
+</li>
 </ul>
 
 	    </div>

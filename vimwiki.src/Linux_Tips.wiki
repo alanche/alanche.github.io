@@ -5,6 +5,7 @@
 * Enable the X11 fowwarding defaultly:~/.ssh/config:`ForwardX11=yes`
 * Install the packages from RPM: `rpm2cpio packages.rpm | cpio -idv`
 * Querying the LSF group host information: `bmgroup`
+* to enable the chinese character input and display: `setenv LANG en_US.UTF-8`
 * switching the desktop: `ctrl + alt + left/right arrow`
 * terminal color control sequence: [[https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences|here]], also
   check the perl module: Term::ANSIColor for more referece.
@@ -21,6 +22,7 @@
 * firefox: the `shift + insert` paste from vim "+ register; the 'middle mouse button' paste from "* register(the primary selection).
 * GNOME: `ctrl + alt + ArrowKey`: switch the workspace
 * xterm: the `shift + insert` and `middle mouse button` paste from vim "* register.
+* open a large font xterm: `xterm -fa 'Monospace' -fs 14`
 * xterm: show the chinese characters(it requires specific font library):
   # add following lines to ~/.Xresources
     {{{text
