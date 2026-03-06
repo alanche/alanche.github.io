@@ -34,7 +34,7 @@
 
 	    <div id="main-content">
 	    
-<h1 id="SystemVerilog Minutes" class="header justcenter">SystemVerilog Minutes</h1>
+<div id="SystemVerilog Minutes"><h1 id="SystemVerilog Minutes" class="header justcenter"><a href="#SystemVerilog Minutes">SystemVerilog Minutes</a></h1></div>
 <ul>
 <li>
 4 state(0/1/x/z) type includes: <span id="SystemVerilog Minutes-logic,reg,integer,time"></span><strong id="logic,reg,integer,time">logic,reg,integer,time</strong>. others are 2 state types.
@@ -125,8 +125,8 @@ function call is pass by value defaultly. pass by reference is specified by <spa
 </li>
 </ul>
 <li>
-<span id="SystemVerilog Minutes-static"></span><strong id="static">static</strong> variable defined in <span id="SystemVerilog Minutes-class"></span><strong id="class">class</strong> scope shared among all instances, known as class variables. static methods has no access
-  to nonstatic members, can access static member and static methods.
+<span id="SystemVerilog Minutes-static"></span><strong id="static">static</strong> variable defined in <span id="SystemVerilog Minutes-class"></span><strong id="class">class</strong> scope shared among all instances, known as class variable. static method has no access
+  to nonstatic members, only can access static member and static method.
 <pre class="code systemverilog">
     class MyStatic;
       static int serial_number; // shared among all instances, known as class variable.
@@ -287,7 +287,7 @@ guiding distribution with <span id="SystemVerilog Minutes-solve .. before"></spa
 <span id="SystemVerilog Minutes-rand_mode"></span><strong id="rand_mode">rand_mode</strong> control whether a random variable is active or inactive (as <span id="SystemVerilog Minutes-rand"></span><strong id="rand">rand</strong> is not specified).<code>obj[.var.].rand_mode(0/1)</code>.
 </li>
 <li>
-<code>$urandom</code> is similar with <code>$random</code> with 2 exceptions: <span id="SystemVerilog Minutes-thread stable"></span><strong id="thread stable">thread stable</strong> and unsigned number. every object and seed has it's own
+<code>\(urandom</code> is similar with <code>\)random</code> with 2 exceptions: <span id="SystemVerilog Minutes-thread stable"></span><strong id="thread stable">thread stable</strong> and unsigned number. every object and seed has it's own
   PRNG.
 </li>
 <li>
@@ -380,7 +380,7 @@ in the partial assignment, the highest x/z bit will expand to the specified widt
 </pre>
 </li>
 <li>
-<code>$asserton</code>,<code>$assertoff</code> tips: the second argument can be: hierarchical path, string constant, 
+<code>\(asserton</code>,<code>\)assertoff</code> tips: the second argument can be: hierarchical path, string constant, 
   reg variable <span id="SystemVerilog Minutes-hiername"></span><strong id="hiername">hiername</strong>. e.g. <code>$assertoff(0,hiername)</code> where hiername can be constructed dynamically.
 <pre class="code systemverilog">
     reg [8*512-1:0] hiername;
@@ -398,7 +398,7 @@ in the partial assignment, the highest x/z bit will expand to the specified widt
 </li>
 </ul>
   
-<h1 id="Verification" class="header justcenter">Verification</h1>
+<div id="Verification"><h1 id="Verification" class="header justcenter"><a href="#Verification">Verification</a></h1></div>
 <ul>
 <li>
 Functional coverage information is only valid for a successful simulation.Some verification teams periodically measure all
@@ -420,11 +420,8 @@ coverage: only measure data what you are going to use.
 </li>
 <li>
 coverage: gathering information rather than data.
+ = 延迟 =
 </li>
-</ul>
-
-<h1 id="延迟" class="header justcenter">延迟</h1>
-<ul>
 <li>
 传输延迟一般为输入信号变化到对应输出信号变化经过的时间,不会对输入信号进行滤除处理,所以传输延迟是一种绝对延迟,这种延迟类似于物理传输线的延迟,在仿真中用于模拟连线延迟.如下图所示,输入一般不会被滤除
 </li>

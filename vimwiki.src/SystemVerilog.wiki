@@ -67,8 +67,8 @@
        $display("The sum of the arrays is ", sum);
      endfunction
    }}}
-* *static* variable defined in *class* scope shared among all instances, known as class variables. static methods has no access
-  to nonstatic members, can access static member and static methods.
+* *static* variable defined in *class* scope shared among all instances, known as class variable. static method has no access
+  to nonstatic members, only can access static member and static method.
   {{{systemverilog
     class MyStatic;
       static int serial_number; // shared among all instances, known as class variable.
