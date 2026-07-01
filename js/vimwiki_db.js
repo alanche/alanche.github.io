@@ -34,7 +34,8 @@ var vimwiki =
             "Perl",
             "CPP",
             "Python",
-            "Ruby"
+            "Ruby",
+            "JavaScript"
         ],
         [
             "MISC",

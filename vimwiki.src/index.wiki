@@ -26,6 +26,7 @@ A vimwiki + github based personal knowledge manage system
  * [[CPP]]
  * [[Python]]
  * [[Ruby]]
+ * [[JavaScript]]
 * MISC
  * [[UsefulLinks]]
  * [[VIM支持非等宽中文字体]]
